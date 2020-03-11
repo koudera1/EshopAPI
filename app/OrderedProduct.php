@@ -2,25 +2,23 @@
 
 namespace App;
 
-use http\Env\Response;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
-class Order extends Model
+class OrderedProduct extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_order';
+    protected $table = 'oc_order_product';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'order_id';
+    protected $primaryKey = 'order_product_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -28,16 +26,4 @@ class Order extends Model
      * @var bool
      */
     public $timestamps = false;
-
-
-    public function history()
-    {
-        return $this->hasMany('App\OrderHistory', 'order_id');
-    }
-
-    public function products()
-    {
-        return $this->hasMany('App\OrderedProduct', 'order_id');
-    }
-
 }
