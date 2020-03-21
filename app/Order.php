@@ -2,9 +2,7 @@
 
 namespace App;
 
-use http\Env\Response;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class Order extends Model
 {
@@ -37,7 +35,7 @@ class Order extends Model
 
     public function products()
     {
-        return $this->hasMany('App\OrderedProduct', 'order_id');
+        return $this->hasMany('App\Order_product', 'order_id');
     }
 
 }

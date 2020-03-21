@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderedProduct extends Model
+class Order_product extends Model
 {
     /**
      * The table associated with the model.
@@ -26,4 +26,14 @@ class OrderedProduct extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['order_id', 'product_id', 'name', 'tax', 'quantity',
+        'sort_order', 'is_transfer', 'is_action', 'gift', 'model',
+        'price', 'purchase_price', 'warranty', 'total'];
+
 }

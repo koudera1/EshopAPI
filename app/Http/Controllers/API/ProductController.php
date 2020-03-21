@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Product;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,9 +14,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Order $order)
+    public function index()
     {
-        return $order->products;
+        return Product::all();
     }
 
 

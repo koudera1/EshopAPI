@@ -22,7 +22,7 @@ Route::get('/orders/{order}/history', 'API\OrderController@history');
 
 Route::apiResources([
     'orders' => 'API\OrderController',
-    'orders.products' => 'API\OrderedProductController',
-    'ordered_products' => 'API\OrderedProductController',
+    'orders.products' => 'API\Order_productController',
+    'order_products' => 'API\Order_productController',
     'products' => 'API\ProductController'
 ]);
