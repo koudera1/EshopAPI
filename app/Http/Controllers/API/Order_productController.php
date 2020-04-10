@@ -31,7 +31,7 @@ class Order_productController extends Controller
      */
     public function store(Request $request)
     {
-        $ord_products = new OrderedProduct();
+        $ord_products = new Order_product;
         $ord_products->order_id = $request->input('order_id');
         $ord_products->product_id = $request->input('product_id');
         $ord_products->name = $request->input('name');
