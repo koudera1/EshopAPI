@@ -27,7 +27,7 @@ class PackageController extends Controller
         elseif (mb_substr($order->shipping_method, 0, 11) === "Česká pošta")
             return DB::table('postcz_package')->where('order_id', $order->order_id)->get();
         else
-            return DB::table('zasilkovna_package')->where('order_id', $order->order_id)->get();*/
+            return DB::table('zasilkovna_package')->where('order_id', $order->order_id)->get();
     }
 
     /**
