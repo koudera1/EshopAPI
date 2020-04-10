@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::get('/orders/{order}/addresses', 'API\OrderController@addresses');
 Route::get('/orders/{order}/history', 'API\OrderController@history');
 Route::get('/orders/{order}/products', 'API\Order_productController@index');
+Route::get('/orders/{order}/instock', 'API\OrderController@instock_get');
 
 Route::put('/orders/{order}/domain', 'API\OrderController@domain');
 Route::put('/orders/{order}/firstname', 'API\OrderController@firstname');
@@ -32,7 +33,7 @@ Route::put('/orders/{order}/total', 'API\OrderController@total');
 Route::put('/orders/{order}/payment_status', 'API\OrderController@payment_status');
 Route::put('/orders/{order}/profit', 'API\OrderController@profit');
 Route::put('/orders/{order}/slovakia', 'API\OrderController@slovakia');
-Route::put('/orders/{order}/instock', 'API\OrderController@instock');
+Route::put('/orders/{order}/instock', 'API\OrderController@instock_put');
 Route::put('/orders/{order}/referrer', 'API\OrderController@referrer');
 Route::put('/orders/{order}/agree_gdpr', 'API\OrderController@agree_gdpr');
 Route::put('/orders/{order}/payment_method', 'API\OrderController@payment_method');

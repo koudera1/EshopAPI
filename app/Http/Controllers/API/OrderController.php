@@ -128,6 +128,20 @@ class OrderController extends Controller
     /**
      * Update the specified resource's attribute in storage.
      *
+     * @param  \App\Order  $order
+     * @return \Illuminate\Http\Response
+     */
+    public function instock_get(Order $order)
+    {
+        $move = DB::table('oc_order_product_move')
+            ->where('order_id',$order->order_id)->first();
+        return $move->quantity_int;
+    }
+
+
+    /**
+     * Update the specified resource's attribute in storage.
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
@@ -178,7 +192,7 @@ class OrderController extends Controller
     {
         $order->date_modified = date("Y-m-d H:i:s");
         $id = $order->order_id;
-        $history = OrderHistory::where('order_id',$id);
+        $history = OrderHistory::where('order_id',$id)->first();
         $history->comment = $request->input('comment');
         $history->save();
     }
@@ -195,7 +209,7 @@ class OrderController extends Controller
         $order->date_modified = date("Y-m-d H:i:s");
         $id = $order->order_status_id;
         $status = DB::table('oc_order_status')
-            ->where('order_status_id', $id);
+            ->where('order_status_id', $id)->first();
         $status->name = $request->input('order_status');
         $status->save();
     }
@@ -264,11 +278,11 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function instock(Request $request, Order $order)
+    public function instock_put(Request $request, Order $order)
     {
         $order->date_modified = date("Y-m-d H:i:s");
         $move = DB::table('oc_order_product_move')
-            ->where('order_id',$order->order_id);
+            ->where('order_id',$order->order_id)->first();
         $move->quantity_int = $request->input('quantity_int');
         $move->quantity_ext = $request->input('quantity_ext');
         $move->save();
