@@ -15,7 +15,8 @@ class Order_productController extends Controller
      * Display a listing of the resource.
      * for /orders/{id}/products
      *
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index(Order $order)
     {
@@ -26,33 +27,29 @@ class Order_productController extends Controller
      * Store a newly created resource in storage.
      * for /order_products
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     * @param Order $order
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Order $order)
     {
-        $ord_products = new Order_product;
-        $ord_products->order_id = $request->input('order_id');
-        $ord_products->product_id = $request->input('product_id');
-        $ord_products->name = $request->input('name');
-        $ord_products->tax = $request->input('tax');
-        $ord_products->quantity = $request->input('quantity');
-        $ord_products->sort_order = $request->input('sort_order');
-        $ord_products->is_transfer = $request->input('is_transfer');
-        $ord_products->is_action = $request->input('is_action');
-        $ord_products->gift = $request->input('gift');
-
         $product = Product::where('product_id', $request->product_id)->first();
-
-        $ord_products->model = $product->model;
-        $ord_products->price = $product->price;
-        $ord_products->purchase_price = $product->purchase_price;
-        $ord_products->warranty = $product->warranty;
-        $ord_products->total = $product->price * $ord_products->quantity;
-
-        $ord_products->save();
-
-        return response()->json($ord_products);
+        return Order_product::insertGetId([
+            'order_id' => $order->order_id,
+            'product_id' => $request->input('product_id'),
+            'name' => $request->input('name'),
+            'tax' => $request->input('tax'),
+            'quantity' => $request->input('quantity'),
+            'sort_order' => $request->input('sort_order'),
+            'is_transfer' => $request->input('is_transfer'),
+            'is_action' => $request->input('is_action'),
+            'gift' => $request->input('gift'),
+            'model' => $product->model,
+            'price' => $product->price,
+            'purchase_price' => $product->purchase_price,
+            'warrant' => $product->warranty,
+            'total' => $product->price * $request->input('quantity')
+        ]);
     }
 
     /**

@@ -32,8 +32,6 @@ class Order_product extends Model
      *
      * @var array
      */
-    protected $fillable = ['order_id', 'product_id', 'name', 'tax', 'quantity',
-        'sort_order', 'is_transfer', 'is_action', 'gift', 'model',
-        'price', 'purchase_price', 'warranty', 'total'];
+    protected $guarded = [];
 
 }

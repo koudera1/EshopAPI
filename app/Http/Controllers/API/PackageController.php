@@ -21,8 +21,7 @@ class PackageController extends Controller
      */
     public function index(Order $order)
     {
-
-        if($order->shipping_method == "Geis")
+       if($order->shipping_method == "Geis")
             return DB::table('geis_package')->where('order_id', $order->order_id)->get();
         elseif (mb_substr($order->shipping_method, 0, 11) === "Česká pošta")
             return DB::table('postcz_package')->where('order_id', $order->order_id)->get();
@@ -42,9 +41,9 @@ class PackageController extends Controller
         $date = date("Y-m-d H:i:s");
         if ($order->shipping_method == "Geis") {
             $delivery_id =  Geis_numbering::select('min')->where('is_free', 1)->first();
-            Geis_numbering::where('is_free', '=', 0)->update(['max' => $delivery_id['min']]);
+            Geis_numbering::where('is_free', 0)->update(['max' => $delivery_id['min']]);
             Geis_numbering::where('is_free', 1)->update(['min' => ($delivery_id['min'] + 1)]);
-            DB::table('geis_delivery')->insert(
+            $bool1 = DB::table('geis_delivery')->insert(
                 [
                     'delivery_id' => $delivery_id['min'],
                     'order_id' => $order->order_id,
@@ -61,7 +60,7 @@ class PackageController extends Controller
                 ]
             );
 
-            DB::table('geis_package')->insert(
+            $bool2 = DB::table('geis_package')->insert(
                 [
                     'package_id' => $delivery_id['min'],
                     'delivery_id' => $delivery_id['min'],
@@ -70,16 +69,22 @@ class PackageController extends Controller
                     'package_order' => $request->input('package_order')
                 ]
             );
+
+            if ($bool1 and $bool2)
+                return response()->json(true);
+            else
+                return response()->json(false);
         } else if (mb_substr($order->shipping_method, 0, 11) === "Česká pošta") {
             $delivery_id = Postcz_numbering::select('min')->where('is_free', 1)
                 ->where('source',$request->input('source'))->first();
+            if($delivery_id === null) return response()->json(false);
             Postcz_numbering::where('is_free', 0)
                 ->where('source',$request->input('source'))
                 ->update(['max' => $delivery_id['min']]);
             Postcz_numbering::where('is_free', 1)
                 ->where('source',$request->input('source'))
                 ->update(['min' => ($delivery_id['min'] + 1)]);
-            DB::table('postcz_delivery')->insert(
+            $bool1 = DB::table('postcz_delivery')->insert(
                 [
                     'delivery_id' => $delivery_id['min'],
                     'order_id' => $order->order_id,
@@ -94,7 +99,7 @@ class PackageController extends Controller
                 ]
             );
 
-            DB::table('postcz_package')->insert(
+            $bool2 = DB::table('postcz_package')->insert(
                 [
                     'package_id' => $delivery_id['min'],
                     'delivery_id' => $delivery_id['min'],
@@ -104,10 +109,15 @@ class PackageController extends Controller
                     'weight' => $request->input('weight')
                 ]
             );
+
+            if ($bool1 and $bool2)
+                return response()->json(true);
+            else
+                return response()->json(false);
         } else {
 
             $gw = new SoapClient("https://www.zasilkovna.cz/api/soap-php-bugfix.wsdl");
-            $apiPassword = "xxx";
+            $apiPassword = "2bb8a76f0b6cd8b061eef2ec4340e3e7";
 
             $country_id = $order->shipping_country_id;
             if ($country_id == 170) { // polsko
@@ -154,7 +164,7 @@ class PackageController extends Controller
                     dd($e->detail); // property detail contains error info
                 }
 
-                DB::table('zasilkovna_package')->insert(
+                return response()->json(DB::table('zasilkovna_package')->insert(
                     [
                         'package_id' => $packet->id,
                         'order_id' => $order->order_id,
@@ -163,9 +173,7 @@ class PackageController extends Controller
                         'PacketIdDetail' => json_encode($packet),
                         'active' => 1
                     ]
-                );
-
-
+                ));
         }
     }
 

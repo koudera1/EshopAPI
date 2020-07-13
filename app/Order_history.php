@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderHistory extends Model
+class Order_history extends Model
 {
     /**
      * The table associated with the model.
@@ -26,4 +26,12 @@ class OrderHistory extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
 }
