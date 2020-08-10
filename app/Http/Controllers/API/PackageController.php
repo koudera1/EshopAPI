@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\DB;
 use SoapClient;
 use SoapFault;
 
+
+/**
+ * @group Package
+ */
 class PackageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of packages.
      *
      * @param  \Illuminate\Http\Order  $order
      * @return \Illuminate\Http\Response
@@ -30,7 +34,23 @@ class PackageController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created package in storage.
+     * Geis - cod, b2c, routing_id, phone, driver_note, recipient_note, source, gar, package_order
+     * Postcz - source, cod, commercial, service, phone, package_order, weight
+     * Zásilkovna - cod, weight
+     *
+     * @bodyParam cod required Whether it has cash on delivery for the customer to pay.
+     * @bodyParam b2c
+     * @bodyParam routing_id
+     * @bodyParam phone
+     * @bodyParam driver_note
+     * @bodyParam recipient_note
+     * @bodyParam source
+     * @bodyParam gar
+     * @bodyParam package_order
+     * @bodyParam commercial
+     * @bodyParam service
+     * @bodyParam weight Weight of the package.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Illuminate\Http\Order  $order
@@ -178,36 +198,36 @@ class PackageController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified package.
      *
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(Order $order, Package $package)
     {
-        //
+        return $package;
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified package in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
+     * @param  \App\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, Order $order, Package $package)
     {
         //
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified package from storage.
      *
-     * @param  \App\Order  $order
+     * @param  \App\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Package $package)
     {
-        //
+        $package->delete();
     }
 }

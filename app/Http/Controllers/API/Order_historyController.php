@@ -7,10 +7,13 @@ use App\Order_history;
 use App\Order;
 use Illuminate\Http\Request;
 
+/**
+ * @group Order_history
+ */
 class Order_historyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of order histories.
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +23,7 @@ class Order_historyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created order history in storage
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -38,18 +41,18 @@ class Order_historyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified order history.
      *
      * @param  \App\Order_history  $order_history
      * @return \Illuminate\Http\Response
      */
     public function show(Order_history $order_history)
     {
-        //
+        return $order_history;
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified order history in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Order_history  $order_history
@@ -61,13 +64,13 @@ class Order_historyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified order history from storage.
      *
      * @param  \App\Order_history  $order_history
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order_history $order_history)
     {
-        //
+        $order_history->delete();
     }
 }

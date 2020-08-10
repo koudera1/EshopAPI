@@ -9,10 +9,13 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @group Product
+ */
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of products.
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,12 +24,62 @@ class ProductController extends Controller
         return Product::all();
     }
 
-
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created product.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * @bodyParam category_id
+     * @bodyParam category_id2
+     * @bodyParam model
+     * @bodyParam sku
+     * @bodyParam location
+     * @bodyParam quantity
+     * @bodyParam internal_quantity
+     * @bodyParam stock_status_id
+     * @bodyParam image
+     * @bodyParam manufacturer_id
+     * @bodyParam shipping
+     * @bodyParam price
+     * @bodyParam tax_class_id
+     * @bodyParam date_available
+     * @bodyParam weight
+     * @bodyParam weight_class_id
+     * @bodyParam length
+     * @bodyParam width
+     * @bodyParam height
+     * @bodyParam measurement_class_id
+     * @bodyParam status
+     * @bodyParam date_added
+     * @bodyParam date_modified
+     * @bodyParam viewed
+     * @bodyParam container_capacity
+     * @bodyParam req_container
+     * @bodyParam purchase_price
+     * @bodyParam viewed_month
+     * @bodyParam viewed_quartal
+     * @bodyParam viewed_year
+     * @bodyParam heureka
+     * @bodyParam heureka_cat
+     * @bodyParam heureka_name
+     * @bodyParam warranty
+     * @bodyParam sold_quartal
+     * @bodyParam conversion_quartal
+     * @bodyParam free_shipping
+     * @bodyParam domains
+     * @bodyParam color1
+     * @bodyParam color2
+     * @bodyParam color3
+     * @bodyParam marketing_domain
+     * @bodyParam raw_name
+     * @bodyParam zasilkovna_enabled
+     * @bodyParam condition
+     * @bodyParam erotic
+     * @bodyParam name
+     * @bodyParam meta_description
+     * @bodyParam meta_keywords
+     * @bodyParam description
+     * @bodyParam intro
      */
     public function store(Request $request)
     {
@@ -96,7 +149,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified product.
      *
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
@@ -107,7 +160,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified product in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Product  $product
@@ -119,13 +172,13 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified product from storage.
      *
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
     }
 }

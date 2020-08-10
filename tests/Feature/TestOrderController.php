@@ -231,7 +231,7 @@ class TestOrderController extends TestCase
 
     public function testPutAddresses()
     {
-        $response = $this->putJson('/orders/'.$this->oid.'/addresses',
+        $response = $this->putJson('/orders/'.$this->oid,
             [
                 'shipping_firstname' => 'Pavel',
                 'shipping_lastname' => 'Novák',
@@ -259,8 +259,35 @@ class TestOrderController extends TestCase
                 'payment_address_format' => ''
             ]);
         $response
-            ->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+            ->assertStatus(200)
+            ->assertJsonEquals(
+                [
+                    'shipping_firstname' => 'true',
+                    'shipping_lastname' => 'true',
+                    'shipping_company' => 'true',
+                    'shipping_address_1' => 'true',
+                    'shipping_address_2' => 'true',
+                    'shipping_city' => 'true',
+                    'shipping_postcode' => 'true',
+                    'shipping_zone' => 'true',
+                    'shipping_zone_id' => 'true',
+                    'shipping_country' => 'true',
+                    'shipping_country_id' => 'true',
+                    'shipping_address_format' => 'true',
+                    'payment_firstname' => 'true',
+                    'payment_lastname' => 'true',
+                    'payment_company' => 'true',
+                    'payment_address_1' => 'true',
+                    'payment_address_2' => 'true',
+                    'payment_city' => 'true',
+                    'payment_postcode' => 'true',
+                    'payment_zone' => 'true',
+                    'payment_zone_id' => 'true',
+                    'payment_country' => 'true',
+                    'payment_country_id' => 'true',
+                    'payment_address_format' => 'true'
+                ]
+            );
         $this->assertDatabaseHas('oc_order',[
             'order_id' => $this->oid,
             'shipping_firstname' => 'Pavel',
@@ -337,8 +364,8 @@ class TestOrderController extends TestCase
             [
                 'domain' => 'www.moje-medisana.cz'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['domain' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -352,8 +379,8 @@ class TestOrderController extends TestCase
             [
                 'currency' => 'CZK'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['currency' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -369,8 +396,8 @@ class TestOrderController extends TestCase
             [
                 'language' => 'Čeština'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['language' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -384,8 +411,8 @@ class TestOrderController extends TestCase
             [
                 'firstname' => 'Jan'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['firstname' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -399,8 +426,8 @@ class TestOrderController extends TestCase
             [
                 'lastname' => 'Veverka'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['lastname' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -414,8 +441,8 @@ class TestOrderController extends TestCase
             [
                 'company' => 'Škoda'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['company' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -429,8 +456,8 @@ class TestOrderController extends TestCase
             [
                 'comment' => 'Super.'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['comment' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -442,10 +469,12 @@ class TestOrderController extends TestCase
     {
         $response = $this->putJson('/orders/' . $this->oid . '/order_status',
             [
-                'order_status' => 1
+                'order_status' => 1,
+                'notify' => 1,
+                'commnent' => 'Objednávka zaplacena.'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['order_status' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -459,8 +488,8 @@ class TestOrderController extends TestCase
             [
                 'shipping_method' => 'Geis'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['shipping_method' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -468,20 +497,6 @@ class TestOrderController extends TestCase
             ]);
     }
 
-    public function testPutTotal()
-    {
-        $response = $this->putJson('/orders/' . $this->oid . '/total',
-            [
-                'total' => 3000
-            ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
-        $this->assertDatabaseHas('oc_order',
-            [
-                'order_id' => $this->oid,
-                'total' => 3000
-            ]);
-    }
 
     public function testPutPayment_status()
     {
@@ -489,8 +504,8 @@ class TestOrderController extends TestCase
             [
                 'payment_status' => 1
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['payment_status' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -498,20 +513,6 @@ class TestOrderController extends TestCase
             ]);
     }
 
-    public function testPutSlovakia()
-    {
-        $response = $this->putJson('/orders/' . $this->oid . '/slovakia',
-            [
-                'shipping_country' => 'Česká republika'
-            ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
-        $this->assertDatabaseHas('oc_order',
-            [
-                'order_id' => $this->oid,
-                'shipping_country' => 'Česká republika'
-            ]);
-    }
 
     public function testPutReferrer()
     {
@@ -519,8 +520,8 @@ class TestOrderController extends TestCase
             [
                 'referrer' => 'Google'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['referrer' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -534,8 +535,8 @@ class TestOrderController extends TestCase
             [
                 'agree_gdpr' => 1
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['agree_gdpr' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -549,8 +550,8 @@ class TestOrderController extends TestCase
             [
                 'payment_method' => 'Hotově'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['payment_method' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -564,8 +565,8 @@ class TestOrderController extends TestCase
             [
                 'email' => 'o@gmail.com'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['email' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -579,8 +580,8 @@ class TestOrderController extends TestCase
             [
                 'telephone' => '+420555111444'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['telephone' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -594,8 +595,8 @@ class TestOrderController extends TestCase
             [
                 'fax' => '5adsfa'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['fax' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -609,8 +610,8 @@ class TestOrderController extends TestCase
             [
                 'regNum' => '15611564'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['regNum' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -624,8 +625,8 @@ class TestOrderController extends TestCase
             [
                 'taxRegNum' => '15611564'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['taxRegNum' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -639,8 +640,8 @@ class TestOrderController extends TestCase
             [
                 'coupon_id' => '15664'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['coupon_id' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -654,8 +655,8 @@ class TestOrderController extends TestCase
             [
                 'shipping_gp' => '5888'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['shipping_gp' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -669,8 +670,8 @@ class TestOrderController extends TestCase
             [
                 'ip' => '165.154.213.546'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['ip' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -684,8 +685,8 @@ class TestOrderController extends TestCase
             [
                 'reason' => 'Nezaplatil.'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['reason' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -699,8 +700,8 @@ class TestOrderController extends TestCase
             [
                 'wrong_order_id' => '468'
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['wrong_order_id' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -714,8 +715,8 @@ class TestOrderController extends TestCase
             [
                 'competition' => 0
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['competition' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -729,8 +730,8 @@ class TestOrderController extends TestCase
             [
                 'euVAT' => 0
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['euVAT' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -744,8 +745,8 @@ class TestOrderController extends TestCase
             [
                 'viewed' => 1
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+        $response->assertStatus(200)
+            ->assertJsonEquals(['viewed' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,

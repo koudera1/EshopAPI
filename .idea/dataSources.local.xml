@@ -21,13 +21,7 @@
       </schema-mapping>
       <ssh-properties>
         <enabled>true</enabled>
-        <proxy-host>130.193.12.22</proxy-host>
-        <proxy-port>2222</proxy-port>
-        <secret-storage>master_key</secret-storage>
-        <user>rkoudela</user>
-        <use-password>false</use-password>
-        <auth-type>KEY_PAIR</auth-type>
-        <private-key-path>C:\Users\koude\.ssh\id_rsa</private-key-path>
+        <ssh-config-id>4bebc921-3d8d-4a02-8964-7652b82cecfd</ssh-config-id>
       </ssh-properties>
     </data-source>
   </component>

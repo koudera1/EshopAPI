@@ -12,8 +12,7 @@ use Illuminate\Http\Request;
 class Order_productController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * for /orders/{id}/products
+     * Display a listing of ordered products.
      *
      * @param Order $order
      * @return \Illuminate\Database\Eloquent\Collection
@@ -24,8 +23,16 @@ class Order_productController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * for /order_products
+     * Store a newly created ordered product in storage.
+     * @bodyParam product_id
+     * @bodyParam name
+     * @bodyParam tax
+     * @bodyParam quantity
+     * @bodyParam sort_order
+     * @bodyParam is_transfer
+     * @bodyParam is_action
+     * @bodyParam gift
+     * @bodyParam quantity
      *
      * @param \Illuminate\Http\Request $request
      * @param Order $order
@@ -53,7 +60,7 @@ class Order_productController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified ordered product.
      * @param  \App\Order_product  $order_product
      *
      * @return \Illuminate\Http\Response
@@ -64,7 +71,7 @@ class Order_productController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified ordered product in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Order_product  $order_product
@@ -76,7 +83,7 @@ class Order_productController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified ordered product from storage.
      *
      * @param  \App\Order_product  $order_product
      * @return \Illuminate\Http\Response
