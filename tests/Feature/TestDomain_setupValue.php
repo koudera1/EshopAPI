@@ -14,52 +14,6 @@ class TestDomain_setupValue extends TestCase
         $this->oc = new OrderController;
     }
 
-    public function testGetAddressesOfOrder()
-    {
-        $response = $this->get('/orders/35000/addresses');
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'shipping_address_1' => 'Jiráskova 274/5',
-                'shipping_address_2' => '',
-                'shipping_city' => 'Vyškov',
-                'shipping_postcode' => '682 01',
-                'shipping_zone' => '',
-                'shipping_country' => 'Česká republika',
-                'payment_address_1' => 'Jiráskova 274/5',
-                'payment_address_2' => '',
-                'payment_city' => 'Vyškov',
-                'payment_postcode' => '682 01',
-                'payment_zone' => '',
-                'payment_country' => 'Česká republika',
-                'shipping_address_2' => ''
-            ]);
-        $this->assertEquals(1,1);
-    }
-
-    /** Test */
-    /*public function get_history_of_order()
-    {
-        $response = $this->get('/orders/35000/addresses');
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'shipping_address_1' => 'Jiráskova 274/5',
-                'shipping_address_2' => '',
-                'shipping_city' => 'Vyškov',
-                'shipping_postcode' => '682 01',
-                'shipping_zone' => '',
-                'shipping_country' => 'Česká republika',
-                'payment_address_1' => 'Jiráskova 274/5',
-                'payment_address_2' => '',
-                'payment_city' => 'Vyškov',
-                'payment_postcode' => '682 01',
-                'payment_zone' => '',
-                'payment_country' => 'Česká republika',
-                'shipping_address_2' => ''
-            ]);
-    }*/
-
     public function testDomain_setupValue_1()
     {
         $this->assertEquals(($this->oc)->domain_setupValue("f:0,600:49,:0", 1, 30), 0);

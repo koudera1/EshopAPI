@@ -19,6 +19,7 @@ class PackageController extends Controller
 {
     /**
      * Display a listing of packages.
+     * @urlParam order required order id Example: 35022
      *
      * @param  \Illuminate\Http\Order  $order
      * @return \Illuminate\Http\Response
@@ -36,25 +37,28 @@ class PackageController extends Controller
     /**
      * Store a newly created package in storage.
      * Geis - cod, b2c, routing_id, phone, driver_note, recipient_note, source, gar, package_order
-     * Postcz - source, cod, commercial, service, phone, package_order, weight
-     * Zásilkovna - cod, weight
+     * | Postcz - source, cod, commercial, service, phone, package_order, weight
+     * | Zásilkovna - cod, weight
      *
-     * @bodyParam cod required Whether it has cash on delivery for the customer to pay.
-     * @bodyParam b2c
-     * @bodyParam routing_id
-     * @bodyParam phone
-     * @bodyParam driver_note
-     * @bodyParam recipient_note
-     * @bodyParam source
-     * @bodyParam gar
-     * @bodyParam package_order
-     * @bodyParam commercial
-     * @bodyParam service
-     * @bodyParam weight Weight of the package.
+     * @urlParam order required order id Example: 35022
+     * @bodyParam cod float required Whether it has cash on delivery for the customer to pay.
+     * @bodyParam b2c integer
+     * @bodyParam routing_id integer
+     * @bodyParam phone string
+     * @bodyParam driver_note string
+     * @bodyParam recipient_note string
+     * @bodyParam source integer
+     * @bodyParam gar integer
+     * @bodyParam package_order integer
+     * @bodyParam commercial integer
+     * @bodyParam service string
+     * @bodyParam weight float The weight of the package.
+     * @response true
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Http\Order  $order
+     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Order $order
      * @return \Illuminate\Http\Response
+     * @throws SoapFault
      */
     public function store(Request $request, Order $order)
     {
@@ -198,24 +202,14 @@ class PackageController extends Controller
     }
 
     /**
-     * Display the specified package.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order, Package $package)
-    {
-        return $package;
-    }
-
-    /**
      * Update the specified package in storage.
+     * @urlParam order required order id Example: 35022
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order, Package $package)
+    public function update(Request $request, Order $order, $package_id)
     {
         //
     }
@@ -226,8 +220,8 @@ class PackageController extends Controller
      * @param  \App\Package  $package
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Package $package)
+    public function destroy($package_id)
     {
-        $package->delete();
+
     }
 }

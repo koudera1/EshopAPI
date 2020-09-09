@@ -7,9 +7,6 @@ use App\Order_history;
 use App\Order;
 use Illuminate\Http\Request;
 
-/**
- * @group Order_history
- */
 class Order_historyController extends Controller
 {
     /**

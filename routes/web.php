@@ -19,18 +19,17 @@ Route::get('/', function () {
 
 Route::get('/orders/{order}/addresses', 'API\OrderController@getAddresses');
 Route::get('/orders/{order}/price', 'API\OrderController@getPrice');
-
-Route::put('/orders/{order}/invoice', 'API\OrderController@putInvoice');
-
-Route::get('/shipping_methods', 'API\OrderController@getShipping_methods');
+Route::get('/orders/{order}/shipping_methods', 'API\OrderController@getShipping_methods');
 Route::get('/payment_methods', 'API\OrderController@getPayment_methods');
 Route::get('/order_statuses', 'API\OrderController@getOrder_statuses');
+
+Route::put('/orders/{order}/invoice', 'API\OrderController@putInvoice');
 
 Route::apiResources([
     'orders' => 'API\OrderController',
     'orders.packages' => 'API\PackageController',
     'orders.history' => 'API\Order_historyController',
     'orders.products' => 'API\Order_productController',
-    'orders.products.moves' => 'API\Order_product_moveController',
     'products' => 'API\ProductController'
 ]);
+

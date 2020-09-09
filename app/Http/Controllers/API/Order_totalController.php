@@ -3,70 +3,70 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Order;
+use App\Order_product;
+use App\Order_product_move;
 use App\Order_total;
+use App\Product;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class Order_totalController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function index(Order $order)
+    public function insertOrUpdate(Order $order, $update = 0)
     {
-        Order_total::where('order_id',$order->order_id)->get();
-    }
+        $ops = Order_product::where('order_id', $order->order_id)->select('total','tax')->get();
+        $tax = 0; $noTaxTotal = 0;
+        foreach($ops as $op)
+        {
+            $noTaxTotal += $op->total;
+            $taxCoeficient = '0.' . str_replace('.', '', $op->tax);
+            $tax += $op->total * $taxCoeficient;
+        }
+        $bool0 = $order->update(['total' => $noTaxTotal + $tax]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Order $order, Request $request)
-    {
-        return Order_total::insertGetId(
+        $noTaxTotal = round($noTaxTotal * $order->value, 4);
+        $tax = round($tax * $order->value, 4);
+        $order->currency === 'CZK' ? $c = ' Kč' : $c = '€';
+
+        $bool1 = Order_total::updateOrInsert(
             [
                 'order_id' => $order->order_id,
-                'title' => $request->input('title'),
-                'text' => $request->input('text'),
-                'value' => $request->input('value'),
-                'sort_order' => $request->input('sort_order')
+                'title' => 'Cena celkem bez DPH',
+                'sort_order' => 4
+            ],
+            [
+                'text' => $noTaxTotal . $c,
+                'value' => $noTaxTotal
             ]);
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Order_total  $order_total
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order_total $order_total)
-    {
-        //
-    }
+        $bool2 = Order_total::updateOrInsert(
+            [
+                'order_id' => $order->order_id,
+                'title' => 'DPH ' . (int)Order_product::where('order_id', $order->order_id)->value('tax') . '%',
+                'sort_order' => 5
+            ],
+            [
+                'text' => $tax . $c,
+                'value' => $tax
+            ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order_total  $order_total
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order_total $order_total)
-    {
-        //
-    }
+        $bool3 = Order_total::updateOrInsert(
+            [
+                'order_id' => $order->order_id,
+                'title' => 'Cena celkem s DPH',
+                'sort_order' => 6
+            ],
+            [
+                'text' => ($tax + $noTaxTotal) . $c,
+                'value' => ($tax + $noTaxTotal)
+            ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Order_total  $order_total
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order_total $order_total)
-    {
-        //
+        if($bool0 and $bool1 and $bool2 and $bool3) return true;
+        else return false;
     }
 }

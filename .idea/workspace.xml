@@ -2,17 +2,75 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bc0afc0-91ca-4c6c-a61e-754d89118848" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/docs/collection.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/css/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/css/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/css/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/css/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/css/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/images/navbar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/docs/js/all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/css/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/css/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/css/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/css/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/css/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/images/navbar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/js/all.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/.compare.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/images/navbar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/lib/energize.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/lib/highlight.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/lib/imagesloaded.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/lib/jquery.highlight.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/lib/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/lib/jquery.tocify.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/lib/jquery_ui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/lib/lunr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/js/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/_icon_font.styl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/_monokai.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/_normalize.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/_variables.styl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/fonts/FontAwesome.otf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/fonts/fontawesome-webfont.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/fonts/fontawesome-webfont.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/fonts/fontawesome-webfont.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/fonts/fontawesome-webfont.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/assets/stylus/style.styl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/config.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/gulpfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/includes/_errors.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/docs/source/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Eshop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Eshop.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sshConfigs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CUserskoudeEshopstoragelogs/laravel.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Order_historyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Order_historyController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Order_product_moveController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Order_product_moveController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Order_totalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Order_totalController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/PackageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/PackageController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/TestDomain_setupValue.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/TestDomain_setupValue.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/TestOrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/TestOrderController.php" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,10 +78,57 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+        <item name="oc_tax_class: table" type="dbc44a63:MariaImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+        <item name="zasilkovna_protocol: table" type="dbc44a63:MariaImplModel$Table" />
+      </path>
+    </expand>
+    <select />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpServers">
@@ -136,16 +241,10 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Constants" value="false" />
     <property name="DatabaseDriversLRU" value="mysql" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary" value="PHPUnit 6+" />
@@ -164,7 +263,19 @@
       <recent name="C:\Users\koude\Eshop\app\Http\Controllers\API" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.TestOrderController.testIndexOrders">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="PHPUnit.TestOrderController">
     <configuration name="Laravel Built-in Server" type="LaravelStorm_run_conf_serve" factoryName="Laravel">
       <option name="host" value="localhost" />
       <option name="port" value="8000" />
@@ -177,24 +288,24 @@
       <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" scope="Class" />
       <method v="2" />
     </configuration>
-    <configuration name="TestOrderController.testGetPrice_18" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testGetPrice_18" scope="Method" />
+    <configuration name="TestOrderController.testDeleteOrder_product2" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testDeleteOrder_product2" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="TestOrderController.testGetPrice_19" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testGetPrice_19" scope="Method" />
+    <configuration name="TestOrderController.testPutQuantity" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testPutQuantity" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="TestOrderController.testGetPrice_20" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testGetPrice_20" scope="Method" />
+    <configuration name="TestOrderController.testShowOrder" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testShowOrder" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="TestOrderController.testGetPrice_21" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testGetPrice_21" scope="Method" />
+    <configuration name="TestOrderController.testStoreOrder" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testStoreOrder" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="TestOrderController.testIndexOrders" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testIndexOrders" scope="Method" />
+    <configuration name="TestOrderController.testStoreProduct1" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestOrderController" file="$PROJECT_DIR$/tests/Feature/TestOrderController.php" method="testStoreProduct1" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -205,24 +316,36 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Laravel.Laravel Built-in Server" />
       <item itemvalue="PHP Web Page.Unnamed" />
-      <item itemvalue="PHPUnit.TestOrderController" />
       <item itemvalue="PHPUnit.phpunit.xml" />
-      <item itemvalue="PHPUnit.TestOrderController.testGetPrice_18" />
-      <item itemvalue="PHPUnit.TestOrderController.testGetPrice_19" />
-      <item itemvalue="PHPUnit.TestOrderController.testGetPrice_20" />
-      <item itemvalue="PHPUnit.TestOrderController.testGetPrice_21" />
-      <item itemvalue="PHPUnit.TestOrderController.testIndexOrders" />
+      <item itemvalue="PHPUnit.TestOrderController" />
+      <item itemvalue="PHPUnit.TestOrderController.testDeleteOrder_product2" />
+      <item itemvalue="PHPUnit.TestOrderController.testStoreProduct1" />
+      <item itemvalue="PHPUnit.TestOrderController.testStoreOrder" />
+      <item itemvalue="PHPUnit.TestOrderController.testShowOrder" />
+      <item itemvalue="PHPUnit.TestOrderController.testPutQuantity" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="PHPUnit.TestOrderController.testIndexOrders" />
-        <item itemvalue="PHPUnit.TestOrderController.testGetPrice_21" />
-        <item itemvalue="PHPUnit.TestOrderController.testGetPrice_20" />
-        <item itemvalue="PHPUnit.TestOrderController.testGetPrice_19" />
-        <item itemvalue="PHPUnit.TestOrderController.testGetPrice_18" />
+        <item itemvalue="PHPUnit.TestOrderController.testPutQuantity" />
+        <item itemvalue="PHPUnit.TestOrderController.testShowOrder" />
+        <item itemvalue="PHPUnit.TestOrderController.testStoreOrder" />
+        <item itemvalue="PHPUnit.TestOrderController.testStoreProduct1" />
+        <item itemvalue="PHPUnit.TestOrderController.testDeleteOrder_product2" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <option name="contentProportion" value="0.06903623" />
+        <treeState>
+          <expand />
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -240,48 +363,37 @@
       <workItem from="1584905165433" duration="75280000" />
       <workItem from="1588347843788" duration="125350000" />
       <workItem from="1591786731149" duration="19320000" />
-      <workItem from="1592056927826" duration="197596000" />
-      <workItem from="1595430203900" duration="1128000" />
-      <workItem from="1596142674044" duration="2000" />
-      <workItem from="1596544204523" duration="31488000" />
+      <workItem from="1592056927826" duration="198984000" />
+      <workItem from="1594923533172" duration="4394000" />
+      <workItem from="1597148558140" duration="6052000" />
+      <workItem from="1597353967457" duration="7354000" />
+      <workItem from="1597509702524" duration="329000" />
+      <workItem from="1597510033962" duration="768000" />
+      <workItem from="1597510948459" duration="51095000" />
+      <workItem from="1597946074516" duration="25278000" />
+      <workItem from="1598455542609" duration="91338000" />
+      <workItem from="1599480576162" duration="17408000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="259" y="8" key="#SSH_Configurations" timestamp="1596904691713">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="259" y="8" key="#SSH_Configurations/0.0.1366.728@0.0.1366.728" timestamp="1596904691713" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1596662420754">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1596662420754" />
-    <state x="339" y="157" key="run.anything.popup" timestamp="1597061382011">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="339" y="157" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1597061382011" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1596892000400">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1596892000400" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -297,150 +409,124 @@
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestDomain_setupValue.php</url>
-          <line>18</line>
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestDomain_setupValue.php</url>
-          <line>19</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>162</line>
-          <option name="timeStamp" value="73" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>154</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>145</line>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>26</line>
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>102</line>
+          <line>103</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>96</line>
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>94</line>
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>136</line>
-          <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>145</line>
-          <option name="timeStamp" value="82" />
+          <line>651</line>
+          <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>322</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>321</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>394</line>
-          <option name="timeStamp" value="89" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>454</line>
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>469</line>
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>713</line>
-          <option name="timeStamp" value="95" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>758</line>
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>771</line>
-          <option name="timeStamp" value="101" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>804</line>
-          <option name="timeStamp" value="102" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/PackageController.php</url>
-          <line>96</line>
-          <option name="timeStamp" value="104" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/PackageController.php</url>
-          <line>97</line>
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/PackageController.php</url>
-          <line>60</line>
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>1068</line>
+          <line>1598</line>
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
-          <line>1069</line>
+          <line>1599</line>
           <option name="timeStamp" value="111" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>804</line>
+          <line>765</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>803</line>
+          <line>764</line>
           <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>807</line>
+          <line>768</line>
           <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
+          <line>759</line>
+          <option name="timeStamp" value="141" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_totalController.php</url>
+          <line>4</line>
+          <option name="timeStamp" value="144" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php</url>
+          <line>198</line>
+          <option name="timeStamp" value="161" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_product_moveController.php</url>
+          <line>85</line>
+          <option name="timeStamp" value="165" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
+          <line>173</line>
+          <option name="timeStamp" value="166" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
+          <line>171</line>
+          <option name="timeStamp" value="167" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_product_moveController.php</url>
+          <line>86</line>
+          <option name="timeStamp" value="168" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php</url>
+          <line>190</line>
+          <option name="timeStamp" value="169" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
+          <line>1568</line>
+          <option name="timeStamp" value="170" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php</url>
+          <line>116</line>
+          <option name="timeStamp" value="171" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php</url>
+          <line>117</line>
+          <option name="timeStamp" value="172" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
+          <line>335</line>
+          <option name="timeStamp" value="173" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
+          <line>1391</line>
+          <properties>
+            <option name="className" value="\Tests\Feature\TestOrderController" />
+            <option name="methodName" value="testGetPrice_1" />
+          </properties>
+          <option name="timeStamp" value="139" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/tests/Feature/TestOrderController.php</url>
+          <line>1403</line>
+          <properties>
+            <option name="className" value="\Tests\Feature\TestOrderController" />
+            <option name="methodName" value="testGetPrice_2" />
+          </properties>
+          <option name="timeStamp" value="142" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PHPUnitRunConfigurationType">
         <watch expression="$response" language="PHP" />
+        <watch expression="$GLOBALS['IDE_EVAL_CACHE']['be1f6979-46d1-485b-bade-81447c9e6642']-&gt;baseResponse-&gt;statusCode" />
       </configuration>
     </watches-manager>
   </component>

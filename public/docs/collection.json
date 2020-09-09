@@ -1,0 +1,1149 @@
+{
+    "variables": [],
+    "info": {
+        "name": "Laravel API",
+        "_postman_id": "1102d092-c2f8-4b5f-a6e4-e1582b79031f",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Order",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display the addresses of the order.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/addresses",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the price of the specified order.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/price",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display all shipping methods.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/shipping_methods",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display all payment methods.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "payment_methods",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display all order statuses.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "order_statuses",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Make a new invoice.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/invoice",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35202",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of orders.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Create a new order when a customer adds sth to his cart.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"domain\": \"\\\"www.moje_medisana.cz\\\"\",\n    \"customer_id\": \"0\",\n    \"language\": \"\\\"\\u010ce\\u0161tina\\\"\",\n    \"ip\": \"\\\"165.154.213.546\\\"\",\n    \"referrer\": \"\\\"Google\\\"\",\n    \"product_id\": \"2400\",\n    \"quantity_int\": \"1\",\n    \"quantity_ext\": \"1\",\n    \"quantity\": \"2\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the specified order.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified order in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"domain\": \"\\\"www.stylka.cz\\\"\",\n    \"currency\": \"deleniti\",\n    \"language\": \"quas\",\n    \"firstname\": \"ut\",\n    \"lastname\": \"eaque\",\n    \"company\": \"rem\",\n    \"comment\": \"nam\",\n    \"order_status\": \"\\\"Nevy\\u0159\\u00edzeno.\\\"\",\n    \"shipping_method\": \"\\\"Z\\u00e1silkovna\\\"\",\n    \"payment_status\": 1,\n    \"referrer\": \"numquam\",\n    \"agree_gdpr\": 1,\n    \"payment_method\": \"qui\",\n    \"email\": \"non\",\n    \"telephone\": \"rerum\",\n    \"fax\": \"repudiandae\",\n    \"regNum\": \"ab\",\n    \"ip\": \"corrupti\",\n    \"reason\": \"\\\"Reklamace\\\"\",\n    \"wrong_order_id\": 4,\n    \"competition\": 9,\n    \"euVAT\": 18,\n    \"viewed\": 0,\n    \"shipping_firstname\": \"ab\",\n    \"shipping_lastname\": \"illo\",\n    \"shipping_company\": \"necessitatibus\",\n    \"shipping_address_1\": \"enim\",\n    \"shipping_address_2\": \"magnam\",\n    \"shipping_city\": \"fuga\",\n    \"shipping_postcode\": \"ut\",\n    \"shipping_zone\": \"voluptas\",\n    \"shipping_zone_id\": 13,\n    \"shipping_country\": \"minus\",\n    \"shipping_country_id\": 11,\n    \"shipping_address_format\": \"molestiae\",\n    \"payment_firstname\": \"voluptatem\",\n    \"payment_lastname\": \"molestias\",\n    \"payment_company\": \"cum\",\n    \"payment_address_1\": \"modi\",\n    \"payment_address_2\": \"debitis\",\n    \"payment_city\": \"ullam\",\n    \"payment_postcode\": \"nam\",\n    \"payment_zone\": \"rerum\",\n    \"payment_zone_id\": 20,\n    \"payment_country\": \"facilis\",\n    \"payment_country_id\": 7,\n    \"payment_address_format\": \"quia\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified order from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Order_product",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display a listing of ordered products.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store a newly created ordered product in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"product_id\": 10,\n    \"name\": \"qui\",\n    \"tax\": 5,\n    \"quantity\": 18,\n    \"sort_order\": 15,\n    \"is_transfer\": 19,\n    \"is_action\": 3,\n    \"gift\": 12\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the specified ordered product.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products\/:product",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified ordered product in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products\/:product",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified ordered product from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products\/:product",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Package",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display a listing of packages.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/packages",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store a newly created package in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/packages",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"cod\": 816.6,\n    \"b2c\": 19,\n    \"routing_id\": 7,\n    \"phone\": \"nihil\",\n    \"driver_note\": \"numquam\",\n    \"recipient_note\": \"deleniti\",\n    \"source\": 18,\n    \"gar\": 13,\n    \"package_order\": 14,\n    \"commercial\": 6,\n    \"service\": \"doloribus\",\n    \"weight\": 12613.63\n}"
+                        },
+                        "description": "Geis - cod, b2c, routing_id, phone, driver_note, recipient_note, source, gar, package_order\n| Postcz - source, cod, commercial, service, phone, package_order, weight\n| Z\u00e1silkovna - cod, weight",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified package in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/packages\/:package",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "order",
+                                    "key": "order",
+                                    "value": "35022",
+                                    "description": "order id"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified package from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/packages\/:package",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Product",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display a listing of products.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "products",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store a newly created product.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "products",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"category_id\": 18,\n    \"category_id2\": 7,\n    \"model\": \"necessitatibus\",\n    \"sku\": \"molestiae\",\n    \"location\": \"aperiam\",\n    \"quantity\": 1,\n    \"internal_quantity\": 6,\n    \"stock_status_id\": 6,\n    \"image\": \"nesciunt\",\n    \"manufacturer_id\": 8,\n    \"shipping\": 15,\n    \"price\": 25717032,\n    \"tax_class_id\": 13,\n    \"date_available\": \"quod\",\n    \"weight\": 641.6717,\n    \"weight_class_id\": 11,\n    \"length\": 4266.56071139,\n    \"width\": 547199.177921147,\n    \"height\": 158.77541,\n    \"measurement_class_id\": 19,\n    \"status\": 2,\n    \"viewed\": 2,\n    \"container_capacity\": 2,\n    \"req_container\": 13,\n    \"purchase_price\": 67.1010552,\n    \"viewed_month\": 14,\n    \"viewed_quartal\": 11,\n    \"viewed_year\": 7,\n    \"heureka\": \"veniam\",\n    \"heureka_cat\": \"animi\",\n    \"heureka_name\": \"assumenda\",\n    \"warranty\": 2,\n    \"sold_quartal\": 4,\n    \"conversion_quartal\": 16715.4386402,\n    \"free_shipping\": 8,\n    \"domains\": \"a\",\n    \"color1\": \"culpa\",\n    \"color2\": \"autem\",\n    \"color3\": \"ut\",\n    \"marketing_domain\": \"optio\",\n    \"raw_name\": \"voluptatem\",\n    \"zasilkovna_enabled\": 19,\n    \"condition\": 13,\n    \"erotic\": 11,\n    \"language\": \"ad\",\n    \"name\": \"rerum\",\n    \"meta_description\": \"nihil\",\n    \"meta_keywords\": \"incidunt\",\n    \"description\": \"quibusdam\",\n    \"intro\": \"non\"\n}"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the specified product.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "products\/:product",
+                            "query": [],
+                            "variable": [
+                                {
+                                    "id": "product",
+                                    "key": "product",
+                                    "value": "2408",
+                                    "description": "product id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified product in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "products\/:product",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified product from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "products\/:product",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "general",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display a listing of order histories.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/history",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store a newly created order history in storage",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/history",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the specified order history.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/history\/:history",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified order history in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/history\/:history",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified order history from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/history\/:history",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display a listing of the resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products\/:product\/moves",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Store a newly created resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products\/:product\/moves",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Display the specified resource.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products\/:product\/moves\/:move",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Update the specified resource in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products\/:product\/moves\/:move",
+                            "query": []
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Remove the specified resource from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "orders\/:order\/products\/:product\/moves\/:move",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        }
+    ]
+}

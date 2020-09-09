@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ada0ff6c568e8030c3b2d80fe10ab238",
+    "content-hash": "bcf81715b3e95c0d8567a582fed6d28c",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -374,6 +374,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -420,6 +421,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -3623,16 +3625,16 @@
         },
         {
             "name": "mpociot/laravel-apidoc-generator",
-            "version": "4.4.1",
+            "version": "4.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpociot/laravel-apidoc-generator.git",
-                "reference": "3366c4393d2b9032ca1eddf142644d211c8ea540"
+                "reference": "9015d39020dc1d7e80b0cd012bc1e999fd2542ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpociot/laravel-apidoc-generator/zipball/3366c4393d2b9032ca1eddf142644d211c8ea540",
-                "reference": "3366c4393d2b9032ca1eddf142644d211c8ea540",
+                "url": "https://api.github.com/repos/mpociot/laravel-apidoc-generator/zipball/9015d39020dc1d7e80b0cd012bc1e999fd2542ca",
+                "reference": "9015d39020dc1d7e80b0cd012bc1e999fd2542ca",
                 "shasum": ""
             },
             "require": {
@@ -3646,16 +3648,14 @@
                 "mpociot/reflection-docblock": "^1.0.1",
                 "nunomaduro/collision": "^3.0|^4.0",
                 "php": ">=7.2.0",
-                "ramsey/uuid": "^3.8",
+                "ramsey/uuid": "^3.8|^4.0",
                 "symfony/var-exporter": "^4.0|^5.0"
             },
             "require-dev": {
-                "dingo/api": "^2.3.0",
                 "dms/phpunit-arraysubset-asserts": "^0.1.0",
                 "laravel/lumen-framework": "^5.7|^6.0|^7.0",
-                "league/fractal": "^0.17.0",
-                "mockery/mockery": "^1.2.0",
-                "orchestra/testbench": "^3.7|^4.0",
+                "league/fractal": "^0.19.0",
+                "orchestra/testbench": "^3.7|^4.0|^5.0",
                 "phpstan/phpstan": "^0.11.15",
                 "phpunit/phpunit": "^8.0"
             },
@@ -3695,7 +3695,7 @@
                 "documentation",
                 "laravel"
             ],
-            "time": "2020-03-11T19:21:42+00:00"
+            "time": "2020-05-28T14:10:08+00:00"
         },
         {
             "name": "mpociot/reflection-docblock",
