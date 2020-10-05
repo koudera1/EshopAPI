@@ -1,24 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Order_product extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_order';
+    protected $table = 'oc_order_product';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'order_id';
+    protected $primaryKey = 'order_product_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -33,16 +33,5 @@ class Order extends Model
      * @var array
      */
     protected $guarded = [];
-
-
-    public function history()
-    {
-        return $this->hasMany('App\OrderHistory', 'order_id');
-    }
-
-    public function products()
-    {
-        return $this->hasMany('App\Order_product', 'order_id');
-    }
 
 }

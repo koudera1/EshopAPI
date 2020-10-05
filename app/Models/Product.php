@@ -1,24 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order_product extends Model
+class Product extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_order_product';
+    protected $table = 'oc_product';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'order_product_id';
+    protected $primaryKey = 'product_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -33,5 +33,4 @@ class Order_product extends Model
      * @var array
      */
     protected $guarded = [];
-
 }

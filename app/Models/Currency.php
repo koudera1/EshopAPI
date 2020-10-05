@@ -1,24 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Postcz_numbering extends Model
+class Currency extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'postcz_numbering';
+    protected $table = 'oc_currency';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'min';
+    protected $primaryKey = 'currency_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -33,4 +33,15 @@ class Postcz_numbering extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetEuroValue($query)
+    {
+        return $query->where('code','EUR')->value('value');
+    }
 }

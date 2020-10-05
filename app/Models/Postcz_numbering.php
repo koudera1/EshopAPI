@@ -1,24 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order_product_move extends Model
+class Postcz_numbering extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_order_product_move';
+    protected $table = 'postcz_numbering';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'oc_order_product_move_id';
+    protected $primaryKey = 'min';
 
     /**
      * Indicates if the model should be timestamped.

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Order;
-use App\Order_history;
-use App\Product;
-use App\Order_product;
-use App\Currency;
-use App\Order_product_move;
-use App\Order_total;
+use App\Models\Order;
+use App\Models\Order_history;
+use App\Models\Product;
+use App\Models\Order_product;
+use App\Models\Currency;
+use App\Models\Order_product_move;
+use App\Models\Order_total;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -27,6 +27,7 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Order::class);
         return Cache::remember('orders', 5, function () {
             return Order
                 ::leftjoin('oc_order_status', 'oc_order.order_status_id', '=', 'oc_order_status.order_status_id')
@@ -133,6 +134,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        $this->authorize('view', $order);
         $id = $order->order_id;
         return Cache::remember('order' . $id, 5, function () use ($id) {
             return Order::leftjoin('oc_order_history', 'oc_order.order_id', '=', 'oc_order_history.order_id')
@@ -168,7 +170,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-
+        $this->authorize('updateByAdminOrCustomer', $order);
         if($order->delete())
         {
             if(Order_history::where('order_id', $order->order_id)->delete())
@@ -253,14 +255,17 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+        $this->authorize('updateByAdminOrCustomer', $order);
         $ret_array = [];
         if ($request->has('domain')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('domain' => $order->update([
                 'domain' => $request->input('domain'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('customer_id')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('customer_id' => $order->update([
                 'customer_id' => $request->input('customer_id'),
                 'date_modified' => date("Y-m-d H:i:s")
@@ -318,6 +323,7 @@ class OrderController extends Controller
             ]));
         }
         if ($request->has('order_status')) {
+            $this->authorize('updateByAdmin', $order);
             $osid = DB::table('oc_order_status')->where('name', $request->input('order_status'))
                 ->value('order_status_id');
             $ret_array += array('order_status' => $order->update([
@@ -339,12 +345,14 @@ class OrderController extends Controller
             ]));
         }
         if ($request->has('payment_status')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('payment_status' => $order->update([
                 'payment_status' => $request->input('payment_status'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('referrer')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('referrer' => $order->update([
                 'referrer' => $request->input('referrer'),
                 'date_modified' => date("Y-m-d H:i:s")
@@ -405,36 +413,42 @@ class OrderController extends Controller
             ]));
         }
         if ($request->has('ip')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('ip' => $order->update([
                 'ip' => $request->input('ip'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('reason')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('reason' => $order->update([
                 'reason' => $request->input('reason'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('wrong_order_id')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('wrong_order_id' => $order->update([
                 'wrong_order_id' => $request->input('wrong_order_id'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('competition')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('competition' => $order->update([
                 'competition' => $request->input('competition'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('euVAT')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('euVAT' => $order->update([
                 'euVAT' => $request->input('euVAT'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('viewed')) {
+            $this->authorize('updateByAdmin', $order);
             $ret_array += array('viewed' => $order->update([
                 'viewed' => $request->input('viewed'),
                 'date_modified' => date("Y-m-d H:i:s")
@@ -603,6 +617,7 @@ class OrderController extends Controller
      */
     public function getAddresses(Order $order)
     {
+        $this->authorize('view', $order);
         return Order::select('shipping_firstname', 'shipping_lastname', 'shipping_company', 'shipping_address_1',
             'shipping_address_2', 'shipping_city', 'shipping_postcode', 'shipping_zone', 'shipping_zone_id',
             'shipping_country', 'shipping_country_id', 'shipping_address_format',

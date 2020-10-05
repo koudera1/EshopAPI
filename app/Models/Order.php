@@ -1,24 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Currency extends Model
+class Order extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_currency';
+    protected $table = 'oc_order';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'currency_id';
+    protected $primaryKey = 'order_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -34,14 +34,15 @@ class Currency extends Model
      */
     protected $guarded = [];
 
-    /**
-     * Scope a query to only include popular users.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeGetEuroValue($query)
+
+    public function history()
     {
-        return $query->where('code','EUR')->value('value');
+        return $this->hasMany('App\OrderHistory', 'order_id');
     }
+
+    public function products()
+    {
+        return $this->hasMany('App\Order_product', 'order_id');
+    }
+
 }

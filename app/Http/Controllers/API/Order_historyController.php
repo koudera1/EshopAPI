@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Order_history;
-use App\Order;
+use App\Models\Order_history;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class Order_historyController extends Controller

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Order;
-use App\Order_product;
-use App\Order_product_move;
-use App\Order_total;
-use App\Product;
+use App\Models\Order;
+use App\Models\Order_product;
+use App\Models\Order_product_move;
+use App\Models\Order_total;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Boolean;
 

@@ -2,30 +2,41 @@
 
 namespace Tests\Feature;
 
-use App\Geis_numbering;
-use App\Order_history;
-use App\Postcz_numbering;
-use App\Product;
+use App\Models\Customer;
+use App\Models\Geis_numbering;
+use App\Models\User;
+use App\Models\Order_history;
+use App\Models\Postcz_numbering;
+use App\Models\Product;
 use Tests\TestCase;
 use App\Http\Controllers\API\OrderController;
 use Illuminate\Support\Facades\DB;
-use App\Order;
-use App\Order_product;
+use App\Models\Order;
+use App\Models\Order_product;
 use Illuminate\Http\Request;
 
 class TestOrderController extends TestCase
 {
-    public $oid;
+    public function getNextId($table)
+    {
+        $statement = DB::select("SHOW TABLE STATUS LIKE " . '\'' . $table . '\'');
+        return $statement[0]->Auto_increment;
+    }
+
+    public $oid, $user;
     protected function setUp() : void
     {
         parent::setUp();
+        $this->user = User::find(1);
         $this->oid = Order::max('order_id');
     }
 
     public function testStoreProduct1()
     {
-        $pid = Product::max('product_id') + 1;
-        $response = $this->postJson('/products',
+        $pid = $this->getNextId('oc_product');
+        $response = $this
+            ->actingAs($this->user)
+            ->postJson('/products',
             [
                 "category_id" => 202,
                 "category_id2" => 312,
@@ -144,9 +155,9 @@ class TestOrderController extends TestCase
     public function testStoreOrder()
     {
         $pid = Product::max('product_id');
-        $oid = Order::max('order_id') + 1;
-        $opid = Order_product::max('order_product_id') + 1;
-        $response = $this->postJson('/orders',
+        $oid = $this->getNextId('oc_order');
+        $opid = $this->getNextId('oc_order_product');
+        $response = $this->actingAs($this->user)->postJson('/orders',
             [
                 'domain' => 'www.milka.cz',
                 'customer_id' => 0,
@@ -218,7 +229,8 @@ class TestOrderController extends TestCase
 
     public function testStoreOrder_product1()
     {
-        $response = $this->postJson('/products',
+        $response = $this->actingAs($this->user)->withSession(['ip_address' => '90.179.92.144'])
+            ->postJson('/products',
             [
                 "category_id" => 202,
                 "category_id2" => 312,
@@ -273,9 +285,10 @@ class TestOrderController extends TestCase
             ]
         );
 
+        $response->assertStatus(200);
         $product = Product::find($response->getData()->product_id);
         $oid = Order::max('order_id');
-        $this->postJson('/orders/'.$this->oid.'/products',
+        $this->withSession(['ip_address' => '90.179.92.144'])->postJson('/orders/'.$this->oid.'/products',
             [
                 'order_id' => $oid,
                 'product_id' => $product->product_id,
@@ -335,7 +348,7 @@ class TestOrderController extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/' . $this->oid . '/products/' . $opid,
             [
                 'quantity' => 9
             ]);
@@ -379,7 +392,7 @@ class TestOrderController extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $opid,
             [
                 'quantity' => 3
             ]);
@@ -421,9 +434,16 @@ class TestOrderController extends TestCase
 
     public function testPutQuantity3()
     {
+        Customer::updateOrInsert(
+            ['customer_id' => 2552],
+            ['ip' => '90.179.92.144']
+        );
+        $customer = Customer::find(2552);
+
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])
+            ->actingAs($customer)->putJson('/orders/' . $this->oid . '/products/' . $opid,
             [
                 'quantity' => 6
             ]);
@@ -467,7 +487,12 @@ class TestOrderController extends TestCase
 
     public function testStoreOrder_product2()
     {
-        $response = $this->postJson('/products',
+        Customer::updateOrInsert(
+            ['customer_id' => 2552],
+            ['ip' => '90.179.92.144']
+        );
+        $customer = Customer::find(2552);
+        $response = $this->actingAs($this->user)->postJson('/products',
             [
                 "category_id" => 202,
                 "category_id2" => 312,
@@ -522,9 +547,12 @@ class TestOrderController extends TestCase
             ]
         );
 
+        $response->assertStatus(200);
         $product = Product::find($response->getData()->product_id);
         $oid = Order::max('order_id');
-        $this->postJson('/orders/'.$this->oid.'/products',
+        $opid = $this->getNextId('oc_order_product');
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])
+            ->postJson('/orders/'.$this->oid.'/products',
             [
                 'order_id' => $oid,
                 'product_id' => $product->product_id,
@@ -536,8 +564,10 @@ class TestOrderController extends TestCase
                 'total' => $product->price * 6
             ]
         );
-
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+            ->assertJson([
+                'order_product_id' => $opid
+            ]);
         $this->assertDatabaseHas('oc_order_product', [
             'order_id' => $oid,
             'product_id' => $product->product_id,
@@ -584,7 +614,7 @@ class TestOrderController extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $opid,
             [
                 'quantity' => 9
             ]);
@@ -629,7 +659,7 @@ class TestOrderController extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $opid,
             [
                 'quantity' => 3
             ]);
@@ -674,7 +704,7 @@ class TestOrderController extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $opid,
             [
                 'quantity' => 6
             ]);
@@ -718,8 +748,8 @@ class TestOrderController extends TestCase
 
     public function testStoreOrder_history()
     {
-        $id = Order_history::max('order_history_id') + 1;
-        $response = $this->postJson('/orders/'.$this->oid.'/history',
+        $id = $this->getNextId('oc_order_history');
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->postJson('/orders/'.$this->oid.'/history',
             [
                 'order_id' => $this->oid,
                 'order_status_id' => 1,
@@ -734,7 +764,7 @@ class TestOrderController extends TestCase
 
     public function testPutAddresses()
     {
-        $response = $this->putJson('/orders/'.$this->oid,
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/'.$this->oid,
             [
                 'shipping_firstname' => 'Pavel',
                 'shipping_lastname' => 'Novák',
@@ -822,7 +852,7 @@ class TestOrderController extends TestCase
 
     public function testGetAddresses()
     {
-        $response = $this->get('/orders/'.$this->oid.'/addresses');
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->get('/orders/'.$this->oid.'/addresses');
         $response->assertStatus(200)
             ->assertJson(
             [
@@ -856,14 +886,14 @@ class TestOrderController extends TestCase
 
     public function testPutInvoice()
     {
-        $response = $this->put('/orders/' . $this->oid . '/invoice');
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->put('/orders/' . $this->oid . '/invoice');
         $response->assertStatus(200);
         $this->assertEquals('true', $response->baseResponse->content());
     }
 
     public function testPutDomain()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'domain' => 'www.moje-medisana.cz'
             ]);
@@ -878,7 +908,7 @@ class TestOrderController extends TestCase
 
     public function testPutCustomer_id()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'customer_id' => 0
             ]);
@@ -893,7 +923,7 @@ class TestOrderController extends TestCase
 
     public function testPutCurrency()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/' . $this->oid,
             [
                 'currency' => 'CZK'
             ]);
@@ -910,7 +940,7 @@ class TestOrderController extends TestCase
 
     public function testPutLanguage()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/' . $this->oid,
             [
                 'language' => 'Čeština'
             ]);
@@ -925,7 +955,7 @@ class TestOrderController extends TestCase
 
     public function testPutFirstname()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'firstname' => 'Jan'
             ]);
@@ -940,7 +970,7 @@ class TestOrderController extends TestCase
 
     public function testPutLastname()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'lastname' => 'Veverka'
             ]);
@@ -955,7 +985,7 @@ class TestOrderController extends TestCase
 
     public function testPutCompany()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'company' => 'Škoda'
             ]);
@@ -970,7 +1000,7 @@ class TestOrderController extends TestCase
 
     public function testPutComment()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'comment' => 'Super.'
             ]);
@@ -985,7 +1015,7 @@ class TestOrderController extends TestCase
 
     public function testPutOrder_status()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'order_status' => 'Odesláno dopravcem',
                 'notify' => 1,
@@ -1009,7 +1039,7 @@ class TestOrderController extends TestCase
 
     public function testPutShipping_method()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'shipping_method' => 'Geis'
             ]);
@@ -1025,7 +1055,7 @@ class TestOrderController extends TestCase
 
     public function testPutPayment_status()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'payment_status' => 1
             ]);
@@ -1041,7 +1071,7 @@ class TestOrderController extends TestCase
 
     public function testPutReferrer()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'referrer' => 'Google'
             ]);
@@ -1056,7 +1086,7 @@ class TestOrderController extends TestCase
 
     public function testPutAgree_gdpr()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'agree_gdpr' => 1
             ]);
@@ -1071,7 +1101,7 @@ class TestOrderController extends TestCase
 
     public function testPutPayment_method()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'payment_method' => 'Hotově'
             ]);
@@ -1086,7 +1116,7 @@ class TestOrderController extends TestCase
 
     public function testPutEmail()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'email' => 'o@gmail.com'
             ]);
@@ -1101,7 +1131,7 @@ class TestOrderController extends TestCase
 
     public function testPutTelephone()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'telephone' => '+420555111444'
             ]);
@@ -1116,7 +1146,7 @@ class TestOrderController extends TestCase
 
     public function testPutFax()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'fax' => '5adsfa'
             ]);
@@ -1131,7 +1161,7 @@ class TestOrderController extends TestCase
 
     public function testPutRegNum()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'regNum' => '15611564'
             ]);
@@ -1146,7 +1176,7 @@ class TestOrderController extends TestCase
 
     public function testPutTaxRegNum()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'taxRegNum' => '15611564'
             ]);
@@ -1161,7 +1191,7 @@ class TestOrderController extends TestCase
 
     public function testPutCoupon_id()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'coupon_id' => '15664'
             ]);
@@ -1176,7 +1206,7 @@ class TestOrderController extends TestCase
 
     public function testPutShipping_gp()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'shipping_gp' => '5888'
             ]);
@@ -1191,7 +1221,7 @@ class TestOrderController extends TestCase
 
     public function testPutIp()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'ip' => '165.154.213.546'
             ]);
@@ -1206,7 +1236,7 @@ class TestOrderController extends TestCase
 
     public function testPutReason()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'reason' => 'Nezaplatil.'
             ]);
@@ -1221,7 +1251,7 @@ class TestOrderController extends TestCase
 
     public function testPutWrong_order_id()
     {
-        $response = $this->putJson('/orders/' . $this->oid ,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid ,
             [
                 'wrong_order_id' => '468'
             ]);
@@ -1236,7 +1266,7 @@ class TestOrderController extends TestCase
 
     public function testPutCompetition()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'competition' => 0
             ]);
@@ -1251,7 +1281,7 @@ class TestOrderController extends TestCase
 
     public function testPutEuVAT()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'euVAT' => 0
             ]);
@@ -1266,7 +1296,7 @@ class TestOrderController extends TestCase
 
     public function testPutViewed()
     {
-        $response = $this->putJson('/orders/' . $this->oid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
                 'viewed' => 1
             ]);
@@ -1567,7 +1597,7 @@ class TestOrderController extends TestCase
     public function testShowOrder()
     {
         Order::where('order_id',$this->oid)->update(['total' => 3000]);
-        $response = $this->get('/orders/'.$this->oid);
+        $response = $this->withSession(['ip_address' => '165.154.213.546'])->get('/orders/'.$this->oid);
         $response->assertStatus(200)
             ->assertJson(
                 [
@@ -1597,7 +1627,7 @@ class TestOrderController extends TestCase
     public function testIndexOrders()
     {
         $count = Order::count();
-        $response = $this->get('/orders');
+        $response = $this->actingAs($this->user)->get('/orders');
         $response->assertStatus(200)
             ->assertJsonCount($count);
     }
@@ -1606,7 +1636,7 @@ class TestOrderController extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id', $opid)->value('product_id');
-        $response = $this->delete('/orders/'.$this->oid.'/products/'.$opid);
+        $response = $this->withSession(['ip_address' => '165.154.213.546'])->delete('/orders/'.$this->oid.'/products/'.$opid);
         $response->assertStatus(200);
         $this->assertDatabaseMissing('oc_order_product', [
             'order_product_id' => $opid,
@@ -1648,7 +1678,7 @@ class TestOrderController extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id', $opid)->value('product_id');
-        $response = $this->delete('/orders/'.$this->oid.'/products/'.$opid);
+        $response = $this->actingAs($this->user)->delete('/orders/'.$this->oid.'/products/'.$opid);
 
         $response->assertStatus(200);
         $this->assertDatabaseMissing('oc_order_product', [
@@ -1704,7 +1734,7 @@ class TestOrderController extends TestCase
 
     public function testDeleteOrder()
     {
-        $response = $this->delete('/orders/'.$this->oid);
+        $response = $this->actingAs($this->user)->delete('/orders/'.$this->oid);
         $response->assertStatus(200);
         $this->assertDatabaseMissing('oc_order', ['order_id' => $this->oid])
             ->assertDatabaseMissing('oc_order_history', ['order_id' => $this->oid])

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Geis_numbering;
+use App\Models\Geis_numbering;
 use App\Http\Controllers\Controller;
-use App\Order;
-use App\Postcz_numbering;
+use App\Models\Order;
+use App\Models\Postcz_numbering;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SoapClient;

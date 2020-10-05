@@ -174,7 +174,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class
+        App\Providers\FortifyServiceProvider::class,
+        App\Providers\JetstreamServiceProvider::class,
+        //Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class
 
     ],
 

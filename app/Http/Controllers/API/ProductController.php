@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Order_product;
-use App\Product;
+use App\Models\Order_product;
+use App\Models\Product;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -88,6 +88,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Product::class);
         $id = Product::insertGetId([
             'category_id' => $request->input('category_id'),
             'category_id2' => $request->input('category_id2'),
@@ -227,6 +228,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $this->authorize('update', $product);
         $ret_array = [];
         if ($request->has('category_id')) {
             $ret_array += array('category_id' => $product->update([

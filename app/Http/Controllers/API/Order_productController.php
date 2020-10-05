@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Order_history;
-use App\Order_product;
-use App\Order;
-use App\Order_product_move;
-use App\Order_total;
-use App\Product;
+use App\Models\Order_history;
+use App\Models\Order_product;
+use App\Models\Order;
+use App\Models\Order_product_move;
+use App\Models\Order_total;
+use App\Models\Product;
 
 use Exception as ExceptionAlias;
 use Illuminate\Http\Request;
@@ -28,6 +28,7 @@ class Order_productController extends Controller
      */
     public function index(Order $order)
     {
+        $this->authorize('accessByAdminOrCustomer', $order);
         return $order->products()->get();
     }
 
@@ -52,6 +53,7 @@ class Order_productController extends Controller
      */
     public function store(Request $request, Order $order)
     {
+      //  $this->authorize('updateByAdminOrCustomer', $order);
         $product = Product::where('product_id', $request->input('product_id'))->first();
         $opid = Order_product::insertGetId(
             [
@@ -113,6 +115,7 @@ class Order_productController extends Controller
      */
     public function update(Request $request, Order $order, $opid)
     {
+        $this->authorize('updateByAdminOrCustomer', $order);
         $order_product = Order_product::find($opid);
         $bool1 = $bool2 = false;
         $ret_array = [];
@@ -188,6 +191,7 @@ class Order_productController extends Controller
      */
     public function destroy(Order $order, $opid)
     {
+        $this->authorize('updateByAdminOrCustomer', $order);
         $order_product = Order_product::find($opid);
 
         $product = Product::where('product_id', $order_product->product_id)->first();

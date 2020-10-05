@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Order;
-use App\Order_history;
-use App\Order_product_move;
-use App\Product;
+use App\Models\Order;
+use App\Models\Order_history;
+use App\Models\Order_product_move;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

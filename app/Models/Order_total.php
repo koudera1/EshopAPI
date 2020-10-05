@@ -1,24 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Geis_numbering extends Model
+class Order_total extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'geis_numbering';
+    protected $table = 'oc_order_total';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'min';
+    protected $primaryKey = 'order_total_id';
 
     /**
      * Indicates if the model should be timestamped.
