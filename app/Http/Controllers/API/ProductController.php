@@ -88,7 +88,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Product::class);
+        $this->authorize('modify', Product::class);
         $id = Product::insertGetId([
             'category_id' => $request->input('category_id'),
             'category_id2' => $request->input('category_id2'),
@@ -228,7 +228,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $this->authorize('update', $product);
+        $this->authorize('modify', Product::class);
         $ret_array = [];
         if ($request->has('category_id')) {
             $ret_array += array('category_id' => $product->update([
@@ -517,6 +517,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('modify', Product::class);
         return response()->json($product->delete());
     }
 }

@@ -77,14 +77,14 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => User::class,
-        ],
-        'customers' => [
-            'driver' => 'eloquent',
-            'model' => Customer::class,
-        ]
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => User::class,
+    ],
+    'customers' => [
+        'driver' => 'eloquent',
+        'model' => Customer::class,
+    ]
 
         // 'users' => [
         //     'driver' => 'database',

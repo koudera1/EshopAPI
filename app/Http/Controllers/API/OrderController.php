@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Order_history;
 use App\Models\Product;
@@ -27,7 +28,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Order::class);
+        /*dd(unserialize(DB::table('oc_user_group')->where('user_group_id',1)
+            ->value('permission')));*/
+        $this->authorize('accessByAdmin', Order::class);
         return Cache::remember('orders', 5, function () {
             return Order
                 ::leftjoin('oc_order_status', 'oc_order.order_status_id', '=', 'oc_order_status.order_status_id')
@@ -73,6 +76,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $customer = Customer::find($request->input('customer_id'));
         $oid = Order::insertGetId(
             [
                 'domain' => $request->input('domain'),
@@ -86,15 +90,46 @@ class OrderController extends Controller
                 'value' => $request->input('language') === 'Čeština' ? 1 : 0.03858025,
                 'date_modified' => date("Y-m-d H:i:s"),
                 'date_added' => date("Y-m-d H:i:s"),
-                'ip' => $request->input('ip'),
+                'ip' => $request->input('customer_id') == 0 ? $request->input('ip') : $customer->ip,
                 'referrer' => $request->input('referrer'),
             ]
         );
 
+        if($request->input('customer_id') != 0)
+        {
+            $address = DB::table('oc_address')->find($customer->address_id);
+            Order::where('order_id', $oid)->update(
+                [
+                    'firstname' => $customer->firstname,
+                    'lastname' => $customer->lastname,
+                    'email' => $customer->email,
+                    'telephone' => $customer->telephone,
+                    'fax' => $customer->fax,
+                    'shipping_company' => $address->company,
+                    'payment_company' => $address->company,
+                    'shipping_address_1' => $address->addres_1,
+                    'shipping_address_2' => $address->addres_2,
+                    'payment_address_1' => $address->addres_1,
+                    'payment_address_2' => $address->addres_2,
+                    'shipping_postcode' => $address->postcode,
+                    'payment_postcode' => $address->postcode,
+                    'shipping_city' => $address->city,
+                    'payment_city' => $address->city,
+                    'shipping_country_id' => $address->country_id,
+                    'payment_country_id' => $address->country_id,
+                    'shipping_country' => DB::table('oc_country')
+                        ->where('country_id',$address->country_id)->value('name'),
+                    'shipping_country' => DB::table('oc_country')
+                        ->where('country_id',$address->country_id)->value('name'),
+                    'shipping_zone_id' => $address->zone_id,
+                    'payment_zone_id' => $address->zone_id
+                ]
+            );
+        }
+
         $order = Order::find($oid);
         $product = Product::find($request->input('product_id'));
-        $opmc = new Order_product_moveController();
-        $opmc->updateStock($order, $product, $request->input('quantity'));
+        Order_product_moveController::updateStock($order, $product, $request->input('quantity'));
 
         $opid = Order_product::insertGetId(
             [
@@ -114,8 +149,7 @@ class OrderController extends Controller
         );
 
         $order_product = Order_product::find($opid);
-        $otc = new Order_totalController();
-        $otc->insertOrUpdate($order, 1);
+        Order_totalController::insertOrUpdate($order, 1);
 
         return response()->json(
             [
@@ -134,7 +168,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $this->authorize('view', $order);
+        $this->authorize('accessByAdminOrCustomer', $order);
         $id = $order->order_id;
         return Cache::remember('order' . $id, 5, function () use ($id) {
             return Order::leftjoin('oc_order_history', 'oc_order.order_id', '=', 'oc_order_history.order_id')
@@ -173,17 +207,15 @@ class OrderController extends Controller
         $this->authorize('updateByAdminOrCustomer', $order);
         if($order->delete())
         {
-            if(Order_history::where('order_id', $order->order_id)->delete())
+            if(Order_product::where('order_id', $order->order_id)->delete())
             {
-                if(Order_product::where('order_id', $order->order_id)->delete())
+                if(Order_product_move::where('order_id', $order->order_id)->delete())
                 {
-                    if(Order_product_move::where('order_id', $order->order_id)->delete())
+                    if(Order_total::where('order_id', $order->order_id)->delete())
                     {
-                        if(Order_total::where('order_id', $order->order_id)->delete())
-                        {
+                        Order_history::where('order_id', $order->order_id)->delete();
                             return response()->json(true);
                         }
-                    }
                 }
             }
         }
@@ -617,7 +649,7 @@ class OrderController extends Controller
      */
     public function getAddresses(Order $order)
     {
-        $this->authorize('view', $order);
+        $this->authorize('accessByAdminOrCustomer', $order);
         return Order::select('shipping_firstname', 'shipping_lastname', 'shipping_company', 'shipping_address_1',
             'shipping_address_2', 'shipping_city', 'shipping_postcode', 'shipping_zone', 'shipping_zone_id',
             'shipping_country', 'shipping_country_id', 'shipping_address_format',
@@ -807,7 +839,7 @@ class OrderController extends Controller
         } else return $base;
     }
 
-    public function domain_setupValue($domain_setup, $free_shipping, $total)
+    public static function domain_setupValue($domain_setup, $free_shipping, $total)
     {
         $arr = explode(",", $domain_setup);
         foreach ($arr as $el) {

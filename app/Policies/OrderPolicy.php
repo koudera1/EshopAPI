@@ -11,42 +11,6 @@ class OrderPolicy extends Policy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  $user
-     * @return mixed
-     */
-    public function viewAny($user = null)
-    {
-        return $this->authorize($user,'sale/order','access');
-    }
-
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  $user
-     * @param  \App\Models\Order  $order
-     * @return mixed
-     */
-    public function view($user = null, $order)
-    {
-        return $this->authorize($user,'sale/order','access', $order);
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  $user
-     * @param  \App\Models\Order  $order
-     * @return mixed
-     */
-    public function accessOrModifyByCustomer($user = null, Order $order)
-    {
-        if(session('ip_address') === $order->ip)
-            return true;
-        else return false;
-    }
 
     /**
      * Determine whether the user can update the model.
@@ -82,6 +46,17 @@ class OrderPolicy extends Policy
     public function updateByAdmin($user = null, Order $order)
     {
         return $this->authorize($user,'sale/order','modify');
+    }
+
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  $user
+     * @return mixed
+     */
+    public function accessByAdmin($user = null)
+    {
+        return $this->authorize($user,'sale/order','access');
     }
 
 }

@@ -62,6 +62,7 @@ class PackageController extends Controller
      */
     public function store(Request $request, Order $order)
     {
+        $this->authorize('updateByAdminOrCustomer', $order);
         $date = date("Y-m-d H:i:s");
         if ($order->shipping_method == "Geis") {
             $delivery_id =  Geis_numbering::select('min')->where('is_free', 1)->first();

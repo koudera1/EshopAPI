@@ -53,7 +53,7 @@ class Order_productController extends Controller
      */
     public function store(Request $request, Order $order)
     {
-      //  $this->authorize('updateByAdminOrCustomer', $order);
+        $this->authorize('updateByAdminOrCustomer', $order);
         $product = Product::where('product_id', $request->input('product_id'))->first();
         $opid = Order_product::insertGetId(
             [

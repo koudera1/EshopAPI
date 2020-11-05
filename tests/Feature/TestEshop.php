@@ -15,7 +15,7 @@ use App\Models\Order;
 use App\Models\Order_product;
 use Illuminate\Http\Request;
 
-class TestOrderController extends TestCase
+class TestEshop extends TestCase
 {
     public function getNextId($table)
     {
@@ -150,6 +150,66 @@ class TestOrderController extends TestCase
                 'description' => '&lt;h2&gt;',
                 'intro' => '&lt;p&gt;'
             ]);
+    }
+
+    public function testUnauthorizedModifyProduct()
+    {
+        $response = $this
+            ->postJson('/products',
+                [
+                    "category_id" => 202,
+                    "category_id2" => 312,
+                    "model" => "88396",
+                    "sku" => "4015588883965",
+                    "location" => "",
+                    "quantity" => 1,
+                    "internal_quantity" => 4,
+                    "stock_status_id" => 14,
+                    "image" => "data/medisana/masaz/nohou/masazni-pristroj-na-nohy-a-zada-medisana-fm-883-88396.jpg",
+                    "manufacturer_id" => 6,
+                    "shipping" => 1,
+                    "price" => 100,
+                    "tax_class_id" => 20,
+                    "date_available" => "2019-05-29",
+                    "weight" => "0.00",
+                    "weight_class_id" => 1,
+                    "length" => "0.00",
+                    "width" => "0.00",
+                    "height" => "0.00",
+                    "measurement_class_id" => 1,
+                    "status" => 1,
+                    "viewed" => 0,
+                    "container_capacity" => 0,
+                    "req_container" => 0,
+                    "purchase_price" => 80,
+                    "viewed_month" => 129,
+                    "viewed_quartal" => 152,
+                    "viewed_year" => 152,
+                    "heureka" => "",
+                    "heureka_cat" => "",
+                    "heureka_name" => "",
+                    "warranty" => 24,
+                    "sold_quartal" => 1,
+                    "conversion_quartal" => "0.00658",
+                    "free_shipping" => 1,
+                    "domains" => "",
+                    "color1" => "ffffff",
+                    "color2" => "000000",
+                    "color3" => "",
+                    "marketing_domain" => "",
+                    "raw_name" => "",
+                    "zasilkovna_enabled" => 1,
+                    "condition" => 1,
+                    "erotic" => 0,
+                    'language' => 'Čeština',
+                    'name' => 'Holicí strojek Thovt',
+                    'meta_description' => 'lanžetový holící strojek Remington F3790 Dual Flex Foil Shaver',
+                    'meta_keywords' => 'planžetový, holící strojek, Remington, Remington F3790, pánské strojky, holení, planžety',
+                    'description' => '&lt;h2&gt;',
+                    'intro' => '&lt;p&gt;'
+                ]
+            );
+        $response->assertStatus(403);
     }
 
     public function testStoreOrder()
@@ -342,6 +402,23 @@ class TestOrderController extends TestCase
             'value' => 1452,
             'sort_order' => 6
         ]);
+    }
+
+    public function testUnauthorizedUpdateByAdminOrCustomer()
+    {
+        $product = Product::find(Product::max('product_id'));
+        $response = $this->postJson('/orders/'.$this->oid.'/products',
+            [
+                'product_id' => $product->product_id,
+                'quantity' => 6,
+                'model' => $product->model,
+                'price' => $product->price,
+                'purchase_price' => $product->purchase_price,
+                'warranty' => $product->warranty,
+                'total' => $product->price * 6
+            ]
+        );
+        $response->assertStatus(403);
     }
 
     public function testPutQuantity1()
@@ -1068,6 +1145,14 @@ class TestOrderController extends TestCase
             ]);
     }
 
+    public function testUnauthorizedModifyByAdmin()
+    {
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/' . $this->oid,
+            [
+                'payment_status' => 1
+            ]);
+        $response->assertStatus(403);
+    }
 
     public function testPutReferrer()
     {
@@ -1312,7 +1397,7 @@ class TestOrderController extends TestCase
     public function testStoreGeisPackage()
     {
         $delivery_id =  Geis_numbering::select('min')->where('is_free', 1)->first();
-        $response = $this->postJson('/orders/'.$this->oid.'/packages',
+        $response = $this->actingAs($this->user)->postJson('/orders/'.$this->oid.'/packages',
             [
                 'cod' => 804.00,
                 'b2c' => 1,
@@ -1360,7 +1445,7 @@ class TestOrderController extends TestCase
         Order::where('order_id',$this->oid)->update(['shipping_method' => 'Česká pošta']);
         $delivery_id = Postcz_numbering::select('min')->where('is_free', 1)
             ->where('source',3)->first();
-        $response = $this->postJson('/orders/'.$this->oid.'/packages',
+        $response = $this->withSession(['ip_address' => '165.154.213.546'])->postJson('/orders/'.$this->oid.'/packages',
             [
                 'cod' => 804.00,
                 'commercial' => 0,
@@ -1406,7 +1491,7 @@ class TestOrderController extends TestCase
     public function testStoreZasilkovnaPackage()
     {
         Order::where('order_id',$this->oid)->update(['shipping_method' => 'Zásilkovna']);
-        $response = $this->postJson('/orders/'.$this->oid.'/packages',
+        $response = $this->withSession(['ip_address' => '165.154.213.546'])->postJson('/orders/'.$this->oid.'/packages',
             [
                 'cod' => 0,
                 'weight' => 0.618
@@ -1624,12 +1709,24 @@ class TestOrderController extends TestCase
             );
     }
 
+    public function testUnauthorizedAccessByAdminOrCustomer()
+    {
+        $response = $this->withSession(['ip_address' => '165.154.210.246'])->get('/orders/'.$this->oid);
+        $response->assertStatus(403);
+    }
+
     public function testIndexOrders()
     {
         $count = Order::count();
         $response = $this->actingAs($this->user)->get('/orders');
         $response->assertStatus(200)
             ->assertJsonCount($count);
+    }
+
+    public function testUnauthorizedAccessByAdmin()
+    {
+        $response = $this->withSession(['ip_address' => '165.154.210.246'])->get('/orders');
+        $response->assertStatus(403);
     }
 
     public function testDeleteOrder_product1()
@@ -1742,6 +1839,4 @@ class TestOrderController extends TestCase
             ->assertDatabaseMissing('oc_order_product_move', ['order_id' => $this->oid])
             ->assertDatabaseMissing('oc_order_total', ['order_id' => $this->oid]);
     }
-
-
 }

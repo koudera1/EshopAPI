@@ -47,7 +47,7 @@ class Order_product_moveController extends Controller
         ]));
     }
 
-    public function updateStock(Order $order, Product $product, $originalQuantity)
+    public static function updateStock(Order $order, Product $product, $originalQuantity)
     {
         $quantity = $product->internal_quantity - $originalQuantity;
         if($quantity <= 0)
@@ -80,7 +80,7 @@ class Order_product_moveController extends Controller
         else return false;
     }
 
-    public function lowerQuantityOfProducts(Product $product, Order_product_move $opm, $diff, bool $updateOpm = true)
+    public static function lowerQuantityOfProducts(Product $product, Order_product_move $opm, $diff, bool $updateOpm = true)
     {
         $bool1 = $bool2 = true;
         $ext_diff = $opm->quantity_ext - $diff;
