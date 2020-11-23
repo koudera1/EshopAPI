@@ -843,29 +843,23 @@ class TestEshop extends TestCase
     {
         $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/'.$this->oid,
             [
-                'shipping_firstname' => 'Pavel',
+                'shipping_firstname' => 'Pavel Sebastian',
                 'shipping_lastname' => 'Novák',
                 'shipping_company' => 'Hyundai',
-                'shipping_address_1' => 'Pálená 703',
+                'shipping_address_1' => 'Pálená 703/14',
                 'shipping_address_2' => '',
-                'shipping_city' => 'Jeseník',
-                'shipping_postcode' => '75501',
-                'shipping_zone' => '',
-                'shipping_zone_id' => '',
+                'shipping_city' => 'Lipová - Lázně',
+                'shipping_postcode' => '755 01',
                 'shipping_country' => 'Česká republika',
-                'shipping_country_id' => 56,
                 'shipping_address_format' => '',
-                'payment_firstname' => 'Pavel',
-                'payment_lastname' => 'Novák',
+                'payment_firstname' => 'Marie-Curie',
+                'payment_lastname' => 'Nováková Gijon',
                 'payment_company' => 'Hyundai',
-                'payment_address_1' => 'Pálená 703',
+                'payment_address_1' => 'Na poříčí 7',
                 'payment_address_2' => '',
                 'payment_city' => 'Jeseník',
                 'payment_postcode' => '75501',
-                'payment_zone' => '',
-                'payment_zone_id' => '',
                 'payment_country' => 'Česká republika',
-                'payment_country_id' => 56,
                 'payment_address_format' => ''
             ]);
         $response
@@ -879,10 +873,7 @@ class TestEshop extends TestCase
                     'shipping_address_2' => 'true',
                     'shipping_city' => 'true',
                     'shipping_postcode' => 'true',
-                    'shipping_zone' => 'true',
-                    'shipping_zone_id' => 'true',
                     'shipping_country' => 'true',
-                    'shipping_country_id' => 'true',
                     'shipping_address_format' => 'true',
                     'payment_firstname' => 'true',
                     'payment_lastname' => 'true',
@@ -891,40 +882,61 @@ class TestEshop extends TestCase
                     'payment_address_2' => 'true',
                     'payment_city' => 'true',
                     'payment_postcode' => 'true',
-                    'payment_zone' => 'true',
-                    'payment_zone_id' => 'true',
                     'payment_country' => 'true',
-                    'payment_country_id' => 'true',
                     'payment_address_format' => 'true'
                 ]
             );
         $this->assertDatabaseHas('oc_order',[
             'order_id' => $this->oid,
-            'shipping_firstname' => 'Pavel',
+            'shipping_firstname' => 'Pavel Sebastian',
             'shipping_lastname' => 'Novák',
             'shipping_company' => 'Hyundai',
-            'shipping_address_1' => 'Pálená 703',
+            'shipping_address_1' => 'Pálená 703/14',
             'shipping_address_2' => '',
-            'shipping_city' => 'Jeseník',
-            'shipping_postcode' => '75501',
-            'shipping_zone' => '',
-            'shipping_zone_id' => '',
+            'shipping_city' => 'Lipová - Lázně',
+            'shipping_postcode' => '755 01',
             'shipping_country' => 'Česká republika',
-            'shipping_country_id' => 56,
             'shipping_address_format' => '',
-            'payment_firstname' => 'Pavel',
-            'payment_lastname' => 'Novák',
+            'payment_firstname' => 'Marie-Curie',
+            'payment_lastname' => 'Nováková Gijon',
             'payment_company' => 'Hyundai',
-            'payment_address_1' => 'Pálená 703',
+            'payment_address_1' => 'Na poříčí 7',
             'payment_address_2' => '',
             'payment_city' => 'Jeseník',
             'payment_postcode' => '75501',
-            'payment_zone' => '',
-            'payment_zone_id' => '',
             'payment_country' => 'Česká republika',
-            'payment_country_id' => 56,
             'payment_address_format' => ''
         ]);
+    }
+
+    public function testPutWrongAddress()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'shipping_address_1' => 'J. \\§'
+            ]);
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['shipping_address_1' => 'Neplatná doručovací adresa.']);
+    }
+
+    public function testPutWrongCity()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'shipping_city' => 'Průhonice _'
+            ]);
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['shipping_city' => 'Neplatné doručovací město.']);
+    }
+
+    public function testPutWrongPostcode()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'shipping_postcode' => 'Jd725'
+            ]);
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['shipping_postcode' => 'Neplatné doručovací poštovní směrovací číslo.']);
     }
 
     public function testGetAddresses()
@@ -933,29 +945,23 @@ class TestEshop extends TestCase
         $response->assertStatus(200)
             ->assertJson(
             [
-                'shipping_firstname' => 'Pavel',
+                'shipping_firstname' => 'Pavel Sebastian',
                 'shipping_lastname' => 'Novák',
                 'shipping_company' => 'Hyundai',
-                'shipping_address_1' => 'Pálená 703',
+                'shipping_address_1' => 'Pálená 703/14',
                 'shipping_address_2' => '',
-                'shipping_city' => 'Jeseník',
-                'shipping_postcode' => '75501',
-                'shipping_zone' => '',
-                'shipping_zone_id' => '',
+                'shipping_city' => 'Lipová - Lázně',
+                'shipping_postcode' => '755 01',
                 'shipping_country' => 'Česká republika',
-                'shipping_country_id' => 56,
                 'shipping_address_format' => '',
-                'payment_firstname' => 'Pavel',
-                'payment_lastname' => 'Novák',
+                'payment_firstname' => 'Marie-Curie',
+                'payment_lastname' => 'Nováková Gijon',
                 'payment_company' => 'Hyundai',
-                'payment_address_1' => 'Pálená 703',
+                'payment_address_1' => 'Na poříčí 7',
                 'payment_address_2' => '',
                 'payment_city' => 'Jeseník',
                 'payment_postcode' => '75501',
-                'payment_zone' => '',
-                'payment_zone_id' => '',
                 'payment_country' => 'Česká republika',
-                'payment_country_id' => 56,
                 'payment_address_format' => ''
             ]
         );
@@ -1043,6 +1049,16 @@ class TestEshop extends TestCase
                 'order_id' => $this->oid,
                 'firstname' => 'Jan'
             ]);
+    }
+
+    public function testPutWrongFirstname()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'firstname' => 'Jan. \\§'
+            ]);
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['firstname' => 'Neplatné jméno.']);
     }
 
     public function testPutLastname()
@@ -1214,7 +1230,18 @@ class TestEshop extends TestCase
             ]);
     }
 
-    public function testPutTelephone()
+    public function testPutWrongEmail()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'email' => '51dgw'
+            ]);
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['email' => 'Neplatná emailová adresa.']);
+    }
+
+
+    public function testPutTelephone1()
     {
         $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
@@ -1227,6 +1254,41 @@ class TestEshop extends TestCase
                 'order_id' => $this->oid,
                 'telephone' => '+420555111444'
             ]);
+    }
+
+    public function testPutTelephone2()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'telephone' => '555 111 444'
+            ]);
+        $response->assertStatus(200)
+            ->assertJson(['telephone' => 'true']);
+        $this->assertDatabaseHas('oc_order',
+            [
+                'order_id' => $this->oid,
+                'telephone' => '555 111 444'
+            ]);
+    }
+
+    public function testPutWrongTelephone1()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'telephone' => '-420555111444'
+            ]);
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['telephone' => 'Neplatné telefonní číslo.']);
+    }
+
+    public function testPutWrongTelephone2()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'telephone' => '5111444'
+            ]);
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['telephone' => 'Neplatné telefonní číslo.']);
     }
 
     public function testPutFax()

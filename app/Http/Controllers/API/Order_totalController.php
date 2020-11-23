@@ -39,7 +39,7 @@ class Order_totalController extends Controller
      */
     public static function insertOrUpdate(Order $order, $update = 0)
     {
-        $price = countPrice($order);
+        $price = self::countPrice($order);
         $bool0 = $order->update(['total' => $price['noTaxTotal'] + $price['tax']]);
         $order->currency === 'CZK' ? $c = ' Kč' : $c = '€';
 

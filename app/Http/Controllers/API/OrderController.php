@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateOrder;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Order_history;
@@ -28,8 +29,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        /*dd(unserialize(DB::table('oc_user_group')->where('user_group_id',1)
-            ->value('permission')));*/
         $this->authorize('accessByAdmin', Order::class);
         return Cache::remember('orders', 5, function () {
             return Order
@@ -263,9 +262,7 @@ class OrderController extends Controller
      * @bodyParam shipping_city string
      * @bodyParam shipping_postcode string
      * @bodyParam shipping_zone string
-     * @bodyParam shipping_zone_id integer
      * @bodyParam shipping_country string
-     * @bodyParam shipping_country_id integer
      * @bodyParam shipping_address_format string
      * @bodyParam payment_firstname string
      * @bodyParam payment_lastname string
@@ -275,9 +272,7 @@ class OrderController extends Controller
      * @bodyParam payment_city string
      * @bodyParam payment_postcode string
      * @bodyParam payment_zone string
-     * @bodyParam payment_zone_id integer
      * @bodyParam payment_country string
-     * @bodyParam payment_country_id integer
      * @bodyParam payment_address_format string
      *
      * @response  {
@@ -285,9 +280,10 @@ class OrderController extends Controller
      * "currency":true
      * }
      */
-    public function update(Request $request, Order $order)
+    public function update(UpdateOrder $request, Order $order)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
+        $request->validated();
         $ret_array = [];
         if ($request->has('domain')) {
             $this->authorize('updateByAdmin', $order);
@@ -313,8 +309,7 @@ class OrderController extends Controller
                 'date_modified' => date("Y-m-d H:i:s")
             ]);
 
-            $otc = new Order_totalController();
-            $bool2 = $otc->insertOrUpdate($order);
+            $bool2 = Order_totalController::insertOrUpdate($order);
 
             if ($bool1 and $bool2) $ret_array += array('currency' => true);
             else $ret_array += array('currency' => false);
@@ -537,24 +532,16 @@ class OrderController extends Controller
         if ($request->has('shipping_zone')) {
             $ret_array += array('shipping_zone' => $order->update([
                 'shipping_zone' => $request->input('shipping_zone'),
-                'date_modified' => date("Y-m-d H:i:s")
-            ]));
-        }
-        if ($request->has('shipping_zone_id')) {
-            $ret_array += array('shipping_zone_id' => $order->update([
-                'shipping_zone_id' => $request->input('shipping_zone_id'),
+                'shipping_zone_id' => DB::table('oc_zone')
+                    ->where('name', $request->input('shipping_zone'))->value('zone_id'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('shipping_country')) {
             $ret_array += array('shipping_country' => $order->update([
                 'shipping_country' => $request->input('shipping_country'),
-                'date_modified' => date("Y-m-d H:i:s")
-            ]));
-        }
-        if ($request->has('shipping_country_id')) {
-            $ret_array += array('shipping_country_id' => $order->update([
-                'shipping_country_id' => $request->input('shipping_country_id'),
+                'shipping_country_id' => DB::table('oc_country')
+                    ->where('name', $request->input('shipping_country'))->value('country_id'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
@@ -609,24 +596,16 @@ class OrderController extends Controller
         if ($request->has('payment_zone')) {
             $ret_array += array('payment_zone' => $order->update([
                 'payment_zone' => $request->input('payment_zone'),
-                'date_modified' => date("Y-m-d H:i:s")
-            ]));
-        }
-        if ($request->has('payment_zone_id')) {
-            $ret_array += array('payment_zone_id' => $order->update([
-                'payment_zone_id' => $request->input('payment_zone_id'),
+                'payment_zone_id' => DB::table('oc_zone')
+                    ->where('name', $request->input('payment_zone'))->value('zone_id'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
         if ($request->has('payment_country')) {
             $ret_array += array('payment_country' => $order->update([
                 'payment_country' => $request->input('payment_country'),
-                'date_modified' => date("Y-m-d H:i:s")
-            ]));
-        }
-        if ($request->has('payment_country_id')) {
-            $ret_array += array('payment_country_id' => $order->update([
-                'payment_country_id' => $request->input('payment_country_id'),
+                'payment_country_id' => DB::table('oc_country')
+                    ->where('name', $request->input('payment_country'))->value('country_id'),
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
