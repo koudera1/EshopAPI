@@ -16,7 +16,7 @@ class OrderPolicy extends Policy
      * Determine whether the user can update the model.
      *
      * @param  $user
-     * @param  \App\Models\Order  $order
+     * @param Order $order
      * @return mixed
      */
     public function accessByAdminOrCustomer($user = null, Order $order)
@@ -28,19 +28,20 @@ class OrderPolicy extends Policy
      * Determine whether the user can update the model.
      *
      * @param  $user
-     * @param  \App\Models\Order  $order
+     * @param Order $order
+     * @param Customer|null $customer
      * @return mixed
      */
-    public function updateByAdminOrCustomer($user = null, Order $order)
+    public function updateByAdminOrCustomer($user = null, Order $order, Customer $customer = null)
     {
-        return $this->authorize($user,'sale/order','modify', $order);
+        return $this->authorize($user,'sale/order','modify', $order, $customer);
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  $user
-     * @param  \App\Models\Order  $order
+     * @param Order $order
      * @return mixed
      */
     public function updateByAdmin($user = null, Order $order)

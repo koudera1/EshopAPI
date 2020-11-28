@@ -11,7 +11,10 @@ use App\Models\Order_total;
 use App\Models\Product;
 
 use Exception as ExceptionAlias;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -24,7 +27,8 @@ class Order_productController extends Controller
      * @urlParam order required order id Example: 35022
      *
      * @param Order $order
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
+     * @throws AuthorizationException
      */
     public function index(Order $order)
     {
@@ -47,14 +51,15 @@ class Order_productController extends Controller
      * "order_product_id":3332
      * }
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Order $order
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function store(Request $request, Order $order)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $product = Product::where('product_id', $request->input('product_id'))->first();
+        $product = Product::where('product_id', $request->input('product_id'))->firstOrFail();
         $opid = Order_product::insertGetId(
             [
                 'order_id' => $order->order_id,
@@ -78,7 +83,7 @@ class Order_productController extends Controller
         $opmc = new Order_product_moveController();
         $opmc->updateStock($order, $product, $request->input('quantity'));
 
-        $order_product = Order_product::find($opid);
+        $order_product = Order_product::findOrFail($opid);
         $otc = new Order_totalController();
         $bool4 = $otc->insertOrUpdate($order, 1);
 
@@ -94,8 +99,8 @@ class Order_productController extends Controller
      * @urlParam order required order id Example: 35022
      * @urlParam order_product required order product id Example: 74850
      *
-     * @param  \App\Order_product  $order_product
-     * @return \Illuminate\Http\Response
+     * @param Order_product $order_product
+     * @return Order_product
      */
     public function show(Order_product $order_product)
     {
@@ -108,21 +113,22 @@ class Order_productController extends Controller
      * @urlParam order_product required order product id Example: 74850
      * @bodyParam quantity integer
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Order $order
-     * @param \App\Order_product $order_product
-     * @return void
+     * @param Request $request
+     * @param Order $order
+     * @param $opid
+     * @return array
+     * @throws AuthorizationException
      */
     public function update(Request $request, Order $order, $opid)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $order_product = Order_product::find($opid);
+        $order_product = Order_product::findOrFail($opid);
         $bool1 = $bool2 = false;
         $ret_array = [];
         if ($request->has('quantity')) {
-            $product = Product::where('product_id', $order_product->product_id)->first();
+            $product = Product::where('product_id', $order_product->product_id)->firstOrFail();
             $opm = Order_product_move::where('product_id',$order_product->product_id)
-                ->where('order_id',$order_product->order_id)->first();
+                ->where('order_id',$order_product->order_id)->firstOrFail();
             $diff = $order_product->quantity - $request->input('quantity');
             if($diff > 0)//lowering quantity of products
             {
@@ -176,7 +182,7 @@ class Order_productController extends Controller
                 $ret_array += array('quantity' => false);
         }
 
-        return $ret_array;
+        return response->json($ret_array);
     }
 
     /**
@@ -186,17 +192,17 @@ class Order_productController extends Controller
      * @response true
      *
      * @param \App\Order_product $order_product
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @throws ExceptionAlias
      */
     public function destroy(Order $order, $opid)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $order_product = Order_product::find($opid);
+        $order_product = Order_product::findOrFail($opid);
 
-        $product = Product::where('product_id', $order_product->product_id)->first();
+        $product = Product::where('product_id', $order_product->product_id)->firstOrFail();
         $opm = Order_product_move::where('product_id',$order_product->product_id)
-            ->where('order_id',$order_product->order_id)->first();
+            ->where('order_id',$order_product->order_id)->firstOrFail();
         $diff = $order_product->quantity;
         $opmc = new Order_product_moveController();
         $bool2 = $opmc->lowerQuantityOfProducts($product, $opm, $diff, false);

@@ -65,7 +65,7 @@ class PackageController extends Controller
         $this->authorize('updateByAdminOrCustomer', $order);
         $date = date("Y-m-d H:i:s");
         if ($order->shipping_method == "Geis") {
-            $delivery_id =  Geis_numbering::select('min')->where('is_free', 1)->first();
+            $delivery_id =  Geis_numbering::select('min')->where('is_free', 1)->firstOrFail();
             Geis_numbering::where('is_free', 0)->update(['max' => $delivery_id['min']]);
             Geis_numbering::where('is_free', 1)->update(['min' => ($delivery_id['min'] + 1)]);
             $bool1 = DB::table('geis_delivery')->insert(
@@ -101,7 +101,7 @@ class PackageController extends Controller
                 return response()->json(false);
         } else if (mb_substr($order->shipping_method, 0, 11) === "Česká pošta") {
             $delivery_id = Postcz_numbering::select('min')->where('is_free', 1)
-                ->where('source',$request->input('source'))->first();
+                ->where('source',$request->input('source'))->firstOrFail();
             if($delivery_id === null) return response()->json(false);
             Postcz_numbering::where('is_free', 0)
                 ->where('source',$request->input('source'))
@@ -186,7 +186,7 @@ class PackageController extends Controller
                     ];
                 $packet = $gw->createPacket($apiPassword, $packetAttributes);
                 } catch (SoapFault $e) {
-                    dd($e->detail); // property detail contains error info
+                    return new \Exception($e->getMessage()); // property detail contains error info
                 }
 
                 return response()->json(DB::table('zasilkovna_package')->insert(

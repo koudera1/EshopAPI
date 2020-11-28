@@ -4,16 +4,23 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
+/**
+ * @group Customer
+ */
 class CustomerController extends Controller
 {
 
     /**
-     * Display the specified resource.
+     * Display the specified customer.
      *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * @param Customer $customer
+     * @return Response
      */
     public function show(Customer $customer)
     {
@@ -21,67 +28,178 @@ class CustomerController extends Controller
             ->select('firstname', 'lastname', 'email',
                 'telephone', 'company', 'address_1',
                 'address2', 'postcode', 'city')
-            ->where('customer_id', $customer->customer_id)->first();
+            ->where('customer_id', $customer->customer_id)->firstOrFail();
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified customer in storage.
+     * @urlParam customer required customer id Example: 1
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Customer $customer
+     * @return Response
+     * @throws AuthorizationException
+     *
+     * @bodyParam firstname string
+     * @bodyParam lastname string
+     * @bodyParam company string
+     * @bodyParam address_1 string
+     * @bodyParam address_2 string
+     * @bodyParam city string
+     * @bodyParam postcode string
+     * @bodyParam zone string
+     * @bodyParam country string
+     * @bodyParam email string
+     * @bodyParam telephone string
+     * @bodyParam fax string
+     * @bodyParam ip string
+     * @bodyParam newsletter integer
+     * @bodyParam status integer
+     * @bodyParam customer_group_id integer
+     * @bodyParam periodSaleTotal float
+     * @bodyParam allow_discount integer
+     *
+     * @response  {
+     * "firstname":true,
+     * "lastname":true
+     * }
      */
     public function update(Request $request, Customer $customer)
     {
-        $this->authorize('updateByAdminOrCustomer', $order);
+        $this->authorize('updateByAdminOrCustomer', null, $customer);
         $request->validated();
         $ret_array = [];
-        if ($request->has('shipping_company')) {
-            $ret_array += array('shipping_company' => $order->update([
-                'shipping_company' => $request->input('shipping_company'),
-                'date_modified' => date("Y-m-d H:i:s")
+        $address = DB::table('oc_address')
+            ->where('address_id',$customer->address_id)->firstOrFail();
+        if($address === null)
+        {
+            $address_id = DB::table('oc_address')->insertGetId(
+                [
+                    'customer_id' => $customer->customer_id
+                ]
+            );
+            $address = DB::table('oc_address')->find($address_id);
+        }
+        if ($request->has('company')) {
+            $ret_array += array('company' => $address->update([
+                'company' => $request->input('company'),
             ]));
         }
-        if ($request->has('shipping_firstname')) {
-            $ret_array += array('shipping_firstname' => $order->update([
-                'shipping_firstname' => $request->input('shipping_firstname'),
-                'date_modified' => date("Y-m-d H:i:s")
+        if ($request->has('firstname')) {
+            $bool1 = $customer->update([
+                'firstname' => $request->input('firstname'),
+            ]);
+            $bool2 = $address->update([
+                'firstname' => $request->input('firstname'),
+            ]);
+            if($bool1 and $bool2)
+                $ret_array += array('firstname' => true);
+            else
+                $ret_array += array('firstname' => false);
+        }
+        if ($request->has('lastname')) {
+            $bool1 = $customer->update([
+                'lastname' => $request->input('lastname'),
+            ]);
+            $bool2 = $address->update([
+                'lastname' => $request->input('lastname'),
+            ]);
+            if($bool1 and $bool2)
+                $ret_array += array('lastname' => true);
+            else
+                $ret_array += array('lastname' => false);
+        }
+        if ($request->has('email')) {
+            $ret_array += array('email' => $customer->update([
+                'email' => $request->input('email'),
             ]));
         }
-        if ($request->has('shipping_lastname')) {
-            $ret_array += array('shipping_lastname' => $order->update([
-                'shipping_lastname' => $request->input('shipping_lastname'),
-                'date_modified' => date("Y-m-d H:i:s")
+        if ($request->has('telephone')) {
+            $ret_array += array('telephone' => $customer->update([
+                'telephone' => $request->input('telephone')
             ]));
         }
-        if ($request->has('shipping_address_1')) {
-            $ret_array += array('shipping_address_1' => $order->update([
-                'shipping_address_1' => $request->input('shipping_address_1'),
-                'date_modified' => date("Y-m-d H:i:s")
+        if ($request->has('fax')) {
+            $ret_array += array('fax' => $customer->update([
+                'fax' => $request->input('fax')
             ]));
         }
-        if ($request->has('shipping_address_2')) {
-            $ret_array += array('shipping_address_2' => $order->update([
-                'shipping_address_2' => $request->input('shipping_address_2'),
-                'date_modified' => date("Y-m-d H:i:s")
+        if ($request->has('address_1')) {
+            $ret_array += array('address_1' => $customer->update([
+                'address_1' => $request->input('address_1')
             ]));
         }
-        if ($request->has('shipping_city')) {
-            $ret_array += array('shipping_city' => $order->update([
-                'shipping_city' => $request->input('shipping_city'),
-                'date_modified' => date("Y-m-d H:i:s")
+        if ($request->has('address_2')) {
+            $ret_array += array('address_2' => $customer->update([
+                'address_2' => $request->input('address_2')
             ]));
         }
+        if ($request->has('postcode')) {
+            $ret_array += array('postcode' => $address->update([
+                'postcode' => $request->input('postcode')
+            ]));
+        }
+        if ($request->has('city')) {
+            $ret_array += array('city' => $address->update([
+                'city' => $request->input('city')
+            ]));
+        }
+        if ($request->has('zone')) {
+            $ret_array += array('zone' => $address->update([
+                'zone_id' => DB::table('oc_zone')
+                    ->where('name', $request->input('zone'))->value('zone_id')
+            ]));
+        }
+        if ($request->has('country')) {
+            $ret_array += array('country' => $address->update([
+                'country_id' => DB::table('oc_country')
+                    ->where('name', $request->input('country'))
+                    ->value('country_id')
+            ]));
+        }
+        if ($request->has('newsletter')) {
+            $ret_array += array('newsletter' => $customer->update([
+                'newsletter' => $request->input('newsletter')
+            ]));
+        }
+        if ($request->has('status')) {
+            $ret_array += array('status' => $customer->update([
+                'status' => $request->input('status')
+            ]));
+        }
+        if ($request->has('customer_group_id')) {
+            $ret_array += array('customer_group_id' => $customer->update([
+                'customer_group_id' => $request->input('customer_group_id')
+            ]));
+        }
+        if ($request->has('periodSaleTotal')) {
+            $ret_array += array('periodSaleTotal' => $customer->update([
+                'periodSaleTotal' => $request->input('periodSaleTotal')
+            ]));
+        }
+        if ($request->has('allow_discount')) {
+            $ret_array += array('allow_discount' => $customer->update([
+                'allow_discount' => $request->input('allow_discount')
+            ]));
+        }
+        if ($request->has('ip')) {
+            $ret_array += array('ip' => $customer->update([
+                'ip' => $request->input('ip')
+            ]));
+        }
+
+        return response()->json($ret_array);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified customer from storage.
      *
-     * @param  \App\Models\Customer  $customer
-     * @return \Illuminate\Http\Response
+     * @param Customer $customer
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Customer $customer)
     {
-        $customer->delete();
+        return response()->json($customer->delete());
     }
 }

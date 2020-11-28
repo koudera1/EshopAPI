@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Order_product;
 use App\Models\Product;
 
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +21,7 @@ class ProductController extends Controller
     /**
      * Display a listing of products.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -83,8 +86,9 @@ class ProductController extends Controller
      * @bodyParam intro string required
      * @response  {"product_id":3332}
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
+     * @throws AuthorizationException
      */
     public function store(Request $request)
     {
@@ -158,8 +162,8 @@ class ProductController extends Controller
      * Display the specified product.
      * @urlParam product required product id Example: 2408
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  Product  $product
+     * @return Response
      */
     public function show(Product $product)
     {
@@ -222,9 +226,10 @@ class ProductController extends Controller
      * "shipping":true
      * }
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Product $product
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Product $product
+     * @return Response
+     * @throws AuthorizationException
      */
     public function update(Request $request, Product $product)
     {
@@ -506,14 +511,15 @@ class ProductController extends Controller
                 'date_modified' => date("Y-m-d H:i:s")
             ]));
         }
+        return response()->json($ret_array);
     }
 
     /**
      * Remove the specified product from storage.
      *
-     * @param \App\Product $product
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @param Product $product
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Product $product)
     {

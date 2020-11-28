@@ -12,6 +12,9 @@ use App\Models\Order_product;
 use App\Models\Currency;
 use App\Models\Order_product_move;
 use App\Models\Order_total;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -25,7 +28,8 @@ class OrderController extends Controller
     /**
      * Display a listing of orders.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function index()
     {
@@ -71,11 +75,11 @@ class OrderController extends Controller
      * }
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
-        $customer = Customer::find($request->input('customer_id'));
+
         $oid = Order::insertGetId(
             [
                 'domain' => $request->input('domain'),
@@ -89,14 +93,38 @@ class OrderController extends Controller
                 'value' => $request->input('language') === 'Čeština' ? 1 : 0.03858025,
                 'date_modified' => date("Y-m-d H:i:s"),
                 'date_added' => date("Y-m-d H:i:s"),
-                'ip' => $request->input('customer_id') == 0 ? $request->input('ip') : $customer->ip,
+                'ip' => $request->input('ip', ''),
                 'referrer' => $request->input('referrer'),
             ]
         );
 
+        $order = Order::findOrFail($oid);
+        $product = Product::findOrFail($request->input('product_id'));
+        Order_product_moveController::updateStock($order, $product, $request->input('quantity'));
+
+        $opid = Order_product::insertGetId(
+            [
+                'order_id' => $oid,
+                'product_id' => $request->input('product_id'),
+                'name' => DB::table('oc_product_description')
+                    ->where('product_id', $request->input('product_id'))->value('name'),
+                'model' => $product->model,
+                'price' => $product->price,
+                'purchase_price' => $product->purchase_price,
+                'quantity' => $request->input('quantity'),
+                'total' => $product->price * $request->input('quantity'),
+                'warranty' => $product->warranty,
+                'tax' => preg_replace('/[^0-9]/', '', DB::table('oc_tax_class')
+                    ->where('tax_class_id', $product->tax_class_id)->value('title'))
+            ]
+        );
+
+        Order_totalController::insertOrUpdate($order, 1);
+
         if($request->input('customer_id') != 0)
         {
-            $address = DB::table('oc_address')->find($customer->address_id);
+            $customer = Customer::findOrFail($request->input('customer_id'));
+            $address = DB::table('oc_address')->findOrFail($customer->address_id);
             Order::where('order_id', $oid)->update(
                 [
                     'firstname' => $customer->firstname,
@@ -104,6 +132,7 @@ class OrderController extends Controller
                     'email' => $customer->email,
                     'telephone' => $customer->telephone,
                     'fax' => $customer->fax,
+                    'ip' => $customer->ip,
                     'shipping_company' => $address->company,
                     'payment_company' => $address->company,
                     'shipping_address_1' => $address->addres_1,
@@ -124,31 +153,12 @@ class OrderController extends Controller
                     'payment_zone_id' => $address->zone_id
                 ]
             );
+            $customer->update([
+                'cart' => serialize(array(
+                    $request->input('product_id') => $request->input('quantity')
+                ))
+            ]);
         }
-
-        $order = Order::find($oid);
-        $product = Product::find($request->input('product_id'));
-        Order_product_moveController::updateStock($order, $product, $request->input('quantity'));
-
-        $opid = Order_product::insertGetId(
-            [
-                'order_id' => $oid,
-                'product_id' => $request->input('product_id'),
-                'name' => DB::table('oc_product_description')
-                    ->where('product_id', $request->input('product_id'))->value('name'),
-                'model' => $product->model,
-                'price' => $product->price,
-                'purchase_price' => $product->purchase_price,
-                'quantity' => $request->input('quantity'),
-                'total' => $product->price * $request->input('quantity'),
-                'warranty' => $product->warranty,
-                'tax' => preg_replace('/[^0-9]/', '', DB::table('oc_tax_class')
-                    ->where('tax_class_id', $product->tax_class_id)->value('title'))
-            ]
-        );
-
-        $order_product = Order_product::find($opid);
-        Order_totalController::insertOrUpdate($order, 1);
 
         return response()->json(
             [
@@ -158,12 +168,13 @@ class OrderController extends Controller
         );
     }
 
-    /**
+     /**
      * Display the specified order.
      * @urlParam order required order id Example: 35022
      *
-     * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @return Response
+     * @throws AuthorizationException
      */
     public function show(Order $order)
     {
@@ -188,7 +199,7 @@ class OrderController extends Controller
                     DB::raw('(IF((SELECT SUM(quantity_ext) FROM oc_order_product_move) = 0,1,0)) as instock'),
                     'oc_order.referrer', 'oc_order.agree_gdpr', 'oc_order.payment_method', 'oc_order.email', 'oc_order.telephone')
                 ->where('oc_order.order_id', $id)
-                ->first();
+                ->firstOrFail();
         });
     }
 
@@ -196,9 +207,9 @@ class OrderController extends Controller
      * Remove the specified order from storage.
      * @urlParam order required order id Example: 35022
      *
-     * @param \App\Order $order
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @param Order $order
+     * @return Response
+     * @throws Exception
      * @response true
      */
     public function destroy(Order $order)
@@ -228,10 +239,11 @@ class OrderController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @return Response
      *
      * @bodyParam domain string Example: "www.stylka.cz"
      * @bodyParam currency string
+     * @bodyParam customer_id integer
      * @bodyParam language string
      * @bodyParam firstname string
      * @bodyParam lastname string
@@ -247,7 +259,7 @@ class OrderController extends Controller
      * @bodyParam telephone string
      * @bodyParam fax string
      * @bodyParam regNum string In Czech language IČO.
-     * @bodyParam email string In Czech language DIČO.
+     * @bodyParam taxRegNum string In Czech language DIČO.
      * @bodyParam ip string
      * @bodyParam reason string Example: "Reklamace"
      * @bodyParam wrong_order_id integer
@@ -279,6 +291,7 @@ class OrderController extends Controller
      * "domain":true,
      * "currency":true
      * }
+     * @throws AuthorizationException
      */
     public function update(UpdateOrder $request, Order $order)
     {
@@ -293,7 +306,9 @@ class OrderController extends Controller
             ]));
         }
         if ($request->has('customer_id')) {
-            $this->authorize('updateByAdmin', $order);
+            $this->authorize('updateByAdminOrCustomer', $order);
+            if($order->customer_id != 0 and $request->has('customer_id') != 0)
+                abort(403);
             $ret_array += array('customer_id' => $order->update([
                 'customer_id' => $request->input('customer_id'),
                 'date_modified' => date("Y-m-d H:i:s")
@@ -624,7 +639,7 @@ class OrderController extends Controller
      * @urlParam order required order id Example: 35022
      *
      * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function getAddresses(Order $order)
     {
@@ -634,7 +649,8 @@ class OrderController extends Controller
             'shipping_country', 'shipping_country_id', 'shipping_address_format',
             'payment_firstname', 'payment_lastname', 'payment_company', 'payment_address_1', 'payment_address_2',
             'payment_city', 'payment_postcode', 'payment_zone', 'payment_zone_id',
-            'payment_country', 'payment_country_id', 'payment_address_format')->where('order_id', $order->order_id)->first();
+            'payment_country', 'payment_country_id', 'payment_address_format')->where('order_id', $order->order_id)
+            ->firstOrFail();
     }
 
     /**
@@ -642,7 +658,7 @@ class OrderController extends Controller
      * @urlParam order required order id Example: 35202
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function putInvoice(Order $order)
     {
@@ -669,7 +685,7 @@ class OrderController extends Controller
      * @urlParam order required order id Example: 35022
      *
      * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function getShipping_methods(Order $order)
     {
@@ -688,7 +704,7 @@ class OrderController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function getPayment_methods()
     {
@@ -700,7 +716,7 @@ class OrderController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function getOrder_statuses()
     {
@@ -729,7 +745,7 @@ class OrderController extends Controller
      * @urlParam order required order id Example: 35022
      *
      * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function getPrice(Order $order)
     {

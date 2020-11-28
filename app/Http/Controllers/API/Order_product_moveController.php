@@ -8,38 +8,41 @@ use App\Models\Order_history;
 use App\Models\Order_product_move;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class Order_product_moveController extends Controller
 {
     /**
-     * Update the specified resource's attribute in storage.
+     * Get how many products are in stock.
      *
-     * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @param Product $product
+     * @return Response
      */
     public function getInstock(Order $order, Product $product)
     {
         $move = DB::table('oc_order_product_move')
             ->where('order_id', $order->order_id)
             ->where('product_id', $product->product_id)
-            ->first();
+            ->firstOrFail();
         return $move->quantity_int;
     }
 
     /**
-     * Update the specified resource's attribute in storage.
+     * Update Get how many products are in stock.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Order $order
+     * @param Product $product
+     * @return Response
      */
     public function putInstock(Request $request, Order $order, Product $product)
     {
         $move = DB::table('oc_order_product_move')
             ->where('order_id', $order->order_id)
             >where('product_id', $product->product_id)
-            ->first();
+            ->firstOrFail();
         return response()->json($order->update([
             'quantity_int' => $request->input('quantity_int'),
             'quantity_ext' => $request->input('quantity_ext'),
@@ -47,6 +50,14 @@ class Order_product_moveController extends Controller
         ]));
     }
 
+    /**
+     * Update quantity of products in stock.
+     *
+     * @param Order $order
+     * @param Product $product
+     * @param $originalQuantity
+     * @return bool
+     */
     public static function updateStock(Order $order, Product $product, $originalQuantity)
     {
         $quantity = $product->internal_quantity - $originalQuantity;
@@ -80,6 +91,15 @@ class Order_product_moveController extends Controller
         else return false;
     }
 
+    /**
+     * Lower quantity of products in stock.
+     *
+     * @param Product $product
+     * @param Order_product_move $opm
+     * @param $diff
+     * @param bool $updateOpm
+     * @return bool
+     */
     public static function lowerQuantityOfProducts(Product $product, Order_product_move $opm, $diff, bool $updateOpm = true)
     {
         $bool1 = $bool2 = true;

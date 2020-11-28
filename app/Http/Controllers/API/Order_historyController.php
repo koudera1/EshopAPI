@@ -5,14 +5,17 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Order_history;
 use App\Models\Order;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class Order_historyController extends Controller
 {
     /**
      * Display a listing of order histories.
      *
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @return Response
      */
     public function index(Order $order)
     {
@@ -22,12 +25,12 @@ class Order_historyController extends Controller
     /**
      * Store a newly created order history in storage
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function store(Request $request, Order $order)
+    public function store(Request $request)
     {
-        $order = Order::where('order_id', $request->order_id)->first();
+        $order = Order::where('order_id', $request->order_id)->firstOrFail();
         return Order_history::insertGetId([
             'order_id' => $order->order_id,
             'order_status_id' => $request->input('order_status_id'),
@@ -40,34 +43,24 @@ class Order_historyController extends Controller
     /**
      * Display the specified order history.
      *
-     * @param  \App\Order_history  $order_history
-     * @return \Illuminate\Http\Response
+     * @param Order_history $order_history
+     * @return Order_history
      */
     public function show(Order_history $order_history)
     {
         return $order_history;
     }
 
-    /**
-     * Update the specified order history in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order_history  $order_history
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order_history $order_history)
-    {
-        //
-    }
 
     /**
      * Remove the specified order history from storage.
      *
-     * @param  \App\Order_history  $order_history
-     * @return \Illuminate\Http\Response
+     * @param Order_history $order_history
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Order_history $order_history)
     {
-        $order_history->delete();
+        return response()->json($order_history->delete());
     }
 }
