@@ -80,12 +80,18 @@ class Order_productController extends Controller
                 'total' => $product->price * $request->input('quantity',0)
             ]);
 
-        $opmc = new Order_product_moveController();
-        $opmc->updateStock($order, $product, $request->input('quantity'));
+        if($order->customer_id != 0)
+        {
+            $customer = Customer::find($order->customer_id);
+            $cart = unserialize($customer->cart);
+            $cart[$product->product_id] = $request->input('quantity');
+            $customer->update([
+                'cart' => serialize($cart)
+            ]);
+        }
 
-        $order_product = Order_product::findOrFail($opid);
-        $otc = new Order_totalController();
-        $bool4 = $otc->insertOrUpdate($order, 1);
+        Order_product_moveController::updateStock($order, $product, $request->input('quantity'));
+        Order_totalController::insertOrUpdate($order, 1);
 
         return response()->json(
             [
@@ -166,15 +172,22 @@ class Order_productController extends Controller
                 }
             }
 
-            $total = $order_product->total;
-            $quantity = $order_product->quantity;
             $bool3 = $order_product->update([
                 'quantity' => $request->input('quantity'),
                 'total' => $product->price * $request->input('quantity'),
             ]);
 
-            $otc = new Order_totalController();
-            $bool4 = $otc->insertOrUpdate($order, 1);
+            $bool4 = Order_totalController::insertOrUpdate($order, 1);
+
+            if($order->customer_id != 0)
+            {
+                $customer = Customer::find($order->customer_id);
+                $cart = unserialize($customer->cart);
+                $cart[$product->product_id] = $request->input('quantity');
+                $customer->update([
+                    'cart' => serizalize($cart)
+                ]);
+            }
 
             if($bool1 and $bool2 and $bool3 and $bool4)
                 $ret_array += array('quantity' => true);
@@ -182,7 +195,7 @@ class Order_productController extends Controller
                 $ret_array += array('quantity' => false);
         }
 
-        return response->json($ret_array);
+        return response()->json($ret_array);
     }
 
     /**
@@ -191,9 +204,10 @@ class Order_productController extends Controller
      * @urlParam order_product required order product id Example: 74850
      * @response true
      *
-     * @param \App\Order_product $order_product
+     * @param Order $order
+     * @param $opid
      * @return Response
-     * @throws ExceptionAlias
+     * @throws AuthorizationException
      */
     public function destroy(Order $order, $opid)
     {
