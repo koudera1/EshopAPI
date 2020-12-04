@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateOrder;
+use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Order_history;
@@ -79,8 +80,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
-        $oid = Order::insertGetId(
+        $order = Order::create(
             [
                 'domain' => $request->input('domain'),
                 'customer_id' => $request->input('customer_id'),
@@ -91,14 +91,11 @@ class OrderController extends Controller
                     DB::table('oc_currency')->where('code', 'CZK')->value('currency_id') :
                     DB::table('oc_currency')->where('code', 'EUR')->value('currency_id'),
                 'value' => $request->input('language') === 'Čeština' ? 1 : 0.03858025,
-                'date_modified' => date("Y-m-d H:i:s"),
-                'date_added' => date("Y-m-d H:i:s"),
                 'ip' => $request->input('ip', ''),
                 'referrer' => $request->input('referrer'),
             ]
         );
-
-        $order = Order::findOrFail($oid);
+        $oid = $order->order_id;
         $product = Product::findOrFail($request->input('product_id'));
         Order_product_moveController::updateStock($order, $product, $request->input('quantity'));
 
@@ -124,7 +121,21 @@ class OrderController extends Controller
         if($request->input('customer_id') != 0)
         {
             $customer = Customer::findOrFail($request->input('customer_id'));
-            $address = DB::table('oc_address')->findOrFail($customer->address_id);
+            $address = Address::findOrFail($customer->address_id);
+            $country = "";
+            switch($address->country_id)
+            {
+                case 56:
+                    $country = 'Česká republika';
+                    break;
+                case 189:
+                    $country = 'Slovensko';
+                    break;
+                default:
+                    $country = DB::table('oc_country')
+                        ->where('country_id',$address->country_id)->value('name');
+            }
+
             Order::where('order_id', $oid)->update(
                 [
                     'firstname' => $customer->firstname,
@@ -133,22 +144,25 @@ class OrderController extends Controller
                     'telephone' => $customer->telephone,
                     'fax' => $customer->fax,
                     'ip' => $customer->ip,
+                    'company' => $address->company,
+                    'shipping_firstname' => $customer->firstname,
+                    'shipping_lastname' => $customer->lastname,
+                    'payment_firstname' => $customer->firstname,
+                    'payment_lastname' => $customer->lastname,
                     'shipping_company' => $address->company,
                     'payment_company' => $address->company,
-                    'shipping_address_1' => $address->addres_1,
-                    'shipping_address_2' => $address->addres_2,
-                    'payment_address_1' => $address->addres_1,
-                    'payment_address_2' => $address->addres_2,
+                    'shipping_address_1' => $address->address_1,
+                    'shipping_address_2' => $address->address_2,
+                    'payment_address_1' => $address->address_1,
+                    'payment_address_2' => $address->address_2,
                     'shipping_postcode' => $address->postcode,
                     'payment_postcode' => $address->postcode,
                     'shipping_city' => $address->city,
                     'payment_city' => $address->city,
                     'shipping_country_id' => $address->country_id,
                     'payment_country_id' => $address->country_id,
-                    'shipping_country' => DB::table('oc_country')
-                        ->where('country_id',$address->country_id)->value('name'),
-                    'shipping_country' => DB::table('oc_country')
-                        ->where('country_id',$address->country_id)->value('name'),
+                    'shipping_country' => $country,
+                    'payment_country' => $country,
                     'shipping_zone_id' => $address->zone_id,
                     'payment_zone_id' => $address->zone_id
                 ]
@@ -217,16 +231,16 @@ class OrderController extends Controller
         $this->authorize('updateByAdminOrCustomer', $order);
         if($order->delete())
         {
-            if(Order_product::where('order_id', $order->order_id)->delete())
+            $ops =  Order_product::where('order_id', $order->order_id)->get();
+            foreach ($ops as $op)
             {
-                if(Order_product_move::where('order_id', $order->order_id)->delete())
-                {
-                    if(Order_total::where('order_id', $order->order_id)->delete())
-                    {
-                        Order_history::where('order_id', $order->order_id)->delete();
-                            return response()->json(true);
-                        }
-                }
+                Order_productController::updateProductsWhenDeleting($op, Product::find($op->product_id));
+                $op->delete();
+            }
+            if(Order_total::where('order_id', $order->order_id)->delete())
+            {
+                Order_history::where('order_id', $order->order_id)->delete();
+                return response()->json(true);
             }
         }
         return response()->json(false);
@@ -301,8 +315,7 @@ class OrderController extends Controller
         if ($request->has('domain')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('domain' => $order->update([
-                'domain' => $request->input('domain'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'domain' => $request->input('domain')
             ]));
         }
         if ($request->has('customer_id')) {
@@ -310,8 +323,7 @@ class OrderController extends Controller
             if($order->customer_id != 0 and $request->has('customer_id') != 0)
                 abort(403);
             $ret_array += array('customer_id' => $order->update([
-                'customer_id' => $request->input('customer_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'customer_id' => $request->input('customer_id')
             ]));
         }
         if ($request->has('currency')) {
@@ -320,8 +332,7 @@ class OrderController extends Controller
                 'currency_id' => DB::table('oc_currency')
                     ->where('code', $order->currency)->value('currency_id'),
                 'value' => DB::table('oc_currency')
-                    ->where('code', $order->currency)->value('value'),
-                'date_modified' => date("Y-m-d H:i:s")
+                    ->where('code', $order->currency)->value('value')
             ]);
 
             $bool2 = Order_totalController::insertOrUpdate($order);
@@ -335,33 +346,28 @@ class OrderController extends Controller
             $ret_array += array('language' => $order->update([
                 'language_id' => DB::table('oc_language')
                     ->where('name', $request->input('language'))
-                    ->value('language_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                    ->value('language_id')
             ]));
         }
         if ($request->has('firstname')) {
             $ret_array += array('firstname' => $order->update([
-                'firstname' => $request->input('firstname'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'firstname' => $request->input('firstname')
             ]));
         }
         if ($request->has('lastname')) {
             $ret_array += array('lastname' => $order->update([
-                'lastname' => $request->input('lastname'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'lastname' => $request->input('lastname')
             ]));
         }
         if ($request->has('company')) {
             $ret_array += array('company' => $order->update([
-                'company' => $request->input('company'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'company' => $request->input('company')
             ]));
         }
 
         if ($request->has('comment')) {
             $ret_array += array('comment' => $order->update([
-                'comment' => $request->input('comment'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'comment' => $request->input('comment')
             ]));
         }
         if ($request->has('order_status')) {
@@ -369,265 +375,232 @@ class OrderController extends Controller
             $osid = DB::table('oc_order_status')->where('name', $request->input('order_status'))
                 ->value('order_status_id');
             $ret_array += array('order_status' => $order->update([
-                'order_status_id' => $osid,
-                'date_modified' => date("Y-m-d H:i:s")
+                'order_status_id' => $osid
             ]));
-            Order_history::insert([
+            Order_history::create([
                 'order_id' => $order->order_id,
                 'order_status_id' => $osid,
                 'notify' => $request->input('notify'),
                 'comment' => $request->input('comment'),
-                'date_added' => date("Y-m-d H:i:s")
             ]);
     }
         if ($request->has('shipping_method')) {
             $ret_array += array('shipping_method' => $order->update([
-                'shipping_method' => $request->input('shipping_method'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_method' => $request->input('shipping_method')
             ]));
         }
         if ($request->has('payment_status')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('payment_status' => $order->update([
-                'payment_status' => $request->input('payment_status'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_status' => $request->input('payment_status')
             ]));
         }
         if ($request->has('referrer')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('referrer' => $order->update([
-                'referrer' => $request->input('referrer'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'referrer' => $request->input('referrer')
             ]));
         }
         if ($request->has('agree_gdpr')) {
             $ret_array += array('agree_gdpr' => $order->update([
-                'agree_gdpr' => $request->input('agree_gdpr'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'agree_gdpr' => $request->input('agree_gdpr')
             ]));
         }
         if ($request->has('payment_method')) {
             $ret_array += array('payment_method' => $order->update([
-                'payment_method' => $request->input('payment_method'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_method' => $request->input('payment_method')
             ]));
         }
         if ($request->has('email')) {
             $ret_array += array('email' => $order->update([
-                'email' => $request->input('email'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'email' => $request->input('email')
             ]));
         }
         if ($request->has('telephone')) {
             $ret_array += array('telephone' => $order->update([
-                'telephone' => $request->input('telephone'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'telephone' => $request->input('telephone')
             ]));
         }
         if ($request->has('fax')) {
             $ret_array += array('fax' => $order->update([
-                'fax' => $request->input('fax'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'fax' => $request->input('fax')
             ]));
         }
         if ($request->has('regNum')) {
             $ret_array += array('regNum' => $order->update([
-                'regNum' => $request->input('regNum'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'regNum' => $request->input('regNum')
             ]));
         }
         if ($request->has('taxRegNum')) {
             $ret_array += array('taxRegNum' => $order->update([
-                'taxRegNum' => $request->input('taxRegNum'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'taxRegNum' => $request->input('taxRegNum')
             ]));
         }
         if ($request->has('coupon_id')) {
             $ret_array += array('coupon_id' => $order->update([
-                'coupon_id' => $request->input('coupon_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'coupon_id' => $request->input('coupon_id')
             ]));
         }
         if ($request->has('shipping_gp')) {
             $ret_array += array('shipping_gp' => $order->update([
-                'shipping_gp' => $request->input('shipping_gp'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_gp' => $request->input('shipping_gp')
             ]));
         }
         if ($request->has('ip')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('ip' => $order->update([
-                'ip' => $request->input('ip'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'ip' => $request->input('ip')
             ]));
         }
         if ($request->has('reason')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('reason' => $order->update([
-                'reason' => $request->input('reason'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'reason' => $request->input('reason')
             ]));
         }
         if ($request->has('wrong_order_id')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('wrong_order_id' => $order->update([
-                'wrong_order_id' => $request->input('wrong_order_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'wrong_order_id' => $request->input('wrong_order_id')
             ]));
         }
         if ($request->has('competition')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('competition' => $order->update([
-                'competition' => $request->input('competition'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'competition' => $request->input('competition')
             ]));
         }
         if ($request->has('euVAT')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('euVAT' => $order->update([
-                'euVAT' => $request->input('euVAT'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'euVAT' => $request->input('euVAT')
             ]));
         }
         if ($request->has('viewed')) {
             $this->authorize('updateByAdmin', $order);
             $ret_array += array('viewed' => $order->update([
-                'viewed' => $request->input('viewed'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'viewed' => $request->input('viewed')
             ]));
         }
         if ($request->has('shipping_firstname')) {
             $ret_array += array('shipping_firstname' => $order->update([
-                'shipping_firstname' => $request->input('shipping_firstname'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_firstname' => $request->input('shipping_firstname')
             ]));
         }
         if ($request->has('shipping_lastname')) {
             $ret_array += array('shipping_lastname' => $order->update([
-                'shipping_lastname' => $request->input('shipping_lastname'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_lastname' => $request->input('shipping_lastname')
             ]));
         }
         if ($request->has('shipping_company')) {
             $ret_array += array('shipping_company' => $order->update([
-                'shipping_company' => $request->input('shipping_company'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_company' => $request->input('shipping_company')
             ]));
         }
         if ($request->has('shipping_address_1')) {
             $ret_array += array('shipping_address_1' => $order->update([
-                'shipping_address_1' => $request->input('shipping_address_1'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_address_1' => $request->input('shipping_address_1')
             ]));
         }
         if ($request->has('shipping_address_2')) {
             $ret_array += array('shipping_address_2' => $order->update([
-                'shipping_address_2' => $request->input('shipping_address_2'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_address_2' => $request->input('shipping_address_2')
             ]));
         }
         if ($request->has('shipping_city')) {
             $ret_array += array('shipping_city' => $order->update([
-                'shipping_city' => $request->input('shipping_city'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_city' => $request->input('shipping_city')
             ]));
         }
         if ($request->has('shipping_gp')) {
             $ret_array += array('shipping_gp' => $order->update([
-                'shipping_gp' => $request->input('shipping_gp'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_gp' => $request->input('shipping_gp')
             ]));
         }
         if ($request->has('shipping_postcode')) {
             $ret_array += array('shipping_postcode' => $order->update([
-                'shipping_postcode' => $request->input('shipping_postcode'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_postcode' => $request->input('shipping_postcode')
             ]));
         }
         if ($request->has('shipping_zone')) {
             $ret_array += array('shipping_zone' => $order->update([
                 'shipping_zone' => $request->input('shipping_zone'),
                 'shipping_zone_id' => DB::table('oc_zone')
-                    ->where('name', $request->input('shipping_zone'))->value('zone_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                    ->where('name', $request->input('shipping_zone'))->value('zone_id')
             ]));
         }
         if ($request->has('shipping_country')) {
+            $c_id = 0;
+            if($request->input('shipping_country') === 'Česká republika') $c_id = 56;
+            if($request->input('shipping_country') === 'Slovensko') $c_id = 189;
             $ret_array += array('shipping_country' => $order->update([
                 'shipping_country' => $request->input('shipping_country'),
-                'shipping_country_id' => DB::table('oc_country')
-                    ->where('name', $request->input('shipping_country'))->value('country_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_country_id' => $c_id === 0 ? DB::table('oc_country')
+                    ->where('name', $request->input('shipping_country'))
+                    ->value('country_id') : $c_id
             ]));
         }
         if ($request->has('shipping_address_format')) {
             $ret_array += array('shipping_address_format' => $order->update([
-                'shipping_address_format' => $request->input('shipping_address_format'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping_address_format' => $request->input('shipping_address_format')
             ]));
         }
         if ($request->has('payment_firstname')) {
             $ret_array += array('payment_firstname' => $order->update([
-                'payment_firstname' => $request->input('payment_firstname'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_firstname' => $request->input('payment_firstname')
             ]));
         }
         if ($request->has('payment_lastname')) {
             $ret_array += array('payment_lastname' => $order->update([
-                'payment_lastname' => $request->input('payment_lastname'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_lastname' => $request->input('payment_lastname')
             ]));
         }
         if ($request->has('payment_company')) {
             $ret_array += array('payment_company' => $order->update([
-                'payment_company' => $request->input('payment_company'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_company' => $request->input('payment_company')
             ]));
         }
         if ($request->has('payment_address_1')) {
             $ret_array += array('payment_address_1' => $order->update([
-                'payment_address_1' => $request->input('payment_address_1'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_address_1' => $request->input('payment_address_1')
             ]));
         }
         if ($request->has('payment_address_2')) {
             $ret_array += array('payment_address_2' => $order->update([
-                'payment_address_2' => $request->input('payment_address_2'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_address_2' => $request->input('payment_address_2')
             ]));
         }
         if ($request->has('payment_city')) {
             $ret_array += array('payment_city' => $order->update([
-                'payment_city' => $request->input('payment_city'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_city' => $request->input('payment_city')
             ]));
         }
         if ($request->has('payment_postcode')) {
             $ret_array += array('payment_postcode' => $order->update([
-                'payment_postcode' => $request->input('payment_postcode'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_postcode' => $request->input('payment_postcode')
             ]));
         }
         if ($request->has('payment_zone')) {
             $ret_array += array('payment_zone' => $order->update([
                 'payment_zone' => $request->input('payment_zone'),
                 'payment_zone_id' => DB::table('oc_zone')
-                    ->where('name', $request->input('payment_zone'))->value('zone_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                    ->where('name', $request->input('payment_zone'))->value('zone_id')
             ]));
         }
         if ($request->has('payment_country')) {
+            $c_id = 0;
+            if($request->input('payment_country') === 'Česká republika') $c_id = 56;
+            if($request->input('payment_country') === 'Slovensko') $c_id = 189;
             $ret_array += array('payment_country' => $order->update([
                 'payment_country' => $request->input('payment_country'),
-                'payment_country_id' => DB::table('oc_country')
-                    ->where('name', $request->input('payment_country'))->value('country_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_country_id' => $c_id === 0 ? DB::table('oc_country')
+                    ->where('name', $request->input('payment_country'))
+                    ->value('country_id') : $c_id
             ]));
         }
         if ($request->has('payment_address_format')) {
             $ret_array += array('payment_address_format' => $order->update([
-                'payment_address_format' => $request->input('payment_address_format'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'payment_address_format' => $request->input('payment_address_format')
             ]));
         }
 

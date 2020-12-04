@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order_history;
+use App\Models\Customer;
 use App\Models\Order_product;
 use App\Models\Order;
 use App\Models\Order_product_move;
-use App\Models\Order_total;
 use App\Models\Product;
 
-use Exception as ExceptionAlias;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -84,6 +82,7 @@ class Order_productController extends Controller
         {
             $customer = Customer::find($order->customer_id);
             $cart = unserialize($customer->cart);
+            $d = unserialize("a:2:{i:2926;i:6;i:2927;i:6;}");
             $cart[$product->product_id] = $request->input('quantity');
             $customer->update([
                 'cart' => serialize($cart)
@@ -116,19 +115,20 @@ class Order_productController extends Controller
     /**
      * Update the specified ordered product in storage.
      * @urlParam order required order id Example: 35022
-     * @urlParam order_product required order product id Example: 74850
+     * @urlParam product required product id Example: 2400
      * @bodyParam quantity integer
      *
      * @param Request $request
      * @param Order $order
-     * @param $opid
+     * @param Product $product
      * @return array
      * @throws AuthorizationException
      */
-    public function update(Request $request, Order $order, $opid)
+    public function update(Request $request, Order $order, Product $product)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $order_product = Order_product::findOrFail($opid);
+        $order_product = Order_product::where('order_id', $order->order_id)
+            ->where('product_id', $product->product_id)->firstOrFail();
         $bool1 = $bool2 = false;
         $ret_array = [];
         if ($request->has('quantity')) {
@@ -138,8 +138,7 @@ class Order_productController extends Controller
             $diff = $order_product->quantity - $request->input('quantity');
             if($diff > 0)//lowering quantity of products
             {
-                $opmc = new Order_product_moveController();
-                $bool1 = $bool2 = $opmc->lowerQuantityOfProducts($product,$opm,$diff);
+                $bool1 = $bool2 = Order_product_moveController::lowerQuantityOfProducts($product,$opm,$diff);
             }
             if($diff < 0)//adding more products
             {
@@ -185,7 +184,7 @@ class Order_productController extends Controller
                 $cart = unserialize($customer->cart);
                 $cart[$product->product_id] = $request->input('quantity');
                 $customer->update([
-                    'cart' => serizalize($cart)
+                    'cart' => serialize($cart)
                 ]);
             }
 
@@ -201,38 +200,47 @@ class Order_productController extends Controller
     /**
      * Remove the specified ordered product from storage.
      * @urlParam order required order id Example: 35022
-     * @urlParam order_product required order product id Example: 74850
+     * @urlParam product required product id Example: 2400
      * @response true
      *
      * @param Order $order
-     * @param $opid
+     * @param Product $product
      * @return Response
      * @throws AuthorizationException
      */
-    public function destroy(Order $order, $opid)
+    public function destroy(Order $order, Product $product)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $order_product = Order_product::findOrFail($opid);
+        $order_product = Order_product::where('order_id', $order->order_id)
+            ->where('product_id', $product->product_id)->firstOrFail();
 
-        $product = Product::where('product_id', $order_product->product_id)->firstOrFail();
-        $opm = Order_product_move::where('product_id',$order_product->product_id)
-            ->where('order_id',$order_product->order_id)->firstOrFail();
-        $diff = $order_product->quantity;
-        $opmc = new Order_product_moveController();
-        $bool2 = $opmc->lowerQuantityOfProducts($product, $opm, $diff, false);
-
-        if(Order_product_move::where('order_id', $order->order_id)
-            ->where('product_id', $order_product->product_id)->delete())
+        if(self::updateProductsWhenDeleting($order_product, $product))
         {
             if($order_product->delete()) {
-                $otc = new Order_totalController();
-                $bool1 = $otc->insertOrUpdate($order, 1);
-
-                if($bool1 and $bool2) return response()->json(true);
+                if(Order_totalController::insertOrUpdate($order))
+                    return response()->json(true);
                 else return response()->json(false);
             }
         }
         return response()->json(false);
+    }
 
+    /**
+     * Lower quantity of products counted in order and delete order_product_move.
+     *
+     * @param Order_product $order_product
+     * @param Product $product
+     * @return bool
+     */
+    public static function updateProductsWhenDeleting(Order_product $order_product, Product $product)
+    {
+        $opm = Order_product_move::where('product_id',$order_product->product_id)
+            ->where('order_id',$order_product->order_id)->first();
+        $diff = $order_product->quantity;
+        $bool1 = Order_product_moveController
+            ::lowerQuantityOfProducts($product, $opm, $diff, false);
+        $bool2 = $opm->delete();
+        if($bool1 and $bool2) return true;
+        else return false;
     }
 }

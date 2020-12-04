@@ -12,7 +12,7 @@ class Policy
 {
     use HandlesAuthorization;
 
-    public function authorize($user, $needle, $action, $order = null, $customer = null)
+    public function authorize($user, $needle, $action, Order $order = null, Customer $customer = null)
     {
         if($user instanceof User)
         {
@@ -30,9 +30,9 @@ class Policy
                 return true;
             else return false;
         }
-        else if($customer != null)
+        else if($user instanceof Customer)
         {
-            if(session('ip_address') === $customer->ip)
+            if($user->customer_id === $customer->customer_id)
                 return true;
             else return false;
         }

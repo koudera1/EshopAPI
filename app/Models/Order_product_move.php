@@ -18,7 +18,7 @@ class Order_product_move extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'oc_order_product_move_id';
+    protected $primaryKey = 'order_product_move_id';
 
     /**
      * Indicates if the model should be timestamped.

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateOrder;
+use App\Models\Address;
 use App\Models\Customer;
+use App\Models\Order;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -35,11 +38,10 @@ class CustomerController extends Controller
      * Update the specified customer in storage.
      * @urlParam customer required customer id Example: 1
      *
-     * @param Request $request
+     * @param UpdateOrder $request
      * @param Customer $customer
      * @return Response
      * @throws AuthorizationException
-     *
      * @bodyParam firstname string
      * @bodyParam lastname string
      * @bodyParam company string
@@ -64,21 +66,22 @@ class CustomerController extends Controller
      * "lastname":true
      * }
      */
-    public function update(Request $request, Customer $customer)
+    public function update(UpdateOrder $request, Customer $customer)
     {
-        $this->authorize('updateByAdminOrCustomer', null, $customer);
+        $this->authorize('updateByAdminOrAuthenticatedCustomer', $customer);
         $request->validated();
         $ret_array = [];
-        $address = DB::table('oc_address')
-            ->where('address_id',$customer->address_id)->firstOrFail();
-        if($address === null)
+        $address = "";
+        if($customer->address_id === 0)
         {
-            $address_id = DB::table('oc_address')->insertGetId(
+            $address = Address::create(
                 [
                     'customer_id' => $customer->customer_id
                 ]
             );
-            $address = DB::table('oc_address')->find($address_id);
+            $customer->update(['address_id' => $address->address_id]);
+        } else {
+            $address = Address::findOrFail($customer->address_id);
         }
         if ($request->has('company')) {
             $ret_array += array('company' => $address->update([
@@ -125,12 +128,12 @@ class CustomerController extends Controller
             ]));
         }
         if ($request->has('address_1')) {
-            $ret_array += array('address_1' => $customer->update([
+            $ret_array += array('address_1' => $address->update([
                 'address_1' => $request->input('address_1')
             ]));
         }
         if ($request->has('address_2')) {
-            $ret_array += array('address_2' => $customer->update([
+            $ret_array += array('address_2' => $address->update([
                 'address_2' => $request->input('address_2')
             ]));
         }
@@ -151,10 +154,13 @@ class CustomerController extends Controller
             ]));
         }
         if ($request->has('country')) {
+            $c_id = 0;
+            if($request->input('country') === 'Česká republika') $c_id = 56;
+            if($request->input('country') === 'Slovensko') $c_id = 189;
             $ret_array += array('country' => $address->update([
-                'country_id' => DB::table('oc_country')
+                'country_id' => $c_id === 0 ? DB::table('oc_country')
                     ->where('name', $request->input('country'))
-                    ->value('country_id')
+                    ->value('country_id') : $c_id
             ]));
         }
         if ($request->has('newsletter')) {

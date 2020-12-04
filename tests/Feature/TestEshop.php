@@ -5,15 +5,12 @@ namespace Tests\Feature;
 use App\Models\Customer;
 use App\Models\Geis_numbering;
 use App\Models\User;
-use App\Models\Order_history;
 use App\Models\Postcz_numbering;
 use App\Models\Product;
 use Tests\TestCase;
-use App\Http\Controllers\API\OrderController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\Order_product;
-use Illuminate\Http\Request;
 
 class TestEshop extends TestCase
 {
@@ -91,7 +88,7 @@ class TestEshop extends TestCase
             ]
         );
         $response->assertStatus(200)
-            ->assertJson(['product_id'=>$pid]);
+            ->assertJson(['product_id' => $pid]);
         $this->assertDatabaseHas('oc_product',
             [
                 "product_id" => $pid,
@@ -425,7 +422,7 @@ class TestEshop extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/' . $this->oid . '/products/' . $pid,
             [
                 'quantity' => 9
             ]);
@@ -469,7 +466,7 @@ class TestEshop extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $pid,
             [
                 'quantity' => 3
             ]);
@@ -511,16 +508,10 @@ class TestEshop extends TestCase
 
     public function testPutQuantity3()
     {
-        Customer::updateOrInsert(
-            ['customer_id' => 2552],
-            ['ip' => '90.179.92.144']
-        );
-        $customer = Customer::find(2552);
-
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
         $response = $this->withSession(['ip_address' => '90.179.92.144'])
-            ->actingAs($customer)->putJson('/orders/' . $this->oid . '/products/' . $opid,
+            ->putJson('/orders/' . $this->oid . '/products/' . $pid,
             [
                 'quantity' => 6
             ]);
@@ -564,11 +555,6 @@ class TestEshop extends TestCase
 
     public function testStoreOrder_product2()
     {
-        Customer::updateOrInsert(
-            ['customer_id' => 2552],
-            ['ip' => '90.179.92.144']
-        );
-        $customer = Customer::find(2552);
         $response = $this->actingAs($this->user)->postJson('/products',
             [
                 "category_id" => 202,
@@ -691,7 +677,7 @@ class TestEshop extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $pid,
             [
                 'quantity' => 9
             ]);
@@ -736,7 +722,7 @@ class TestEshop extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $pid,
             [
                 'quantity' => 3
             ]);
@@ -781,7 +767,7 @@ class TestEshop extends TestCase
     {
         $opid = Order_product::max('order_product_id');
         $pid = Order_product::where('order_product_id',$opid)->value('product_id');
-        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $opid,
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid . '/products/' . $pid,
             [
                 'quantity' => 6
             ]);
@@ -837,7 +823,6 @@ class TestEshop extends TestCase
         $response->assertStatus(200);
         $this->assertEquals($id, $response->baseResponse->content());
     }
-
 
     public function testPutAddresses()
     {
@@ -1145,7 +1130,6 @@ class TestEshop extends TestCase
             ]);
     }
 
-
     public function testPutPayment_status()
     {
         $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
@@ -1240,19 +1224,18 @@ class TestEshop extends TestCase
             ->assertJsonValidationErrors(['email' => 'Neplatná emailová adresa.']);
     }
 
-
     public function testPutTelephone1()
     {
         $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
-                'telephone' => '+420555111444'
+                'telephone' => '555 111 444'
             ]);
         $response->assertStatus(200)
             ->assertJson(['telephone' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
-                'telephone' => '+420555111444'
+                'telephone' => '555 111 444'
             ]);
     }
 
@@ -1260,14 +1243,14 @@ class TestEshop extends TestCase
     {
         $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
-                'telephone' => '555 111 444'
+                'telephone' => '+420555111444'
             ]);
         $response->assertStatus(200)
             ->assertJson(['telephone' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
-                'telephone' => '555 111 444'
+                'telephone' => '+420555111444'
             ]);
     }
 
@@ -1456,6 +1439,394 @@ class TestEshop extends TestCase
             ]);
     }
 
+    public function testPutCustomersName()
+    {
+        $customer = Customer::create([
+            'ip' => '90.179.92.144'
+        ]);
+        $response = $this->actingAs($customer)->putJson('/customers/' .
+                $customer->customer_id,
+            [
+                'firstname' => 'Jan',
+                'lastname' => 'Zelený',
+            ]);
+        $response->assertStatus(200)
+            ->assertJson([
+                'firstname' => 'true',
+                'lastname' => 'true',
+            ]);
+        $this->assertDatabaseHas('oc_customer',
+            [
+                'customer_id' => $customer->customer_id,
+                'firstname' => 'Jan',
+                'lastname' => 'Zelený',
+            ]);
+        $this->assertDatabaseHas('oc_address',
+            [
+                'customer_id' => $customer->customer_id,
+                'firstname' => 'Jan',
+                'lastname' => 'Zelený',
+            ]);
+    }
+
+    public function testPutCustomersContact()
+    {
+        $customer = Customer::find(Customer::max('customer_id'));
+        $response = $this->actingAs($customer)->putJson('/customers/' . $customer->customer_id,
+            [
+                'email' => 'jz@seznam.cz',
+                'telephone' => '777777666',
+                'fax' => ''
+            ]);
+        $response->assertStatus(200)
+            ->assertJson([
+                'email' => 'true',
+                'telephone' => 'true',
+                'fax' => 'true'
+            ]);
+        $this->assertDatabaseHas('oc_customer',
+            [
+                'customer_id' => $customer->customer_id,
+                'email' => 'jz@seznam.cz',
+                'telephone' => '777777666',
+                'fax' => ''
+            ]);
+    }
+
+    public function testPutCustomersOtherAttributes()
+    {
+        $customer = Customer::find(Customer::max('customer_id'));
+        $response = $this->actingAs($customer)->putJson('/customers/' . $customer->customer_id,
+            [
+                'newsletter' => '1',
+                'status' => '1',
+                'customer_group_id' => '1',
+                'periodSaleTotal' => 0.0,
+                'allow_discount' => 1
+            ]);
+        $response->assertStatus(200)
+            ->assertJson([
+                'newsletter' => 'true',
+                'status' => 'true',
+                'customer_group_id' => 'true',
+                'periodSaleTotal' => 'true',
+                'allow_discount' => 'true'
+            ]);
+        $this->assertDatabaseHas('oc_customer',
+            [
+                'customer_id' => $customer->customer_id,
+                'newsletter' => '1',
+                'status' => '1',
+                'customer_group_id' => '1',
+                'periodSaleTotal' => 0.0,
+                'allow_discount' => 1
+            ]);
+    }
+
+    public function testPutCustomersAddress()
+    {
+        $customer = Customer::find(Customer::max('customer_id'));
+        $response = $this->actingAs($customer)->putJson('/customers/' . $customer->customer_id,
+            [
+                'company' => 'Hyundai',
+                'address_1' => 'Mohelova 107',
+                'address_2' => '',
+                'postcode' => '755 01',
+                'city' => 'Vsetín',
+                'country' => 'Česká republika',
+            ]);
+        $response->assertStatus(200)
+            ->assertJson([
+                'company' => 'true',
+                'address_1' => 'true',
+                'address_2' => 'true',
+                'postcode' => 'true',
+                'city' => 'true',
+                'country' => 'true'
+            ]);
+        $this->assertDatabaseHas('oc_address',
+            [
+                'customer_id' => $customer->customer_id,
+                'company' => 'Hyundai',
+                'address_1' => 'Mohelova 107',
+                'address_2' => '',
+                'postcode' => '755 01',
+                'city' => 'Vsetín',
+                'country_id' => 56,
+            ]);
+    }
+
+    public function testStoreCustomersOrder()
+    {
+        $pid = Product::max('product_id');
+        $oid = $this->getNextId('oc_order');
+        $opid = $this->getNextId('oc_order_product');
+        $customer = Customer::find(Customer::max('customer_id'));
+        $response = $this->actingAs($customer)->postJson('/orders',
+            [
+                'domain' => 'www.milka.cz',
+                'customer_id' => $customer->customer_id,
+                'language' => 'Čeština',
+                'referrer' => 'heureka.cz',
+                'product_id' => $pid,
+                'quantity' => 6
+            ]
+        );
+        $product = Product::where('product_id',$pid)->first();
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'order_id' => $oid,
+                'order_product_id' => $opid
+            ]);
+        $this->assertDatabaseHas('oc_order', [
+            'order_id' => $oid,
+            'ip' => '90.179.92.144',
+            'domain' => 'www.milka.cz',
+            'customer_id' => $customer->customer_id,
+            'language_id' => 5,
+            'currency' => 'CZK',
+            'currency_id' => 4,
+            'email' => 'jz@seznam.cz',
+            'telephone' => '777777666',
+            'fax' => '',
+            'firstname' => 'Jan',
+            'lastname' => 'Zelený',
+            'company' => 'Hyundai',
+            'shipping_company' => 'Hyundai',
+            'shipping_firstname' => 'Jan',
+            'shipping_lastname' => 'Zelený',
+            'shipping_city' => 'Vsetín',
+            'shipping_address_1' => 'Mohelova 107',
+            'shipping_address_2' => '',
+            'shipping_postcode' => '755 01',
+            'shipping_country' => 'Česká republika',
+            'shipping_country_id' => 56,
+            'shipping_address_format' => '',
+            'payment_company' => 'Hyundai',
+            'payment_firstname' => 'Jan',
+            'payment_lastname' => 'Zelený',
+            'payment_city' => 'Vsetín',
+            'payment_address_1' => 'Mohelova 107',
+            'payment_address_2' => '',
+            'payment_postcode' => '755 01',
+            'payment_country' => 'Česká republika',
+            'payment_country_id' => 56,
+            'payment_address_format' => '',
+
+        ])->assertDatabaseHas('oc_order_product', [
+            'order_id' => $oid,
+            'product_id' => $pid,
+            'name' => DB::table('oc_product_description')
+                ->where('product_id',$pid)->value('name'),
+            'model' => $product->model,
+            'price' => $product->price,
+            'purchase_price' => $product->purchase_price,
+            'quantity' => 6,
+            'total' => round($product->price * 6, 4),
+            'warranty' => $product->warranty,
+            'tax' => "21.0000"
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $oid,
+            'title' => 'Cena celkem bez DPH',
+            'text' => '600 Kč',
+            'value' => 600,
+            'sort_order' => 4
+        ])->assertDatabaseHas('oc_order_total',[
+            'order_id' => $oid,
+            'title' => 'DPH 21%',
+            'text' => '126 Kč',
+            'value' => 126,
+            'sort_order' => 5
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $oid,
+            'title' => 'Cena celkem s DPH',
+            'text' => '726 Kč',
+            'value' => 726,
+            'sort_order' => 6
+        ])->assertDatabaseHas('oc_customer', [
+            'customer_id' => $customer->customer_id,
+            'cart' => serialize(array($pid => 6))
+        ]);
+    }
+
+    public function testStoreCustomersOrder_product()
+    {
+        $customer = Customer::find(Customer::max('customer_id'));
+        $response = $this->actingAs($this->user)->postJson('/products',
+                [
+                    "category_id" => 202,
+                    "category_id2" => 312,
+                    "model" => "88396",
+                    "sku" => "4015588883965",
+                    "location" => "",
+                    "quantity" => 1,
+                    "internal_quantity" => 8,
+                    "stock_status_id" => 14,
+                    "image" => "data/me/masaz/nohou/masazni-pristroj-na-nohy-a-zada-medisana-fm-883-88396.jpg",
+                    "manufacturer_id" => 6,
+                    "shipping" => 1,
+                    "price" => 100,
+                    "tax_class_id" => 20,
+                    "date_available" => "2019-05-29",
+                    "weight" => "0.00",
+                    "weight_class_id" => 1,
+                    "length" => "0.00",
+                    "width" => "0.00",
+                    "height" => "0.00",
+                    "measurement_class_id" => 1,
+                    "status" => 1,
+                    "viewed" => 0,
+                    "container_capacity" => 0,
+                    "req_container" => 0,
+                    "purchase_price" => 80,
+                    "viewed_month" => 129,
+                    "viewed_quartal" => 152,
+                    "viewed_year" => 152,
+                    "heureka" => "",
+                    "heureka_cat" => "",
+                    "heureka_name" => "",
+                    "warranty" => 24,
+                    "sold_quartal" => 1,
+                    "conversion_quartal" => "0.00658",
+                    "free_shipping" => 1,
+                    "domains" => "",
+                    "color1" => "ffffff",
+                    "color2" => "000000",
+                    "color3" => "",
+                    "marketing_domain" => "",
+                    "raw_name" => "",
+                    "zasilkovna_enabled" => 1,
+                    "condition" => 1,
+                    "erotic" => 0,
+                    'language' => 'Čeština',
+                    'name' => 'Depilátor Ra',
+                    'meta_description' => 'lanžetový holící strojek Remington F3790 Dual Flex Foil Shaver',
+                    'meta_keywords' => 'planžetový, holící strojek, Remington, Remington F3790, pánské strojky, holení, planžety',
+                    'description' => '&lt;h2&gt;',
+                    'intro' => '&lt;p&gt;'
+                ]
+            );
+
+        $response->assertStatus(200);
+        $product = Product::find($response->getData()->product_id);
+        $oid = Order::max('order_id');
+        $this->withSession(['ip_address' => '90.179.92.144'])->postJson('/orders/'.$this->oid.'/products',
+            [
+                'order_id' => $oid,
+                'product_id' => $product->product_id,
+                'quantity' => 6,
+                'model' => $product->model,
+                'price' => $product->price,
+                'purchase_price' => $product->purchase_price,
+                'warranty' => $product->warranty,
+                'total' => $product->price * 6
+            ]
+        );
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('oc_order_product', [
+            'order_id' => $oid,
+            'product_id' => $product->product_id,
+            'name' => DB::table('oc_product_description')
+                ->where('product_id',$product->product_id)->value('name'),
+            'model' => $product->model,
+            'price' => $product->price,
+            'purchase_price' => $product->purchase_price,
+            'quantity' => 6,
+            'total' => round($product->price * 6, 4),
+            'warranty' => $product->warranty,
+            'tax' => "21.0000"
+        ])->assertDatabaseHas('oc_order_product_move', [
+            'order_id' => $oid,
+            'product_id' => $product->product_id,
+            'quantity_int' => 6,
+            'quantity_ext' => 0
+        ])->assertDatabaseHas('oc_product', [
+            'product_id' => $product->product_id,
+            'quantity' => 1,
+            'internal_quantity' => 2
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $oid,
+            'title' => 'Cena celkem bez DPH',
+            'text' => '1200 Kč',
+            'value' => 1200,
+            'sort_order' => 4
+        ])->assertDatabaseHas('oc_order_total',[
+            'order_id' => $oid,
+            'title' => 'DPH 21%',
+            'text' => '252 Kč',
+            'value' => 252,
+            'sort_order' => 5
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $oid,
+            'title' => 'Cena celkem s DPH',
+            'text' => '1452 Kč',
+            'value' => 1452,
+            'sort_order' => 6
+        ])->assertDatabaseHas('oc_customer',[
+            'customer_id' => $customer->customer_id,
+            'cart' => serialize(array(
+                $product->product_id - 1 => 6,
+                $product->product_id => 6
+            ))
+        ]);
+    }
+
+    public function testPutCustomersProductQuantity()
+    {
+        $opid = Order_product::max('order_product_id');
+        $pid = Order_product::where('order_product_id',$opid)->value('product_id');
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])
+            ->putJson('/orders/' . $this->oid . '/products/' . $pid,
+            [
+                'quantity' => 9
+            ]);
+        $response->assertStatus(200)
+            ->assertJson(['quantity' => 'true']);
+        $this->assertDatabaseHas('oc_order_product', [
+            'order_product_id' => $opid,
+            'quantity' => 9,
+            'total' => round(100 * 9, 4),
+        ])->assertDatabaseHas('oc_order_product_move', [
+            'order_id' => $this->oid,
+            'product_id' => $pid,
+            'quantity_int' => 8,
+            'quantity_ext' => 1
+        ])->assertDatabaseHas('oc_product', [
+            'product_id' => $pid,
+            'quantity' => 0,
+            'internal_quantity' => 0
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $this->oid,
+            'title' => 'Cena celkem bez DPH',
+            'text' => '1500 Kč',
+            'value' => 1500,
+            'sort_order' => 4
+        ])->assertDatabaseHas('oc_order_total',[
+            'order_id' => $this->oid,
+            'title' => 'DPH 21%',
+            'text' => '315 Kč',
+            'value' => 315,
+            'sort_order' => 5
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $this->oid,
+            'title' => 'Cena celkem s DPH',
+            'text' => '1815 Kč',
+            'value' => 1815,
+            'sort_order' => 6
+        ])->assertDatabaseHas('oc_customer', [
+            'customer_id' => Customer::max('customer_id'),
+            'cart' => serialize(array(
+                $pid - 1 => 6,
+                $pid => 9
+            ))
+        ]);
+
+        $this->actingAs($this->user)->delete('/orders/'.$this->oid);
+        Product::find($pid)->delete();
+    }
+
     public function testStoreGeisPackage()
     {
         $delivery_id =  Geis_numbering::select('min')->where('is_free', 1)->first();
@@ -1472,8 +1843,11 @@ class TestEshop extends TestCase
                 'package_order' => 1
             ]);
         $response
-            ->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+            ->assertStatus(200)
+            ->assertJson([
+                'delivery_id' => $delivery_id->min,
+                'package_id' => $delivery_id->min
+            ]);
         $this->assertDatabaseHas('geis_delivery',[
             'delivery_id' => $delivery_id->min,
             'order_id' => $this->oid,
@@ -1518,8 +1892,11 @@ class TestEshop extends TestCase
                 'weight' => 0.618
             ]);
         $response
-            ->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
+            ->assertStatus(200)
+            ->assertJson([
+                'delivery_id' => $delivery_id->min,
+                'package_id' => $delivery_id->min
+            ]);
         $this->assertDatabaseHas('postcz_delivery',[
             'delivery_id' => $delivery_id->min,
             'order_id' => $this->oid,
@@ -1552,15 +1929,16 @@ class TestEshop extends TestCase
 
     public function testStoreZasilkovnaPackage()
     {
+        $p_id = $this->getNextId('zasilkovna_package');
         Order::where('order_id',$this->oid)->update(['shipping_method' => 'Zásilkovna']);
-        $response = $this->withSession(['ip_address' => '165.154.213.546'])->postJson('/orders/'.$this->oid.'/packages',
+        $response = $this->withSession(['ip_address' => '165.154.213.546'])
+            ->postJson('/orders/'.$this->oid.'/packages',
             [
                 'cod' => 0,
                 'weight' => 0.618
             ]);
-        $response->assertStatus(200);
-        $this->assertEquals('true', $response->baseResponse->content());
-        $this->assertDatabaseHas('zasilkovna_package',[
+        $response->assertStatus(200)->assertJsonCount(1);
+        $this->assertDatabaseHas('zasilkovna_package', [
             'order_id' => $this->oid,
             'active' => 1
         ]);
@@ -1740,7 +2118,6 @@ class TestEshop extends TestCase
         $this->assertEquals('2.99<EUR>',$response->baseResponse->content());
     }
 
-
     public function testShowOrder()
     {
         Order::where('order_id',$this->oid)->update(['total' => 3000]);
@@ -1793,9 +2170,11 @@ class TestEshop extends TestCase
 
     public function testDeleteOrder_product1()
     {
-        $opid = Order_product::max('order_product_id');
-        $pid = Order_product::where('order_product_id', $opid)->value('product_id');
-        $response = $this->withSession(['ip_address' => '165.154.213.546'])->delete('/orders/'.$this->oid.'/products/'.$opid);
+        $pid = Product::max('product_id');
+        $opid = Order_product::where('product_id', $pid)->where('order_id', $this->oid)
+            ->value('order_product_id');
+        $response = $this->withSession(['ip_address' => '165.154.213.546'])
+            ->delete('/orders/'.$this->oid.'/products/'. $pid);
         $response->assertStatus(200);
         $this->assertDatabaseMissing('oc_order_product', [
             'order_product_id' => $opid,
@@ -1830,14 +2209,15 @@ class TestEshop extends TestCase
             'value' => 1452,
             'sort_order' => 6
         ]);
-        $this->delete('/products/'.$pid);
+        $this->actingAs($this->user)->delete('/products/'.$pid);
     }
 
     public function testDeleteOrder_product2()
     {
-        $opid = Order_product::max('order_product_id');
-        $pid = Order_product::where('order_product_id', $opid)->value('product_id');
-        $response = $this->actingAs($this->user)->delete('/orders/'.$this->oid.'/products/'.$opid);
+        $pid = Product::max('product_id');
+        $opid = Order_product::where('product_id', $pid)->where('order_id', $this->oid)
+            ->value('order_product_id');
+        $response = $this->actingAs($this->user)->delete('/orders/'.$this->oid.'/products/'.$pid);
 
         $response->assertStatus(200);
         $this->assertDatabaseMissing('oc_order_product', [
@@ -1874,21 +2254,7 @@ class TestEshop extends TestCase
             'value' => 726,
             'sort_order' => 6
         ]);
-        $this->delete('/products/'.$pid);
-
-        $pid = Product::max('product_id');
-
-        $this->postJson('/orders/'.$this->oid.'/products',
-            [
-                'product_id' => $pid,
-            ]
-        );
-
-        $this->postJson('/orders/'.$this->oid.'/products',
-            [
-                'product_id' => $pid,
-            ]
-        );
+        $this->actingAs($this->user)->delete('/products/'.$pid);
     }
 
     public function testDeleteOrder()

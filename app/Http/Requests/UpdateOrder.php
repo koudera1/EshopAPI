@@ -34,19 +34,14 @@ class UpdateOrder extends FormRequest
             'shipping_address_2' => 'regex:/^[\\0-9\s\-\p{L}]*$/u',
             'shipping_city' => 'regex:/^[\s\-\p{L}]*$/u',
             'shipping_postcode' => 'regex:/^[\s0-9]*$/',
-            //'shipping_zone_id' => 'numeric',
             'shipping_country' => 'regex:/^[\s\-\p{L}]*$/u',
-            //'shipping_country_id' => 'numeric',
             'payment_firstname' => 'regex:/^[\s\-\p{L}]*$/u',
             'payment_lastname' => 'regex:/^[\s\-\p{L}]*$/u',
             'payment_address_1' => 'regex:/^[\\0-9\s\-\p{L}]*$/u',
             'payment_address_2' => 'regex:/^[\\0-9\s\-\p{L}]*$/u',
             'payment_city' => 'regex:/^[\s\-\p{L}]*$/u',
             'payment_postcode' => 'regex:/^[\s0-9]*$/',
-            //'payment_zone_id' => 'numeric',
             'payment_country' => 'regex:/^[\s\-\p{L}]*$/u',
-            //'payment_country_id' => 'numeric',
-            'password' => $this->passwordRules(),
         ];
     }
 

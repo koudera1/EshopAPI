@@ -57,7 +57,9 @@ Route::apiResources([
     'orders.packages' => API\PackageController::class,
     'orders.history' => API\Order_historyController::class,
     'orders.products' => API\Order_productController::class,
-    'products' => API\ProductController::class
+    'customers' => API\CustomerController::class,
+    'products' => API\ProductController::class,
+    'products.gifts' => API\Product_giftController::class
 ]);
 
 

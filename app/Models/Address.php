@@ -2,23 +2,24 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 
-class Order_total extends Model
+class Address extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_order_total';
+    protected $table = 'oc_address';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'order_total_id';
+    protected $primaryKey = 'address_id';
 
     /**
      * Indicates if the model should be timestamped.

@@ -6,7 +6,9 @@ use App\Models\Geis_numbering;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Postcz_numbering;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use SoapClient;
 use SoapFault;
@@ -22,7 +24,7 @@ class PackageController extends Controller
      * @urlParam order required order id Example: 35022
      *
      * @param  \Illuminate\Http\Order  $order
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Order $order)
     {
@@ -53,12 +55,13 @@ class PackageController extends Controller
      * @bodyParam commercial integer
      * @bodyParam service string
      * @bodyParam weight float The weight of the package.
-     * @response true
+     * @response {"delivery_id":8092812000, "package_id":8092812000}
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Illuminate\Http\Order $order
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Order $order
+     * @return Response
      * @throws SoapFault
+     * @throws AuthorizationException
      */
     public function store(Request $request, Order $order)
     {
@@ -95,10 +98,13 @@ class PackageController extends Controller
                 ]
             );
 
-            if ($bool1 and $bool2)
-                return response()->json(true);
-            else
-                return response()->json(false);
+            return response()->json(
+                [
+                    'delivery_id' => $bool1 and $bool2 ? $delivery_id['min'] : null,
+                    'package_id' => $bool1 and $bool2 ? $delivery_id['min'] : null
+                ]
+            );
+
         } else if (mb_substr($order->shipping_method, 0, 11) === "Česká pošta") {
             $delivery_id = Postcz_numbering::select('min')->where('is_free', 1)
                 ->where('source',$request->input('source'))->firstOrFail();
@@ -135,10 +141,13 @@ class PackageController extends Controller
                 ]
             );
 
-            if ($bool1 and $bool2)
-                return response()->json(true);
-            else
-                return response()->json(false);
+            return response()->json(
+                [
+                    'delivery_id' => ($bool1 and $bool2) ? $delivery_id['min'] : null,
+                    'package_id' => ($bool1 and $bool2) ? $delivery_id['min'] : null
+                ]
+            );
+
         } else {
 
             $gw = new SoapClient("https://www.zasilkovna.cz/api/soap-php-bugfix.wsdl");
@@ -189,26 +198,30 @@ class PackageController extends Controller
                     return new \Exception($e->getMessage()); // property detail contains error info
                 }
 
-                return response()->json(DB::table('zasilkovna_package')->insert(
-                    [
-                        'package_id' => $packet->id,
-                        'order_id' => $order->order_id,
-                        'creation_time' => $date,
-                        'PacketAttributes' => json_encode($packetAttributes),
-                        'PacketIdDetail' => json_encode($packet),
-                        'active' => 1
-                    ]
-                ));
+                $bool = DB::table('zasilkovna_package')
+                    ->insert(
+                        [
+                            'package_id' => $packet->id,
+                            'order_id' => $order->order_id,
+                            'creation_time' => $date,
+                            'PacketAttributes' => json_encode($packetAttributes),
+                            'PacketIdDetail' => json_encode($packet),
+                            'active' => 1
+                        ]);
+
+                return response()->json(['package_id' => $bool ? $packet->id : null]);
         }
+
+        abort('404');
     }
 
     /**
      * Update the specified package in storage.
      * @urlParam order required order id Example: 35022
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \App\Package  $package
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Order $order, $package_id)
     {
@@ -219,7 +232,7 @@ class PackageController extends Controller
      * Remove the specified package from storage.
      *
      * @param  \App\Package  $package
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($package_id)
     {

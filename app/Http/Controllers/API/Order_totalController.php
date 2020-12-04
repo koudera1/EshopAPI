@@ -5,11 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Order_product;
-use App\Models\Order_product_move;
 use App\Models\Order_total;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class Order_totalController extends Controller
 {
@@ -40,6 +36,8 @@ class Order_totalController extends Controller
     public static function insertOrUpdate(Order $order, $update = 0)
     {
         $price = self::countPrice($order);
+        if($price === 0) return true; /*customer deleted all his ordered products,
+            database changes aren't necessary for now*/
         $bool0 = $order->update(['total' => $price['noTaxTotal'] + $price['tax']]);
         $order->currency === 'CZK' ? $c = ' Kč' : $c = '€';
 
@@ -57,7 +55,7 @@ class Order_totalController extends Controller
         $bool2 = Order_total::updateOrInsert(
             [
                 'order_id' => $order->order_id,
-                'title' => 'DPH ' . (int)Order_product::where('order_id', $order->order_id)->value('tax') . '%',
+                'title' => 'DPH ' . (int)($price['tax'] / $price['noTaxTotal'] * 100) . '%',
                 'sort_order' => 5
             ],
             [

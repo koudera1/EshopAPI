@@ -25,14 +25,17 @@ class Order extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
+    const CREATED_AT = 'date_added';
+    const UPDATED_AT = 'date_modified';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
     protected $guarded = [];
+
 
 
     public function history()

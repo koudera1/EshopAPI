@@ -25,7 +25,9 @@ class Product extends Model
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
+    const CREATED_AT = 'date_added';
+    const UPDATED_AT = 'date_modified';
 
     /**
      * The attributes that are mass assignable.

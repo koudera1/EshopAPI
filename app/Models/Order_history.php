@@ -26,6 +26,13 @@ class Order_history extends Model
      * @var bool
      */
     public $timestamps = false;
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->date_added = date("Y-m-d H:i:s");
+        });
+    }
 
     /**
      * The attributes that are mass assignable.

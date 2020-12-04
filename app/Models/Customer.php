@@ -38,17 +38,21 @@ class Customer extends Authenticatable
      * @var bool
      */
     public $timestamps = false;
+    private $address_id;
 
+    public static function boot()
+    {
+        parent::boot();
+       static::creating(function ($model) {
+           $model->date_added = date("Y-m-d H:i:s");
+        });
+    }
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -58,25 +62,6 @@ class Customer extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'profile_photo_url',
-    ];
 }

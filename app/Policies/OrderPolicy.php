@@ -2,9 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Customer;
 use App\Models\Order;
-use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OrderPolicy extends Policy
@@ -28,13 +26,12 @@ class OrderPolicy extends Policy
      * Determine whether the user can update the model.
      *
      * @param  $user
-     * @param Order $order
-     * @param Customer|null $customer
+     * @param Order|null $order
      * @return mixed
      */
-    public function updateByAdminOrCustomer($user = null, Order $order, Customer $customer = null)
+    public function updateByAdminOrCustomer($user = null, Order $order)
     {
-        return $this->authorize($user,'sale/order','modify', $order, $customer);
+        return $this->authorize($user,'sale/order','modify', $order);
     }
 
     /**
