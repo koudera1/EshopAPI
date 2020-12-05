@@ -253,7 +253,8 @@ class TestEshop extends TestCase
             'quantity' => 6,
             'total' => round($product->price * 6, 4),
             'warranty' => $product->warranty,
-            'tax' => "21.0000"
+            'tax' => "21.0000",
+            'gift' => 0
         ])->assertDatabaseHas('oc_order_product_move', [
             'order_id' => $oid,
             'product_id' => $pid,
@@ -282,6 +283,41 @@ class TestEshop extends TestCase
             'value' => 726,
             'sort_order' => 6
         ]);
+    }
+
+    public function testStoreGift()
+    {
+        $pid = $this->getNextId('oc_product');
+        $response = $this->actingAs($this->user)->postJson('/products/' . $pid . '/gifts/',
+            [
+                "quantity" => 1,
+                "gift_id" => 4888
+            ]);
+        $response->assertStatus(200);
+        $this->assertEquals("true",$response->baseResponse->content());
+
+        $this->assertDatabaseHas('oc_product_gift',
+            [
+                'product_id' => $pid,
+                'gift_id' => 4888,
+                'quantity' => 1
+            ]);
+    }
+
+    public function testUpdateGift()
+    {
+        $pid = $this->getNextId('oc_product');
+        $response = $this->actingAs($this->user)->putJson('/products/' . $pid . '/gifts/' . 4888,
+            ["quantity" => 2]);
+        $response->assertStatus(200)
+            ->assertJson(["quantity" => "true"]);
+
+        $this->assertDatabaseHas('oc_product_gift',
+            [
+                'product_id' => $pid,
+                'gift_id' => 4888,
+                'quantity' => 2
+            ]);
     }
 
     public function testStoreOrder_product1()
@@ -370,7 +406,8 @@ class TestEshop extends TestCase
             'quantity' => 6,
             'total' => round($product->price * 6, 4),
             'warranty' => $product->warranty,
-            'tax' => "21.0000"
+            'tax' => "21.0000",
+            'gift' => 1
         ])->assertDatabaseHas('oc_order_product_move', [
             'order_id' => $oid,
             'product_id' => $product->product_id,
@@ -432,6 +469,7 @@ class TestEshop extends TestCase
             'order_product_id' => $opid,
             'quantity' => 9,
             'total' => round(100 * 9, 4),
+            'gift' => 1
         ])->assertDatabaseHas('oc_order_product_move', [
             'order_id' => $this->oid,
             'product_id' => $pid,

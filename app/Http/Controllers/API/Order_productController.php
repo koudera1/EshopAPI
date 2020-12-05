@@ -44,7 +44,6 @@ class Order_productController extends Controller
      * @bodyParam sort_order integer
      * @bodyParam is_transfer integer
      * @bodyParam is_action integer
-     * @bodyParam gift integer
      * @response  {
      * "order_product_id":3332
      * }
@@ -70,7 +69,9 @@ class Order_productController extends Controller
                 'sort_order' => $request->input('sort_order',0),
                 'is_transfer' => $request->input('is_transfer',0),
                 'is_action' => $request->input('is_action',0),
-                'gift' => $request->input('gift',0),
+                'gift' => DB::table('oc_product_gift')
+                    ->where('product_id', $product->product_id)
+                    ->exists() ? 1 : 0,
                 'model' => $product->model,
                 'price' => $product->price,
                 'purchase_price' => $product->purchase_price,
@@ -82,7 +83,6 @@ class Order_productController extends Controller
         {
             $customer = Customer::find($order->customer_id);
             $cart = unserialize($customer->cart);
-            $d = unserialize("a:2:{i:2926;i:6;i:2927;i:6;}");
             $cart[$product->product_id] = $request->input('quantity');
             $customer->update([
                 'cart' => serialize($cart)
