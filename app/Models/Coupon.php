@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Coupon extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_product';
+    protected $table = 'oc_coupon';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'product_id';
+    protected $primaryKey = 'coupon_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -27,7 +27,6 @@ class Product extends Model
      */
     public $timestamps = true;
     const CREATED_AT = 'date_added';
-    const UPDATED_AT = 'date_modified';
 
     /**
      * The attributes that aren't mass assignable.
