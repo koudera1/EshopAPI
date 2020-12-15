@@ -28,10 +28,10 @@ class CustomerController extends Controller
     public function show(Customer $customer)
     {
         return Customer::join('oc_address', 'oc_address.address_id', '=', 'oc_customer.address_id')
-            ->select('firstname', 'lastname', 'email',
-                'telephone', 'company', 'address_1',
-                'address2', 'postcode', 'city')
-            ->where('customer_id', $customer->customer_id)->firstOrFail();
+            ->select('oc_customer.firstname', 'oc_customer.lastname', 'oc_customer.email',
+                'oc_customer.telephone', 'oc_address.company', 'oc_address.address_1',
+                'oc_address.address_2', 'oc_address.postcode', 'oc_address.city')
+            ->where('oc_customer.customer_id', $customer->customer_id)->firstOrFail();
     }
 
     /**

@@ -96,27 +96,6 @@ class OrderController extends Controller
             ]
         );
         $oid = $order->order_id;
-        $product = Product::findOrFail($request->input('product_id'));
-        Order_product_moveController::updateStock($order, $product, $request->input('quantity'));
-
-        $opid = Order_product::insertGetId(
-            [
-                'order_id' => $oid,
-                'product_id' => $request->input('product_id'),
-                'name' => DB::table('oc_product_description')
-                    ->where('product_id', $request->input('product_id'))->value('name'),
-                'model' => $product->model,
-                'price' => $product->price,
-                'purchase_price' => $product->purchase_price,
-                'quantity' => $request->input('quantity'),
-                'total' => $product->price * $request->input('quantity'),
-                'warranty' => $product->warranty,
-                'tax' => preg_replace('/[^0-9]/', '', DB::table('oc_tax_class')
-                    ->where('tax_class_id', $product->tax_class_id)->value('title'))
-            ]
-        );
-
-        Order_totalController::insertOrUpdate($order, 1);
 
         if($request->input('customer_id') != 0)
         {
@@ -136,7 +115,7 @@ class OrderController extends Controller
                         ->where('country_id',$address->country_id)->value('name');
             }
 
-            Order::where('order_id', $oid)->update(
+           $order->update(
                 [
                     'firstname' => $customer->firstname,
                     'lastname' => $customer->lastname,
@@ -167,17 +146,19 @@ class OrderController extends Controller
                     'payment_zone_id' => $address->zone_id
                 ]
             );
-            $customer->update([
-                'cart' => serialize(array(
-                    $request->input('product_id') => $request->input('quantity')
-                ))
-            ]);
         }
+
+        $request = new Request([
+            'product_id' => $request->input('product_id'),
+            'quantity' => $request->input('quantity'),
+        ]);
+        $opc = new Order_productController();
+        $opid = $opc->store($request, $order);
 
         return response()->json(
             [
                 'order_id' => $oid,
-                'order_product_id' => $opid
+                'order_product_id' => $opid['order_product_id']
             ]
         );
     }
@@ -229,21 +210,15 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        if($order->delete())
+        $ops =  Order_product::where('order_id', $order->order_id)->get();
+        foreach ($ops as $op)
         {
-            $ops =  Order_product::where('order_id', $order->order_id)->get();
-            foreach ($ops as $op)
-            {
-                Order_productController::updateProductsWhenDeleting($op, Product::find($op->product_id));
-                $op->delete();
-            }
-            if(Order_total::where('order_id', $order->order_id)->delete())
-            {
-                Order_history::where('order_id', $order->order_id)->delete();
-                return response()->json(true);
-            }
+            Order_productController::updateProductsWhenDeleting($op, Product::find($op->product_id));
+            $op->delete();
         }
-        return response()->json(false);
+        Order_total::where('order_id', $order->order_id)->delete();
+        Order_history::where('order_id', $order->order_id)->delete();
+        return response()->json($order->delete());
     }
 
 
@@ -440,6 +415,7 @@ class OrderController extends Controller
             $ret_array += array('coupon_id' => $order->update([
                 'coupon_id' => $request->input('coupon_id')
             ]));
+            Order_totalController::insertOrUpdate($order);
         }
         if ($request->has('shipping_gp')) {
             $ret_array += array('shipping_gp' => $order->update([

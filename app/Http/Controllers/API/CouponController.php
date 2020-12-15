@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,7 +44,7 @@ class CouponController extends Controller
         );
 
         $bool = DB::table('oc_coupon_description')->insert([
-            'coupon_id' => $request->input('coupon_id'),
+            'coupon_id' => $cid,
             'language_id' => $request->input('language_id'),
             'name' => $request->input('name'),
             'description' => $request->input('description')

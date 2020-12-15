@@ -6008,7 +6008,8 @@ date_end</ColNames>
       <ColumnKind>normal</ColumnKind>
     </column>
     <index id="1169" parent="317" name="sku">
-      <ColNames>warehouse_id
+      <ColNames>sku
+warehouse_id
 price_cost</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>

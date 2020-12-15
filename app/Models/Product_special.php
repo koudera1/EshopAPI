@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Coupon extends Model
+class Product_special extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_coupon';
+    protected $table = 'oc_product_special';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'coupon_id';
+    protected $primaryKey = 'product_special_id';
 
     /**
      * Indicates if the model should be timestamped.

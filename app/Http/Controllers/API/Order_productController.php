@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Order_product_move;
 use App\Models\Product;
 
+use App\Models\Product_special;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -57,6 +58,37 @@ class Order_productController extends Controller
     {
         $this->authorize('updateByAdminOrCustomer', $order);
         $product = Product::where('product_id', $request->input('product_id'))->firstOrFail();
+        $price = $product->price;
+        if($order->customer_id != 0)
+        {
+            $customer = Customer::find($order->customer_id);
+            $cart = unserialize($customer->cart);
+            $cart[$product->product_id] = $request->input('quantity');
+            $customer->update([
+                'cart' => serialize($cart)
+            ]);
+
+            if($customer->customer_group_id != 0)
+            {
+
+                $pid = $product->product_id;
+                $cgid = $customer->customer_group_id;
+                $domain = $order->domain;
+                $price = Product_special
+                    ::where('product_id', $pid)
+                    ->where('customer_group_id', $cgid)
+                    ->where('domain', $domain)
+                    ->where('priority', function($query) use ($pid, $cgid, $domain)
+                    {
+                        $query->selectRaw('max(priority)')
+                            ->where('product_id', $pid)
+                            ->where('customer_group_id', $cgid)
+                            ->where('domain', $domain);
+                    })->value('price');
+                if($price === null) $price = $product->price;
+            }
+        }
+
         $opid = Order_product::insertGetId(
             [
                 'order_id' => $order->order_id,
@@ -73,30 +105,21 @@ class Order_productController extends Controller
                     ->where('product_id', $product->product_id)
                     ->exists() ? 1 : 0,
                 'model' => $product->model,
-                'price' => $product->price,
+                'price' => $price,
                 'purchase_price' => $product->purchase_price,
                 'warranty' => $product->warranty,
-                'total' => $product->price * $request->input('quantity',0)
+                'total' => $price * $request->input('quantity',0)
             ]);
 
-        if($order->customer_id != 0)
-        {
-            $customer = Customer::find($order->customer_id);
-            $cart = unserialize($customer->cart);
-            $cart[$product->product_id] = $request->input('quantity');
-            $customer->update([
-                'cart' => serialize($cart)
-            ]);
-        }
 
         Order_product_moveController::updateStock($order, $product, $request->input('quantity'));
         Order_totalController::insertOrUpdate($order, 1);
 
-        return response()->json(
+        return
             [
                 'order_product_id' => $opid
             ]
-        );
+        ;
     }
 
     /**

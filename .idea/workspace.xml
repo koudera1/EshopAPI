@@ -2,12 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bc0afc0-91ca-4c6c-a61e-754d89118848" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CouponController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ReviewController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Coupon.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Review.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Customer_groupController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Product_specialController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Customer_group.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Product_special.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7e7f4698-a99c-4847-9bd8-10a25c29968c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7e7f4698-a99c-4847-9bd8-10a25c29968c.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Actions/Fortify/CreateNewUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Actions/Fortify/CreateNewUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CouponController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CouponController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Order_totalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Order_totalController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ReviewController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ReviewController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Coupon.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Coupon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/Policy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/Policy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/fortify.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/fortify.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/TestEshop.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/TestEshop.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,28 +69,21 @@
         <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
-        <item name="oc_coupon: table" type="dbc44a63:MariaImplModel$Table" />
+        <item name="oc_address: table" type="dbc44a63:MariaImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
-        <item name="oc_coupon_description: table" type="dbc44a63:MariaImplModel$Table" />
+        <item name="oc_customer: table" type="dbc44a63:MariaImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
-        <item name="oc_customer_group: table" type="dbc44a63:MariaImplModel$Table" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
-        <item name="oc_review: table" type="dbc44a63:MariaImplModel$Table" />
+        <item name="password_resets: table" type="dbc44a63:MariaImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -86,7 +95,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpServers">
     <servers>
       <server host="localhost" id="e61d8667-2a19-4bfc-948d-f7748dc0cbfa" name="localhost" port="8000" />
@@ -270,7 +278,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.TestEshop">
+  <component name="RunManager" selected="Laravel.Laravel Built-in Server">
     <configuration name="Laravel Built-in Server" type="LaravelStorm_run_conf_serve" factoryName="Laravel">
       <option name="host" value="localhost" />
       <option name="port" value="8000" />
@@ -283,20 +291,20 @@
       <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" scope="Class" />
       <method v="2" />
     </configuration>
-    <configuration name="TestEshop.testDeleteOrder_product1" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" method="testDeleteOrder_product1" scope="Method" />
+    <configuration name="TestEshop.testStoreCustomersOrder" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" method="testStoreCustomersOrder" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="TestEshop.testStoreGift" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" method="testStoreGift" scope="Method" />
+    <configuration name="TestEshop.testStoreCustomersOrder_product" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" method="testStoreCustomersOrder_product" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="TestEshop.testStoreProduct1" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" method="testStoreProduct1" scope="Method" />
+    <configuration name="TestEshop.testStoreOrder" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" method="testStoreOrder" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="TestEshop.testUpdateGift" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" method="testUpdateGift" scope="Method" />
+    <configuration name="TestEshop.testStoreProduct_special" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\TestEshop" file="$PROJECT_DIR$/tests/Feature/TestEshop.php" method="testStoreProduct_special" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="TestOrderController" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -316,18 +324,18 @@
       <item itemvalue="PHPUnit.phpunit.xml" />
       <item itemvalue="PHPUnit.TestOrderController" />
       <item itemvalue="PHPUnit.TestEshop" />
-      <item itemvalue="PHPUnit.TestEshop.testDeleteOrder_product1" />
-      <item itemvalue="PHPUnit.TestEshop.testStoreGift" />
-      <item itemvalue="PHPUnit.TestEshop.testUpdateGift" />
-      <item itemvalue="PHPUnit.TestEshop.testStoreProduct1" />
+      <item itemvalue="PHPUnit.TestEshop.testStoreProduct_special" />
+      <item itemvalue="PHPUnit.TestEshop.testStoreOrder" />
+      <item itemvalue="PHPUnit.TestEshop.testStoreCustomersOrder" />
+      <item itemvalue="PHPUnit.TestEshop.testStoreCustomersOrder_product" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="PHPUnit.TestEshop" />
-        <item itemvalue="PHPUnit.TestEshop.testUpdateGift" />
-        <item itemvalue="PHPUnit.TestEshop.testStoreGift" />
-        <item itemvalue="PHPUnit.TestEshop.testStoreProduct1" />
-        <item itemvalue="PHPUnit.TestEshop.testDeleteOrder_product1" />
+        <item itemvalue="PHPUnit.TestEshop.testStoreCustomersOrder_product" />
+        <item itemvalue="PHPUnit.TestEshop.testStoreCustomersOrder" />
+        <item itemvalue="PHPUnit.TestEshop.testStoreOrder" />
+        <item itemvalue="PHPUnit.TestEshop.testStoreProduct_special" />
       </list>
     </recent_temporary>
   </component>
@@ -387,7 +395,7 @@
       <workItem from="1601067025985" duration="37536000" />
       <workItem from="1601741434497" duration="5903000" />
       <workItem from="1601809892110" duration="105803000" />
-      <workItem from="1604592792847" duration="159082000" />
+      <workItem from="1604592792847" duration="225936000" />
     </task>
     <servers />
   </component>
@@ -425,12 +433,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>155</line>
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>666</line>
+          <line>642</line>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -440,7 +443,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>221</line>
+          <line>202</line>
           <option name="timeStamp" value="167" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -460,52 +463,67 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
-          <line>1863</line>
+          <line>1976</line>
           <option name="timeStamp" value="280" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
-          <line>2210</line>
+          <line>2324</line>
           <option name="timeStamp" value="282" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>230</line>
-          <option name="timeStamp" value="285" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php</url>
-          <line>236</line>
-          <option name="timeStamp" value="286" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php</url>
-          <line>212</line>
+          <line>235</line>
           <option name="timeStamp" value="287" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php</url>
-          <line>243</line>
-          <option name="timeStamp" value="289" />
+          <url>file://$PROJECT_DIR$/routes/web.php</url>
+          <line>64</line>
+          <option name="timeStamp" value="298" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php</url>
-          <line>242</line>
-          <option name="timeStamp" value="291" />
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_totalController.php</url>
+          <line>16</line>
+          <option name="timeStamp" value="305" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Order_totalController.php</url>
+          <line>18</line>
+          <option name="timeStamp" value="306" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
-          <line>289</line>
-          <option name="timeStamp" value="293" />
+          <line>1977</line>
+          <option name="timeStamp" value="326" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/Product_giftController.php</url>
-          <line>36</line>
-          <option name="timeStamp" value="294" />
+          <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
+          <line>1978</line>
+          <option name="timeStamp" value="327" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/ProductController.php</url>
+          <line>478</line>
+          <option name="timeStamp" value="328" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/ProductController.php</url>
+          <line>481</line>
+          <option name="timeStamp" value="329" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/LoginController.php</url>
+          <line>8</line>
+          <option name="timeStamp" value="331" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Actions/Fortify/CreateNewUser.php</url>
+          <line>26</line>
+          <option name="timeStamp" value="332" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
-          <line>1984</line>
+          <line>2098</line>
           <properties>
             <option name="className" value="\Tests\Feature\TestOrderController" />
             <option name="methodName" value="testGetPrice_1" />
@@ -514,7 +532,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
-          <line>1996</line>
+          <line>2110</line>
           <properties>
             <option name="className" value="\Tests\Feature\TestOrderController" />
             <option name="methodName" value="testGetPrice_2" />

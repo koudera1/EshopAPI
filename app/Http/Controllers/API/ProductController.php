@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order_product;
 use App\Models\Product;
 
+use App\Models\Product_special;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -116,7 +116,6 @@ class ProductController extends Controller
             'measurement_class_id' => $request->input('measurement_class_id',0),
             'status' => $request->input('status',0),
             'date_added' => date("Y-m-d H:i:s"),
-            'date_modified' => date("Y-m-d H:i:s"),
             'viewed' => $request->input('viewed',0),
             'container_capacity' => $request->input('container_capacity'),
             'req_container' => $request->input('req_container',0),
@@ -237,278 +236,232 @@ class ProductController extends Controller
         $ret_array = [];
         if ($request->has('category_id')) {
             $ret_array += array('category_id' => $product->update([
-                'category_id' => $request->input('category_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'category_id' => $request->input('category_id')
             ]));
         }
         if ($request->has('category_id2')) {
             $ret_array += array('category_id2' => $product->update([
-                'category_id2' => $request->input('category_id2'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'category_id2' => $request->input('category_id2')
             ]));
         }
         if ($request->has('model')) {
             $ret_array += array('model' => $product->update([
-                'model' => $request->input('model'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'model' => $request->input('model')
             ]));
         }
         if ($request->has('sku')) {
             $ret_array += array('sku' => $product->update([
-                'sku' => $request->input('sku'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'sku' => $request->input('sku')
             ]));
         }
         if ($request->has('location')) {
             $ret_array += array('location' => $product->update([
-                'location' => $request->input('location'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'location' => $request->input('location')
             ]));
         }
         if ($request->has('quantity')) {
             $ret_array += array('quantity' => $product->update([
-                'quantity' => $request->input('quantity'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'quantity' => $request->input('quantity')
             ]));
         }
         if ($request->has('internal_quantity')) {
             $ret_array += array('internal_quantity' => $product->update([
-                'internal_quantity' => $request->input('internal_quantity'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'internal_quantity' => $request->input('internal_quantity')
             ]));
         }
         if ($request->has('stock_status_id')) {
             $ret_array += array('stock_status_id' => $product->update([
-                'stock_status_id' => $request->input('stock_status_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'stock_status_id' => $request->input('stock_status_id')
             ]));
         }
         if ($request->has('image')) {
             $ret_array += array('image' => $product->update([
-                'iimage' => $request->input('image'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'iimage' => $request->input('image')
             ]));
         }
         if ($request->has('manufacturer_id')) {
             $ret_array += array('manufacturer_id' => $product->update([
-                'manufacturer_id' => $request->input('manufacturer_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'manufacturer_id' => $request->input('manufacturer_id')
             ]));
         }
         if ($request->has('shipping')) {
             $ret_array += array('shipping' => $product->update([
-                'shipping' => $request->input('shipping'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'shipping' => $request->input('shipping')
             ]));
         }
         if ($request->has('price')) {
             $ret_array += array('price' => $product->update([
-                'price' => $request->input('price'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'price' => $request->input('price')
             ]));
         }
         if ($request->has('tax_class_id')) {
             $ret_array += array('tax_class_id' => $product->update([
-                'tax_class_id' => $request->input('tax_class_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'tax_class_id' => $request->input('tax_class_id')
             ]));
         }
         if ($request->has('date_available')) {
             $ret_array += array('date_available' => $product->update([
-                'date_available' => $request->input('date_available'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'date_available' => $request->input('date_available')
             ]));
         }
         if ($request->has('weight')) {
             $ret_array += array('weight' => $product->update([
-                'weight' => $request->input('weight'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'weight' => $request->input('weight')
             ]));
         }
         if ($request->has('weight_class_id')) {
             $ret_array += array('weight_class_id' => $product->update([
-                'weight_class_id' => $request->input('weight_class_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'weight_class_id' => $request->input('weight_class_id')
             ]));
         }
         if ($request->has('length')) {
             $ret_array += array('length' => $product->update([
-                'length' => $request->input('length'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'length' => $request->input('length')
             ]));
         }
         if ($request->has('width')) {
             $ret_array += array('width' => $product->update([
-                'width' => $request->input('width'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'width' => $request->input('width')
             ]));
         }
         if ($request->has('height')) {
             $ret_array += array('height' => $product->update([
-                'height' => $request->input('height'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'height' => $request->input('height')
             ]));
         }
         if ($request->has('measurement_class_id')) {
             $ret_array += array('measurement_class_id' => $product->update([
-                'measurement_class_id' => $request->input('measurement_class_id'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'measurement_class_id' => $request->input('measurement_class_id')
             ]));
         }
         if ($request->has('status')) {
             $ret_array += array('status' => $product->update([
-                'status' => $request->input('status'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'status' => $request->input('status')
             ]));
         }
         if ($request->has('viewed')) {
             $ret_array += array('viewed' => $product->update([
-                'viewed' => $request->input('viewed'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'viewed' => $request->input('viewed')
             ]));
         }
         if ($request->has('container_capacity')) {
             $ret_array += array('container_capacity' => $product->update([
-                'container_capacity' => $request->input('container_capacity'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'container_capacity' => $request->input('container_capacity')
             ]));
         }
         if ($request->has('req_container')) {
             $ret_array += array('req_container' => $product->update([
-                'req_container' => $request->input('req_container'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'req_container' => $request->input('req_container')
             ]));
         }
         if ($request->has('purchase_price')) {
             $ret_array += array('purchase_price' => $product->update([
-                'purchase_price' => $request->input('purchase_price'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'purchase_price' => $request->input('purchase_price')
             ]));
         }
         if ($request->has('viewed_month')) {
             $ret_array += array('viewed_month' => $product->update([
-                'viewed_month' => $request->input('viewed_month'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'viewed_month' => $request->input('viewed_month')
             ]));
         }
         if ($request->has('viewed_quartal')) {
             $ret_array += array('viewed_quartal' => $product->update([
-                'viewed_quartal' => $request->input('viewed_quartal'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'viewed_quartal' => $request->input('viewed_quartal')
             ]));
         }
         if ($request->has('viewed_year')) {
             $ret_array += array('viewed_year' => $product->update([
-                'viewed_year' => $request->input('viewed_year'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'viewed_year' => $request->input('viewed_year')
             ]));
         }
         if ($request->has('heureka')) {
             $ret_array += array('heureka' => $product->update([
-                'heureka' => $request->input('heureka'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'heureka' => $request->input('heureka')
             ]));
         }
         if ($request->has('heureka_cat')) {
             $ret_array += array('heureka_cat' => $product->update([
-                'heureka_cat' => $request->input('heureka_cat'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'heureka_cat' => $request->input('heureka_cat')
             ]));
         }
         if ($request->has('heureka_name')) {
             $ret_array += array('heureka_name' => $product->update([
-                'heureka_name' => $request->input('heureka_name'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'heureka_name' => $request->input('heureka_name')
             ]));
         }
         if ($request->has('warranty')) {
             $ret_array += array('warranty' => $product->update([
-                'warranty' => $request->input('warranty'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'warranty' => $request->input('warranty')
             ]));
         }
         if ($request->has('sold_quartal')) {
             $ret_array += array('sold_quartal' => $product->update([
-                'sold_quartal' => $request->input('sold_quartal'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'sold_quartal' => $request->input('sold_quartal')
             ]));
         }
         if ($request->has('conversion_quartal')) {
             $ret_array += array('conversion_quartal' => $product->update([
-                'conversion_quartal' => $request->input('conversion_quartal'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'conversion_quartal' => $request->input('conversion_quartal')
             ]));
         }
         if ($request->has('free_shipping')) {
             $ret_array += array('free_shipping' => $product->update([
-                'free_shipping' => $request->input('free_shipping'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'free_shipping' => $request->input('free_shipping')
             ]));
         }
         if ($request->has('domains')) {
             $ret_array += array('domains' => $product->update([
-                'domains' => $request->input('domains'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'domains' => $request->input('domains')
             ]));
         }
         if ($request->has('color1')) {
             $ret_array += array('color1' => $product->update([
-                'color1' => $request->input('color1'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'color1' => $request->input('color1')
             ]));
         }
         if ($request->has('color2')) {
             $ret_array += array('color2' => $product->update([
-                'color2' => $request->input('color2'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'color2' => $request->input('color2')
             ]));
         }
         if ($request->has('color1')) {
             $ret_array += array('color1' => $product->update([
-                'color1' => $request->input('color1'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'color1' => $request->input('color1')
             ]));
         }
         if ($request->has('color1')) {
             $ret_array += array('color1' => $product->update([
-                'color1' => $request->input('color1'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'color1' => $request->input('color1')
             ]));
         }
         if ($request->has('color3')) {
             $ret_array += array('color3' => $product->update([
-                'color3' => $request->input('color3'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'color3' => $request->input('color3')
             ]));
         }
         if ($request->has('marketing_domain')) {
             $ret_array += array('marketing_domain' => $product->update([
-                'marketing_domain' => $request->input('marketing_domain'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'marketing_domain' => $request->input('marketing_domain')
             ]));
         }
         if ($request->has('raw_name')) {
             $ret_array += array('raw_name' => $product->update([
-                'raw_name' => $request->input('raw_name'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'raw_name' => $request->input('raw_name')
             ]));
         }
         if ($request->has('zasilkovna_enabled')) {
             $ret_array += array('zasilkovna_enabled' => $product->update([
-                'zasilkovna_enabled' => $request->input('zasilkovna_enabled'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'zasilkovna_enabled' => $request->input('zasilkovna_enabled')
             ]));
         }
         if ($request->has('condition')) {
             $ret_array += array('condition' => $product->update([
-                'condition' => $request->input('condition'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'condition' => $request->input('condition')
             ]));
         }
         if ($request->has('erotic')) {
             $ret_array += array('erotic' => $product->update([
-                'erotic' => $request->input('erotic'),
-                'date_modified' => date("Y-m-d H:i:s")
+                'erotic' => $request->input('erotic')
             ]));
         }
         return response()->json($ret_array);
@@ -524,6 +477,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $this->authorize('modify', Product::class);
+        Product_special::where('product_id', $product->product_id)->delete();
+        DB::table('oc_product_gift')->where('product_id', $product->product_id)->delete();
         return response()->json($product->delete());
     }
 }

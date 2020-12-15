@@ -8,11 +8,17 @@ class LoginController extends Controller{
     public function authenticate(Request $request){
         $credentials = $request->only('email', 'password');
 
+        //config(['fortify.guard' => 'customer']);
         if (Auth::guard('customer')->attempt($credentials)) {
             return redirect('dashboard');
         }
+
         if (Auth::guard('user')->attempt($credentials)) {
-            return redirect('dashboard');
+            config(['auth.defaults.guard' => 'user']);
+            return Auth::guard('user')->user();
+            $user = $details['original'];
+            return $user;
+            //return redirect('');
         }
 
         return 'auth fail';

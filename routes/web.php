@@ -58,8 +58,12 @@ Route::apiResources([
     'orders.history' => API\Order_historyController::class,
     'orders.products' => API\Order_productController::class,
     'customers' => API\CustomerController::class,
+    'customer_groups' => API\Customer_groupController::class,
     'products' => API\ProductController::class,
-    'products.gifts' => API\Product_giftController::class
+    'products.gifts' => API\Product_giftController::class,
+    'products.special' => API\Product_specialController::class,
+    'coupons' => API\CouponController::class,
+    'reviews' => API\ReviewController::class
 ]);
 
 

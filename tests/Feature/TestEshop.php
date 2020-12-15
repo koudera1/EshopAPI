@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Coupon;
 use App\Models\Customer;
+use App\Models\Customer_group;
 use App\Models\Geis_numbering;
 use App\Models\User;
 use App\Models\Postcz_numbering;
@@ -862,6 +864,90 @@ class TestEshop extends TestCase
         $this->assertEquals($id, $response->baseResponse->content());
     }
 
+    public function testStoreCoupon()
+    {
+        $cid = $this->getNextId('oc_coupon');
+        $response = $this->actingAs($this->user)
+            ->postJson('/coupons',
+                [
+                    'domain' => 'www.milka.cz',
+                    'code' => 'hchkrdtn',
+                    'type' => 'P',
+                    'discount' => 50.0000,
+                    'logged' => 0,
+                    'total' => 0.0000,
+                    'date_start' => '2017-08-01',
+                    'date_end' => '2027-08-01',
+                    'uses_total' => 9999999,
+                    'uses_customer' => 9999999,
+                    'status' => 1,
+                    'name' => 'sleva',
+                    'description' => 'sleva 50%',
+                    'language_id' => 5
+                ]
+            );
+        $response->assertStatus(200)
+            ->assertJson([
+                'coupon_id' => $cid
+            ]);
+        $this->assertDatabaseHas('oc_coupon', [
+            'coupon_id' => $cid,
+            'domain' => 'www.milka.cz',
+            'code' => 'hchkrdtn',
+            'type' => 'P',
+            'discount' => 50.0000,
+            'logged' => 0,
+            'total' => 0.0000,
+            'date_start' => '2017-08-01',
+            'date_end' => '2027-08-01',
+            'uses_total' => 9999999,
+            'uses_customer' => 9999999,
+            'status' => 1,
+        ])->assertDatabaseHas('oc_coupon_description', [
+                'coupon_id' => $cid,
+                'name' => 'sleva',
+                'description' => 'sleva 50%'
+            ]);
+    }
+
+    public function testPutCoupon_id()
+    {
+        $cid = Coupon::max('coupon_id');
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'coupon_id' => $cid
+            ]);
+        $response->assertStatus(200)
+            ->assertJson(['coupon_id' => 'true']);
+        $this->assertDatabaseHas('oc_order', [
+            'order_id' => $this->oid,
+            'coupon_id' => $cid
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $this->oid,
+            'title' => 'Cena celkem bez DPH',
+            'text' => '900 Kč',
+            'value' => 900,
+            'sort_order' => 4
+        ])->assertDatabaseHas('oc_order_total',[
+            'order_id' => $this->oid,
+            'title' => 'DPH 21%',
+            'text' => '189 Kč',
+            'value' => 189,
+            'sort_order' => 5
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $this->oid,
+            'title' => 'Cena celkem s DPH',
+            'text' => '1089 Kč',
+            'value' => 1089,
+            'sort_order' => 6
+        ]);
+        $this->actingAs($this->user)->putJson('/orders/'. $this->oid,
+            [
+                'coupon_id' => 0
+            ]);
+        $this->actingAs($this->user)->deleteJson('/coupons/'. $cid);
+    }
+
     public function testPutAddresses()
     {
         $response = $this->withSession(['ip_address' => '90.179.92.144'])->putJson('/orders/'.$this->oid,
@@ -1357,21 +1443,6 @@ class TestEshop extends TestCase
             ]);
     }
 
-    public function testPutCoupon_id()
-    {
-        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
-            [
-                'coupon_id' => '15664'
-            ]);
-        $response->assertStatus(200)
-            ->assertJson(['coupon_id' => 'true']);
-        $this->assertDatabaseHas('oc_order',
-            [
-                'order_id' => $this->oid,
-                'coupon_id' => '15664'
-            ]);
-    }
-
     public function testPutShipping_gp()
     {
         $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
@@ -1531,33 +1602,74 @@ class TestEshop extends TestCase
             ]);
     }
 
+    public function testStoreCustomerGroup()
+    {
+        $cgid = $this->getNextId('oc_customer_group');
+        $response = $this->actingAs($this->user)->postJson('/customer_groups',[
+            'name' => 'Roztomilí'
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson(['customer_group_id' => $cgid]);
+        $this->assertDatabaseHas('oc_customer_group',
+            [
+                'customer_group_id' => $cgid,
+                'name' => 'Roztomilí'
+            ]);
+    }
+
+    public function testStoreProduct_special()
+    {
+        $psid = $this->getNextId('oc_product_special');
+        $pid = Product::max('product_id');
+        $cgid = Customer_group::max('customer_group_id');
+        $response = $this->actingAs($this->user)->postJson('/products/' . $pid . '/special', [
+            'customer_group_id' => $cgid,
+            'domain' => 'www.milka.cz',
+            'priority' => 5,
+            'price' => 50,
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson(['product_special_id' => $psid]);
+        $this->assertDatabaseHas('oc_product_special',
+            [
+                'product_id' => $pid,
+                'customer_group_id' => $cgid,
+                'domain' => 'www.milka.cz',
+                'priority' => 5,
+                'price' => 50,
+            ]);
+    }
+
     public function testPutCustomersOtherAttributes()
     {
         $customer = Customer::find(Customer::max('customer_id'));
+        $cgid = Customer_group::max('customer_group_id');
         $response = $this->actingAs($customer)->putJson('/customers/' . $customer->customer_id,
             [
                 'newsletter' => '1',
                 'status' => '1',
-                'customer_group_id' => '1',
                 'periodSaleTotal' => 0.0,
-                'allow_discount' => 1
+                'allow_discount' => 1,
+                'customer_group_id' => $cgid
             ]);
         $response->assertStatus(200)
             ->assertJson([
                 'newsletter' => 'true',
                 'status' => 'true',
-                'customer_group_id' => 'true',
                 'periodSaleTotal' => 'true',
-                'allow_discount' => 'true'
+                'allow_discount' => 'true',
+                'customer_group_id' => $cgid
             ]);
         $this->assertDatabaseHas('oc_customer',
             [
                 'customer_id' => $customer->customer_id,
                 'newsletter' => '1',
                 'status' => '1',
-                'customer_group_id' => '1',
                 'periodSaleTotal' => 0.0,
-                'allow_discount' => 1
+                'allow_discount' => 1,
+                'customer_group_id' => $cgid
             ]);
     }
 
@@ -1600,7 +1712,8 @@ class TestEshop extends TestCase
         $oid = $this->getNextId('oc_order');
         $opid = $this->getNextId('oc_order_product');
         $customer = Customer::find(Customer::max('customer_id'));
-        $response = $this->actingAs($customer)->postJson('/orders',
+        $response = $this->actingAs($customer)->withSession(['ip_address' => '90.179.92.144'])
+            ->postJson('/orders',
             [
                 'domain' => 'www.milka.cz',
                 'customer_id' => $customer->customer_id,
@@ -1658,29 +1771,29 @@ class TestEshop extends TestCase
             'name' => DB::table('oc_product_description')
                 ->where('product_id',$pid)->value('name'),
             'model' => $product->model,
-            'price' => $product->price,
+            'price' => 50,
             'purchase_price' => $product->purchase_price,
             'quantity' => 6,
-            'total' => round($product->price * 6, 4),
+            'total' => round(50 * 6, 4),
             'warranty' => $product->warranty,
             'tax' => "21.0000"
         ])->assertDatabaseHas('oc_order_total', [
             'order_id' => $oid,
             'title' => 'Cena celkem bez DPH',
-            'text' => '600 Kč',
-            'value' => 600,
+            'text' => '300 Kč',
+            'value' => 300,
             'sort_order' => 4
         ])->assertDatabaseHas('oc_order_total',[
             'order_id' => $oid,
             'title' => 'DPH 21%',
-            'text' => '126 Kč',
-            'value' => 126,
+            'text' => '63 Kč',
+            'value' => 63,
             'sort_order' => 5
         ])->assertDatabaseHas('oc_order_total', [
             'order_id' => $oid,
             'title' => 'Cena celkem s DPH',
-            'text' => '726 Kč',
-            'value' => 726,
+            'text' => '363 Kč',
+            'value' => 363,
             'sort_order' => 6
         ])->assertDatabaseHas('oc_customer', [
             'customer_id' => $customer->customer_id,
@@ -1749,7 +1862,7 @@ class TestEshop extends TestCase
         $response->assertStatus(200);
         $product = Product::find($response->getData()->product_id);
         $oid = Order::max('order_id');
-        $this->withSession(['ip_address' => '90.179.92.144'])->postJson('/orders/'.$this->oid.'/products',
+        $response = $this->withSession(['ip_address' => '90.179.92.144'])->postJson('/orders/'.$this->oid.'/products',
             [
                 'order_id' => $oid,
                 'product_id' => $product->product_id,
@@ -1787,20 +1900,20 @@ class TestEshop extends TestCase
         ])->assertDatabaseHas('oc_order_total', [
             'order_id' => $oid,
             'title' => 'Cena celkem bez DPH',
-            'text' => '1200 Kč',
-            'value' => 1200,
+            'text' => '900 Kč',
+            'value' => 900,
             'sort_order' => 4
         ])->assertDatabaseHas('oc_order_total',[
             'order_id' => $oid,
             'title' => 'DPH 21%',
-            'text' => '252 Kč',
-            'value' => 252,
+            'text' => '189 Kč',
+            'value' => 189,
             'sort_order' => 5
         ])->assertDatabaseHas('oc_order_total', [
             'order_id' => $oid,
             'title' => 'Cena celkem s DPH',
-            'text' => '1452 Kč',
-            'value' => 1452,
+            'text' => '1089 Kč',
+            'value' => 1089,
             'sort_order' => 6
         ])->assertDatabaseHas('oc_customer',[
             'customer_id' => $customer->customer_id,
@@ -1838,20 +1951,20 @@ class TestEshop extends TestCase
         ])->assertDatabaseHas('oc_order_total', [
             'order_id' => $this->oid,
             'title' => 'Cena celkem bez DPH',
-            'text' => '1500 Kč',
-            'value' => 1500,
+            'text' => '1200 Kč',
+            'value' => 1200,
             'sort_order' => 4
         ])->assertDatabaseHas('oc_order_total',[
             'order_id' => $this->oid,
             'title' => 'DPH 21%',
-            'text' => '315 Kč',
-            'value' => 315,
+            'text' => '252 Kč',
+            'value' => 252,
             'sort_order' => 5
         ])->assertDatabaseHas('oc_order_total', [
             'order_id' => $this->oid,
             'title' => 'Cena celkem s DPH',
-            'text' => '1815 Kč',
-            'value' => 1815,
+            'text' => '1452 Kč',
+            'value' => 1452,
             'sort_order' => 6
         ])->assertDatabaseHas('oc_customer', [
             'customer_id' => Customer::max('customer_id'),
@@ -1862,7 +1975,8 @@ class TestEshop extends TestCase
         ]);
 
         $this->actingAs($this->user)->delete('/orders/'.$this->oid);
-        Product::find($pid)->delete();
+        $response = $this->actingAs($this->user)->delete('/products/'.$pid);
+        $this->actingAs($this->user)->delete('/customer_groups/'. Customer_group::max('customer_group_id'));
     }
 
     public function testStoreGeisPackage()

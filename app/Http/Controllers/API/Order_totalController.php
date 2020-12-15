@@ -3,21 +3,77 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Order_product;
 use App\Models\Order_total;
+use App\Models\Product_special;
 
 class Order_totalController extends Controller
 {
+    public static function addOrder_product(Order_product $op, $coupon_discount, &$noTaxTotal, &$tax, $cgid, $domain)
+    {
+        /*if($cgid != 0)
+        {
+            $op->price = Product_special
+                ::where('product_id', $op->product_id)
+                ->where('customer_group_id', $cgid)
+                ->where('domain', $domain)
+                ->where(function($query, $op, $cgid, $domain)
+                {
+                    $query->selectRaw('max(priority)')
+                        ->where('product_id', $op->product_id)
+                        ->where('customer_group_id', $cgid)
+                        ->where('domain', $domain);
+                }, 'priority')->value('price');
+            $op->price
+            $op->save();
+        }*/
+
+        $noTaxTotal += $op->total * $coupon_discount;
+        $taxCoeficient = '0.' . str_replace('.', '', $op->tax);
+        $tax += $op->total * $taxCoeficient * $coupon_discount;
+    }
+
     public static function countPrice(Order $order)
     {
-        $ops = Order_product::where('order_id', $order->order_id)->select('total','tax')->get();
+        $ops = Order_product::where('order_id', $order->order_id)->select('total','tax', 'is_transfer')->get();
         $tax = 0; $noTaxTotal = 0;
-        foreach($ops as $op)
+        $coupon_discount = 1; $shipping = 1;
+        if($order->coupon_id != 0)
         {
-            $noTaxTotal += $op->total;
-            $taxCoeficient = '0.' . str_replace('.', '', $op->tax);
-            $tax += $op->total * $taxCoeficient;
+            $coupon = Coupon::find($order->coupon_id);
+            $discountCoeficient = '0.' . str_replace('.', '', $coupon->discount);
+            $coupon_discount = 1 - $discountCoeficient;
+            if($coupon->shipping != 1) $shipping = 0;
+        }
+        $cgid = 0;
+        if($order->customer_id != 0)
+        {
+            $customer = Customer::find($order->customer_id);
+            if($customer->customer_group_id != 0)
+            {
+                $cgid = $customer->customer_group_id;
+            }
+        }
+
+        if($coupon_discount === 1 or $shipping === 1)
+        {
+            foreach($ops as $op)
+            {
+                self::addOrder_product($op, $coupon_discount, $noTaxTotal, $tax, $cgid, $order->domain);
+            }
+        } else {
+            foreach($ops as $op)
+            {
+                if($op->is_transfer)
+                {
+                    self::addOrder_product($op, 1, $noTaxTotal, $tax, $cgid, $order->domain);
+                } else {
+                    self::addOrder_product($op, $coupon_discount, $noTaxTotal, $tax, $cgid, $order->domain);
+                }
+            }
         }
 
         $noTaxTotal = round($noTaxTotal * $order->value, 4);

@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Coupon extends Model
+class Customer_group extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_coupon';
+    protected $table = 'oc_customer_group';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'coupon_id';
+    protected $primaryKey = 'customer_group_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -26,13 +26,6 @@ class Coupon extends Model
      * @var bool
      */
     public $timestamps = false;
-    public static function boot()
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            $model->date_added = date("Y-m-d H:i:s");
-        });
-    }
 
     /**
      * The attributes that aren't mass assignable.

@@ -24,12 +24,12 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        $request = new UpdateOrder($input);
-        $request->validated();
+        /*$request = new UpdateOrder($input);
+        $request->validated();*/
 
         return Customer::create([
             'firstname' => $input['name'],
-            'lastname' => $input['lastname'],
+            //'lastname' => $input['lastname'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
