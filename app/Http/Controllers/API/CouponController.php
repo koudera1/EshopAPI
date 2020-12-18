@@ -4,15 +4,37 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @group Coupon
+ */
 class CouponController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all coupons.
+     * @response  {[
+     * "coupon_id":1,
+     * "domain":"www.muj-tangleteezer.cz",
+     * "code":"15xtangleteezer",
+     * "type":"P",
+     * "discount":15.0000,
+     * "logged":0,
+     * "shipping":1,
+     * "total":0.0000,
+     * "date_start":"2017-08-01",
+     * "date_end":"2027-08-01",
+     * "uses_total":9999999,
+     * "uses_customer":9999999,
+     * "status":1,
+     * "date_added":""
+     * ]}
      *
-     * @return \Illuminate\Http\Response
+     * @return Coupon[]|Collection
      */
     public function index()
     {
@@ -20,10 +42,30 @@ class CouponController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created coupon in storage.
+     * @bodyParam coupon_id integer required
+     * @bodyParam domain string required
+     * @bodyParam code string required
+     * @bodyParam type string required
+     * @bodyParam discount float required
+     * @bodyParam logged integer required
+     * @bodyParam shipping integer required
+     * @bodyParam total float required
+     * @bodyParam date_start date required
+     * @bodyParam date_end date required
+     * @bodyParam uses_total integer required
+     * @bodyParam uses_customer integer required
+     * @bodyParam status integer required
+     * @bodyParam date_added date required
+     * @bodyParam language_id integer required
+     * @bodyParam name string required
+     * @bodyParam description string required
+     * @response  {
+     * "coupon_id":2
+     * }
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -54,10 +96,27 @@ class CouponController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified coupon.
+     * @urlParam coupon required coupon id Example: 2
+     * @response  {
+     * "coupon_id":1,
+     * "domain":"www.muj-tangleteezer.cz",
+     * "code":"15xtangleteezer",
+     * "type":"P",
+     * "discount":15.0000,
+     * "logged":0,
+     * "shipping":1,
+     * "total":0.0000,
+     * "date_start":"2017-08-01",
+     * "date_end":"2027-08-01",
+     * "uses_total":9999999,
+     * "uses_customer":9999999,
+     * "status":1,
+     * "date_added":""
+     * }
      *
-     * @param  \App\Models\Coupon  $coupon
-     * @return \Illuminate\Http\Response
+     * @param Coupon $coupon
+     * @return Response
      */
     public function show(Coupon $coupon)
     {
@@ -66,11 +125,30 @@ class CouponController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified coupon in storage.
+     * @urlParam coupon required coupon id Example: 2
+     * @bodyParam domain string
+     * @bodyParam code string
+     * @bodyParam type string
+     * @bodyParam discount float
+     * @bodyParam logged integer
+     * @bodyParam shipping integer
+     * @bodyParam total float
+     * @bodyParam date_start date
+     * @bodyParam date_end date
+     * @bodyParam uses_total integer
+     * @bodyParam uses_customer integer
+     * @bodyParam status integer
+     * @bodyParam name string
+     * @bodyParam description string
+     * @response  {
+     * "code":true,
+     * "type":true
+     * }
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Coupon  $coupon
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Coupon $coupon
+     * @return Response
      */
     public function update(Request $request, Coupon $coupon)
     {
@@ -151,10 +229,13 @@ class CouponController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified coupon from storage.
+     * @urlParam coupon required coupon id Example: 2
+     * @response {true}
      *
-     * @param  \App\Models\Coupon  $coupon
-     * @return \Illuminate\Http\Response
+     * @param Coupon $coupon
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Coupon $coupon)
     {

@@ -5,13 +5,30 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Product_special;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
+/**
+ * @group Product_special
+ */
 class Product_specialController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all special product offers.
+     * @urlParam product required product_id
+     * @response  {[
+     * "product_special_id":470,
+     * "product_id":236,
+     * "customer_group_id":4,
+     * "domain":"www.muj-russellhobbs.cz",
+     * "priority":0,
+     * "price":599,
+     * "date_start":"",
+     * "date_end":"2012-01-28 17:00:18",
+     * "date_added":"2012-01-28 17:00:18"
+     * ]}
      *
-     * @return \Illuminate\Http\Response
+     * @param $product_id
+     * @return void
      */
     public function index($product_id)
     {
@@ -20,9 +37,19 @@ class Product_specialController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @urlParam product required product_id
+     * @bodyParam product_id integer required,
+     * @bodyParam customer_group_id integer required
+     * @bodyParam domain string required
+     * @bodyParam priority integer
+     * @bodyParam price integer
+     * @bodyParam date_start date
+     * @bodyParam date_end date
+     * @response  {"product_special_id":470}
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $product_id
+     * @return Response
      */
     public function store(Request $request, $product_id)
     {
@@ -43,9 +70,22 @@ class Product_specialController extends Controller
 
     /**
      * Display the specified resource.
+     * @urlParam product required product_id
+     * @urlParam product_special required product_special_id
+     * @response  {
+     * "product_special_id":470,
+     * "product_id":236,
+     * "customer_group_id":4,
+     * "domain":"www.muj-russellhobbs.cz",
+     * "priority":0,
+     * "price":599,
+     * "date_start":"",
+     * "date_end":"2012-01-28 17:00:18",
+     * "date_added":"2012-01-28 17:00:18"
+     * }
      *
-     * @param  \App\Models\Product_special  $product_special
-     * @return \Illuminate\Http\Response
+     * @param Product_special $product_special
+     * @return Response
      */
     public function show(Product_special $product_special)
     {
@@ -54,10 +94,20 @@ class Product_specialController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @urlParam product required product_id
+     * @urlParam product_special required product_special_id
+     * @bodyParam product_id integer
+     * @bodyParam customer_group_id integer
+     * @bodyParam domain string
+     * @bodyParam priority integer
+     * @bodyParam price integer
+     * @bodyParam date_start date
+     * @bodyParam date_end date
+     * @response  {"domain":true, "price":true}
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product_special  $product_special
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Product_special $product_special
+     * @return Response
      */
     public function update(Request $request, Product_special $product_special)
     {
@@ -102,9 +152,12 @@ class Product_specialController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @urlParam product required product_id
+     * @urlParam product_special required product_special_id
+     * @response true
      *
-     * @param  \App\Models\Product_special  $product_special
-     * @return \Illuminate\Http\Response
+     * @param Product_special $product_special
+     * @return Response
      */
     public function destroy(Product_special $product_special)
     {

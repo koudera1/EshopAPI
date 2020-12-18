@@ -29,6 +29,30 @@ class OrderController extends Controller
     /**
      * Display a listing of orders.
      *
+     * @response  {[
+     * "order_id":35000,
+     * "invoice_id":2018023,
+     * "domain":'www.stylka.cz',
+     * "firstname":'Jan',
+     * "lastname":'Zelený',
+     * "comment":'Objednávka zaplacena.',
+     * "order_status":'Odesláno dopravcem'
+     * "shipping_method":'Zásilkovna',
+     * "label":1,
+     * "date_added":"2018-07-13",
+     * "total":453,
+     * "payment_status":1,
+     * "payment_status" => 1,
+     * "profit" => 420,
+     * "slovakia" => 0,
+     * "instock" => 0,
+     * "referrer" => 'Google',
+     * "agree_gdpr" => 1,
+     * "payment_method" => 'Platba kartou',
+     * "email" => 'o@gmail.com',
+     * "telephone" => '+420555111444',
+     * ]}
+     *
      * @return Response
      * @throws AuthorizationException
      */
@@ -75,8 +99,9 @@ class OrderController extends Controller
      * "order_product_id":3332
      * }
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return Response
+     * @throws AuthorizationException
      */
     public function store(Request $request)
     {
@@ -166,7 +191,29 @@ class OrderController extends Controller
      /**
      * Display the specified order.
      * @urlParam order required order id Example: 35022
-     *
+     * @response  {
+      * "order_id":35000,
+      * "invoice_id":2018023,
+      * "domain":'www.stylka.cz',
+      * "firstname":'Jan',
+      * "lastname":'Zelený',
+      * "comment":'Objednávka zaplacena.',
+      * "order_status":'Odesláno dopravcem'
+      * "shipping_method":'Zásilkovna',
+      * "label":1,
+      * "date_added":2018-07-13,
+      * "total":453,
+      * "payment_status":1,
+      * "payment_status" => 1,
+      * "profit" => 420,
+      * "slovakia" => 0,
+      * "instock" => 0,
+      * "referrer" => 'Google',
+      * "agree_gdpr" => 1,
+      * "payment_method" => 'Platba kartou',
+      * "email" => 'o@gmail.com',
+      * "telephone" => '+420555111444',
+      * }
      * @param Order $order
      * @return Response
      * @throws AuthorizationException
@@ -201,11 +248,11 @@ class OrderController extends Controller
     /**
      * Remove the specified order from storage.
      * @urlParam order required order id Example: 35022
+     * @response true
      *
      * @param Order $order
      * @return Response
      * @throws Exception
-     * @response true
      */
     public function destroy(Order $order)
     {
@@ -225,11 +272,6 @@ class OrderController extends Controller
     /**
      * Update the specified order in storage.
      * @urlParam order required order id Example: 35022
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Order $order
-     * @return Response
-     *
      * @bodyParam domain string Example: "www.stylka.cz"
      * @bodyParam currency string
      * @bodyParam customer_id integer
@@ -280,6 +322,10 @@ class OrderController extends Controller
      * "domain":true,
      * "currency":true
      * }
+     *
+     * @param Request $request
+     * @param Order $order
+     * @return Response
      * @throws AuthorizationException
      */
     public function update(UpdateOrder $request, Order $order)
@@ -606,7 +652,7 @@ class OrderController extends Controller
      * Make a new invoice.
      * @urlParam order required order id Example: 35202
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return Response
      */
     public function putInvoice(Order $order)
@@ -633,7 +679,7 @@ class OrderController extends Controller
      * Display all shipping methods.
      * @urlParam order required order id Example: 35022
      *
-     * @param \App\Order $order
+     * @param Order $order
      * @return Response
      */
     public function getShipping_methods(Order $order)
@@ -651,7 +697,7 @@ class OrderController extends Controller
     /**
      * Display all payment methods.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \App\Order $order
      * @return Response
      */
@@ -663,7 +709,7 @@ class OrderController extends Controller
     /**
      * Display all order statuses.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \App\Order $order
      * @return Response
      */

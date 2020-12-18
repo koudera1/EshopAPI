@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Usar as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class Customer extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
@@ -22,14 +22,14 @@ class Customer extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'oc_customer';
+    protected $table = 'oc_user';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'customer_id';
+    protected $primaryKey = 'user_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -37,15 +37,14 @@ class Customer extends Authenticatable
      * @var bool
      */
     public $timestamps = false;
-    private $address_id;
-
     public static function boot()
     {
         parent::boot();
-       static::creating(function ($model) {
-           $model->date_added = date("Y-m-d H:i:s");
+        static::creating(function ($model) {
+            $model->date_added = date("Y-m-d H:i:s");
         });
     }
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -61,6 +60,8 @@ class Customer extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+
     ];
+
 
 }

@@ -5,25 +5,52 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Review;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
+/**
+ * @group Review
+ */
 class ReviewController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all reviews.
+     * @response  {[
+     * "review_id":2,
+     * "product_id":66,
+     * "customer_id":0,
+     * "author":'Jan',
+     * "text":'Super.',
+     * "rating":5,
+     * "status":1,
+     * "date_added":"2012-01-28 17:00:18",
+     * "date_modified":"2012-01-28 17:00:18"
+     * ]}
      *
-     * @return \Illuminate\Http\Response
+     * @return Review[]|Collection
      */
     public function index()
     {
+        //$this->authorize('')
         return Review::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created review in storage.
+     * @bodyParam product_id integer required Example: 2
+     * @bodyParam customer_id integer required Example: 5
+     * @bodyParam author string Example: 'Kamila'
+     * @bodyParam text string required ip address Example: "Je to moc dobré."
+     * @bodyParam rating integer required Example: 5
+     * @bodyParam status integer required Example: 1
+     * @response  {
+     * "review_id":2,
+     * }
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -44,10 +71,22 @@ class ReviewController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified review.
+     * @urlParam review required review id Example: 2
+     * @response  {
+     * "review_id":2,
+     * "product_id":66,
+     * "customer_id":0,
+     * "author":'Jan',
+     * "text":'Super.',
+     * "rating":5,
+     * "status":1,
+     * "date_added":"2012-01-28 17:00:18",
+     * "date_modified":"2012-01-28 17:00:18"
+     * }
      *
-     * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
+     * @param Review $review
+     * @return Review
      */
     public function show(Review $review)
     {
@@ -55,11 +94,19 @@ class ReviewController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified review in storage.
+     * @urlParam review required review id Example: 2
+     * @bodyParam author string Example: "Jaroslav"
+     * @bodyParam text string
+     * @bodyParam rating integer
+     * @response  {
+     * "author":true,
+     * "text":true
+     * }
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Review $review
+     * @return Response
      */
     public function update(Request $request, Review $review)
     {
@@ -84,9 +131,12 @@ class ReviewController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @urlParam review required review id Example: 2
+     * @response true
      *
-     * @param  \App\Models\Review  $review
-     * @return \Illuminate\Http\Response
+     * @param Review $review
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Review $review)
     {

@@ -18,9 +18,45 @@ use Illuminate\Support\Facades\DB;
  */
 class CustomerController extends Controller
 {
+    /**
+     * Display a listing of all customers.
+     * @response  {[
+     * "firstname":"Pavel",
+     * "lastname":"Modrý",
+     * "email":"jan.modry@seznam.cz",
+     * "telephone":"774215321",
+     * "company":"Hyundai",
+     * "address_1":"Zámecká 702",
+     * "address_2":"",
+     * "postcode":"75501",
+     * "city":"Olomouc"
+     * ]}
+     *
+     * @return mixed
+     */
+    public function index()
+    {
+        return Customer::join('oc_address', 'oc_address.address_id', '=', 'oc_customer.address_id')
+            ->select('oc_customer.firstname', 'oc_customer.lastname', 'oc_customer.email',
+                'oc_customer.telephone', 'oc_address.company', 'oc_address.address_1',
+                'oc_address.address_2', 'oc_address.postcode', 'oc_address.city')
+            ->get();
+    }
 
     /**
      * Display the specified customer.
+     * @urlParam customer required customer id
+     * @response  {
+     * "firstname":"Pavel",
+     * "lastname":"Modrý",
+     * "email":"jan.modry@seznam.cz",
+     * "telephone":"774215321",
+     * "company":"Hyundai",
+     * "address_1":"Zámecká 702",
+     * "address_2":"",
+     * "postcode":"75501",
+     * "city":"Olomouc"
+     * }
      *
      * @param Customer $customer
      * @return Response
@@ -37,11 +73,6 @@ class CustomerController extends Controller
     /**
      * Update the specified customer in storage.
      * @urlParam customer required customer id Example: 1
-     *
-     * @param UpdateOrder $request
-     * @param Customer $customer
-     * @return Response
-     * @throws AuthorizationException
      * @bodyParam firstname string
      * @bodyParam lastname string
      * @bodyParam company string
@@ -60,11 +91,15 @@ class CustomerController extends Controller
      * @bodyParam customer_group_id integer
      * @bodyParam periodSaleTotal float
      * @bodyParam allow_discount integer
-     *
      * @response  {
      * "firstname":true,
      * "lastname":true
      * }
+     *
+     * @param UpdateOrder $request
+     * @param Customer $customer
+     * @return Response
+     * @throws AuthorizationException
      */
     public function update(UpdateOrder $request, Customer $customer)
     {
@@ -199,6 +234,8 @@ class CustomerController extends Controller
 
     /**
      * Remove the specified customer from storage.
+     * @urlParam customer required customer id Example: 2
+     * @response true
      *
      * @param Customer $customer
      * @return Response

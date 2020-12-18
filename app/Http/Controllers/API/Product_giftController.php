@@ -7,10 +7,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @group Product_gift
+ */
 class Product_giftController extends Controller
 {
     /**
      * Display a listing of all product gifts.
+     * @urlParam product required product_id
+     * @response  {[
+     * "product_id":480,
+     * "gift_id":376,
+     * "quantity":1,
+     * ]}
      *
      * @param $product_id
      * @return void
@@ -22,14 +31,14 @@ class Product_giftController extends Controller
 
     /**
      * Store a newly created product gift in storage.
-     *
+     * @urlParam product required product_id
+     * @bodyParam gift_id integer required
      * @bodyParam quantity integer required
      * @response  {true}
      *
      * @param Request $request
      * @param $product_id
-
-     * @return void
+     * @return bool
      *
      */
     public function store(Request $request, $product_id)
@@ -45,6 +54,13 @@ class Product_giftController extends Controller
 
     /**
      * Display the specified product gift.
+     * @urlParam product required product_id
+     * @urlParam gift required gift_id
+     * @response  {
+     * "product_id":480,
+     * "gift_id":376,
+     * "quantity":1,
+     * }
      *
      * @param $product_id
      * @param $gift_id
@@ -60,7 +76,8 @@ class Product_giftController extends Controller
 
     /**
      * Update the specified product gift in storage.
-     *
+     * @urlParam product required product_id
+     * @urlParam gift required gift_id
      * @bodyParam product_id integer
      * @bodyParam gift_id integer
      * @bodyParam quantity integer
@@ -105,6 +122,9 @@ class Product_giftController extends Controller
 
     /**
      * Remove the specified product gift from storage.
+     * @urlParam product required product_id
+     * @urlParam gift required gift_id
+     * @response true
      *
      * @param $product_id
      * @param $gift_id

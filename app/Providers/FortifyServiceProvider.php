@@ -23,7 +23,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /*if (request()->isAdmin()) {
+            config(['fortify.domain' => adminUrl()]);
+            config(['fortify.guard' => 'user']);
+        }*/
     }
 
     /**
@@ -48,6 +51,14 @@ class FortifyServiceProvider extends ServiceProvider
             if (Hash::check($request->password, $user->password)) {
                 return $user;
             }
+        });*/
+
+         /*Fortify::loginView(function () {
+            if (request()->isAdmin()) {
+                return view('auth.login');
+            }
+
+            return view('auth.login');
         });*/
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\Customer;
-use App\Models\User;
+
 
 return [
 
@@ -17,8 +18,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'user',
-        'passwords' => 'users',
+        'guard' => 'admin',
+        'passwords' => 'customers',
     ],
 
     /*
@@ -41,7 +42,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'customers',
+            'provider' => 'admins',
         ],
 
         'api' => [
@@ -49,9 +50,9 @@ return [
             'provider' => 'customers',
             'hash' => false,
         ],
-        'user' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
         'customer' => [
             'driver' => 'session',
@@ -77,9 +78,9 @@ return [
     */
 
     'providers' => [
-    'users' => [
+    'admins' => [
         'driver' => 'eloquent',
-        'model' => User::class,
+        'model' => Admin::class,
     ],
     'customers' => [
         'driver' => 'eloquent',
@@ -108,8 +109,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'customers' => [
+            'provider' => 'customers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

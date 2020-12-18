@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'guard' => 'customer',
+    'guard' => 'admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'username' => 'email',
+    //'username' => 'email',
 
     'email' => 'email',
 

@@ -14,23 +14,6 @@ class Order_totalController extends Controller
 {
     public static function addOrder_product(Order_product $op, $coupon_discount, &$noTaxTotal, &$tax, $cgid, $domain)
     {
-        /*if($cgid != 0)
-        {
-            $op->price = Product_special
-                ::where('product_id', $op->product_id)
-                ->where('customer_group_id', $cgid)
-                ->where('domain', $domain)
-                ->where(function($query, $op, $cgid, $domain)
-                {
-                    $query->selectRaw('max(priority)')
-                        ->where('product_id', $op->product_id)
-                        ->where('customer_group_id', $cgid)
-                        ->where('domain', $domain);
-                }, 'priority')->value('price');
-            $op->price
-            $op->save();
-        }*/
-
         $noTaxTotal += $op->total * $coupon_discount;
         $taxCoeficient = '0.' . str_replace('.', '', $op->tax);
         $tax += $op->total * $taxCoeficient * $coupon_discount;

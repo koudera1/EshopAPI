@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /*Request::macro('isAdmin', function () {
+            return $this->getHost() === adminUrl();
+        });*/
     }
 
     /**

@@ -19,7 +19,56 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of products.
+     * Display a listing of all products.
+     * @response  {[
+     * "product_id":2400,
+     * "category_id":202,
+     * "category_id2":312,
+     * "model":88396,
+     * "sku":4015588883965,
+     * "location":'',
+     * "quantity":0,
+     * "internal_quantity":1,
+     * "stock_status_id":14,
+     * "image":"data/medisana/masaz/nohou/masazni-pristroj-na-nohy-a-zada-medisana-fm-883-88396.jpg",
+     * "manufacturer_id":6,
+     * "shipping":1,
+     * "price":1817.3554,
+     * "tax_class_id": 20,
+     * "date_available":"2019-05-29",
+     * "weight":0.00,
+     * "weight_class_id":1,
+     * "length":0.00,
+     * "width":0.00,
+     * "height":0.00,
+     * "measurement_class_id":1,
+     * "status":1,
+     * "date_added":'2019-05-29 10:28:48',
+     * "date_modified":'2019-05-29 10:28:48',
+     * "viewed":0,
+     * "container_capacity":0,
+     * "req_container":0,
+     * "purchase_price":1099.0000,
+     * "viewed_month":129,
+     * "viewed_quartal":152,
+     * "viewed_year":152,
+     * "heureka":'Medisana PS 435',
+     * "heureka_cat":'Bílé zboží | Malé spotřebiče | Péče o tělo | Zastřihovače',
+     * "heureka_name":'Profesionální set fénu BaByliss PRO Rapido P1036E s příslušenstvím',
+     * "warranty":24,
+     * "sold_quartal":1,
+     * "conversion_quartal":0.00658,
+     * "free_shipping":1,
+     * "domains":"",
+     * "color1":"ffffff",
+     * "color2":"000000",
+     * "color3":"",
+     * "marketing_domain":'',
+     * "raw_name":'',
+     * "zasilkovna_enabled":1,
+     * "condition":1,
+     * "erotic":0
+     * ]}
      *
      * @return Response
      */
@@ -160,6 +209,55 @@ class ProductController extends Controller
     /**
      * Display the specified product.
      * @urlParam product required product id Example: 2408
+     * @response  {
+     * "product_id":2400,
+     * "category_id":202,
+     * "category_id2":312,
+     * "model":88396,
+     * "sku":4015588883965,
+     * "location":'',
+     * "quantity":0,
+     * "internal_quantity":1,
+     * "stock_status_id":14,
+     * "image":"data/medisana/masaz/nohou/masazni-pristroj-na-nohy-a-zada-medisana-fm-883-88396.jpg",
+     * "manufacturer_id":6,
+     * "shipping":1,
+     * "price":1817.3554,
+     * "tax_class_id": 20,
+     * "date_available":"2019-05-29",
+     * "weight":0.00,
+     * "weight_class_id":1,
+     * "length":0.00,
+     * "width":0.00,
+     * "height":0.00,
+     * "measurement_class_id":1,
+     * "status":1,
+     * "date_added":'2019-05-29 10:28:48',
+     * "date_modified":'2019-05-29 10:28:48',
+     * "viewed":0,
+     * "container_capacity":0,
+     * "req_container":0,
+     * "purchase_price":1099.0000,
+     * "viewed_month":129,
+     * "viewed_quartal":152,
+     * "viewed_year":152,
+     * "heureka":'Medisana PS 435',
+     * "heureka_cat":'Bílé zboží | Malé spotřebiče | Péče o tělo | Zastřihovače',
+     * "heureka_name":'Profesionální set fénu BaByliss PRO Rapido P1036E s příslušenstvím'
+     * "warranty":24,
+     * "sold_quartal":1,
+     * "conversion_quartal":0.00658,
+     * "free_shipping":1,
+     * "domains":"",
+     * "color1":"ffffff",
+     * "color2":"000000",
+     * "color3":"",
+     * "marketing_domain":'',
+     * "raw_name":'',
+     * "zasilkovna_enabled":1,
+     * "condition":1,
+     * "erotic":0
+     * }
      *
      * @param  Product  $product
      * @return Response
@@ -469,6 +567,8 @@ class ProductController extends Controller
 
     /**
      * Remove the specified product from storage.
+     * @urlParam product required product id Example: 2408
+     * @response true
      *
      * @param Product $product
      * @return Response

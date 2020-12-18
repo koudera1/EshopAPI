@@ -4,25 +4,39 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer_group;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Response;
 
+/**
+ * @group Customer_group
+ */
 class Customer_groupController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all customer groups.
+     * @response  {[
+     * "customer_group_id":2,
+     * "name":"sleva5procent"
+     * ]}
      *
-     * @return \Illuminate\Http\Response
+     * @return Customer_group[]|Collection
      */
     public function index()
     {
-        Customer_group::all();
+        return Customer_group::all();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created customer group in storage.
+     * @bodyParam name string required
+     * @response  {
+     * "customer_group_id":2,
+     * }
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -35,10 +49,15 @@ class Customer_groupController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified customer group.
+     * @urlParam customer group required customer group id Example: 2
+     * @response  {
+     * "customer_group_id":2,
+     * "name":"sleva5procent"
+     * }
      *
-     * @param  \App\Models\Customer_group  $customer_group
-     * @return \Illuminate\Http\Response
+     * @param Customer_group $customer_group
+     * @return Customer_group
      */
     public function show(Customer_group $customer_group)
     {
@@ -46,11 +65,13 @@ class Customer_groupController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified customer group in storage.
+     * @urlParam customer group required customer group id Example: 2
+     * @bodyParam name string
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer_group  $customer_group
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Customer_group $customer_group
+     * @return Response
      */
     public function update(Request $request, Customer_group $customer_group)
     {
@@ -67,8 +88,9 @@ class Customer_groupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Customer_group  $customer_group
-     * @return \Illuminate\Http\Response
+     * @param Customer_group $customer_group
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Customer_group $customer_group)
     {
