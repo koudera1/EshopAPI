@@ -10,14 +10,14 @@
 
 ```bash
 curl -X GET \
-    -G "http://localhost/products/aut/special" \
+    -G "http://localhost/products/illo/special" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/aut/special"
+    "http://localhost/products/illo/special"
 );
 
 let headers = {
@@ -86,16 +86,16 @@ product_id</p>
 
 ```bash
 curl -X POST \
-    "http://localhost/products/vitae/special" \
+    "http://localhost/products/et/special" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"product_id":8,"customer_group_id":11,"domain":"velit","priority":17,"price":6,"date_start":"voluptas","date_end":"sint"}'
+    -d '{"product_id":16,"customer_group_id":19,"domain":"aut","priority":4,"price":20,"date_start":"commodi","date_end":"est"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/vitae/special"
+    "http://localhost/products/et/special"
 );
 
 let headers = {
@@ -104,13 +104,13 @@ let headers = {
 };
 
 let body = {
-    "product_id": 8,
-    "customer_group_id": 11,
-    "domain": "velit",
-    "priority": 17,
-    "price": 6,
-    "date_start": "voluptas",
-    "date_end": "sint"
+    "product_id": 16,
+    "customer_group_id": 19,
+    "domain": "aut",
+    "priority": 4,
+    "price": 20,
+    "date_start": "commodi",
+    "date_end": "est"
 }
 
 fetch(url, {
@@ -202,14 +202,14 @@ required,</p>
 
 ```bash
 curl -X GET \
-    -G "http://localhost/products/aspernatur/special/voluptatem" \
+    -G "http://localhost/products/totam/special/veniam" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/aspernatur/special/voluptatem"
+    "http://localhost/products/totam/special/veniam"
 );
 
 let headers = {
@@ -287,16 +287,16 @@ product_special_id</p>
 
 ```bash
 curl -X PUT \
-    "http://localhost/products/et/special/facere" \
+    "http://localhost/products/aut/special/non" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"product_id":20,"customer_group_id":2,"domain":"ipsam","priority":7,"price":19,"date_start":"alias","date_end":"velit"}'
+    -d '{"product_id":3,"customer_group_id":12,"domain":"accusamus","priority":12,"price":2,"date_start":"ipsum","date_end":"sit"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/et/special/facere"
+    "http://localhost/products/aut/special/non"
 );
 
 let headers = {
@@ -305,13 +305,13 @@ let headers = {
 };
 
 let body = {
-    "product_id": 20,
-    "customer_group_id": 2,
-    "domain": "ipsam",
-    "priority": 7,
-    "price": 19,
-    "date_start": "alias",
-    "date_end": "velit"
+    "product_id": 3,
+    "customer_group_id": 12,
+    "domain": "accusamus",
+    "priority": 12,
+    "price": 2,
+    "date_start": "ipsum",
+    "date_end": "sit"
 }
 
 fetch(url, {
@@ -418,14 +418,14 @@ product_special_id</p>
 
 ```bash
 curl -X DELETE \
-    "http://localhost/products/quod/special/eum" \
+    "http://localhost/products/omnis/special/vel" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/quod/special/eum"
+    "http://localhost/products/omnis/special/vel"
 );
 
 let headers = {

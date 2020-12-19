@@ -10,11 +10,192 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "201f228d-9c3e-4207-9035-ba311de1522d",
+        "_postman_id": "5dd38677-61db-47ad-8d57-698704f16fdd",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
+        {
+            "name": "Coupon",
+            "description": "",
+            "item": [
+                {
+                    "name": "Display a listing of all coupons.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "coupons",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/coupons"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Store a newly created coupon in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "coupons",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/coupons"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"coupon_id\": 17,\n    \"domain\": \"est\",\n    \"code\": \"ut\",\n    \"type\": \"rerum\",\n    \"discount\": 301.71970689,\n    \"logged\": 17,\n    \"shipping\": 4,\n    \"total\": 240235162.4446,\n    \"date_start\": \"velit\",\n    \"date_end\": \"dolores\",\n    \"uses_total\": 10,\n    \"uses_customer\": 15,\n    \"status\": 5,\n    \"date_added\": \"nam\",\n    \"language_id\": 4,\n    \"name\": \"ipsum\",\n    \"description\": \"quas\"\n}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Display the specified coupon.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "coupons\/:coupon",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/coupons\/:coupon",
+                            "variable": [
+                                {
+                                    "id": "coupon",
+                                    "key": "coupon",
+                                    "value": "2",
+                                    "description": "coupon id"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update the specified coupon in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "coupons\/:coupon",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/coupons\/:coupon",
+                            "variable": [
+                                {
+                                    "id": "coupon",
+                                    "key": "coupon",
+                                    "value": "2",
+                                    "description": "coupon id"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"domain\": \"explicabo\",\n    \"code\": \"minus\",\n    \"type\": \"voluptas\",\n    \"discount\": 135.226300507,\n    \"logged\": 3,\n    \"shipping\": 16,\n    \"total\": 0.688,\n    \"date_start\": \"architecto\",\n    \"date_end\": \"asperiores\",\n    \"uses_total\": 7,\n    \"uses_customer\": 3,\n    \"status\": 9,\n    \"name\": \"aspernatur\",\n    \"description\": \"et\"\n}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Remove the specified coupon from storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "coupons\/:coupon",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/coupons\/:coupon",
+                            "variable": [
+                                {
+                                    "id": "coupon",
+                                    "key": "coupon",
+                                    "value": "2",
+                                    "description": "coupon id"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
         {
             "name": "Customer",
             "description": "",
@@ -61,7 +242,7 @@
                                 {
                                     "id": "customer",
                                     "key": "customer",
-                                    "value": "ab",
+                                    "value": "consequatur",
                                     "description": "customer id"
                                 }
                             ]
@@ -116,7 +297,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"firstname\": \"delectus\",\n    \"lastname\": \"provident\",\n    \"email\": \"omnis\",\n    \"telephone\": \"ut\",\n    \"shipping_firstname\": {},\n    \"shipping_lastname\": {},\n    \"shipping_address_1\": {},\n    \"shipping_address_2\": {},\n    \"shipping_city\": {},\n    \"shipping_postcode\": {},\n    \"shipping_country\": {},\n    \"payment_firstname\": {},\n    \"payment_lastname\": {},\n    \"payment_address_1\": {},\n    \"payment_address_2\": {},\n    \"payment_city\": {},\n    \"payment_postcode\": {},\n    \"payment_country\": {},\n    \"company\": \"distinctio\",\n    \"address_1\": \"voluptas\",\n    \"address_2\": \"et\",\n    \"city\": \"corporis\",\n    \"postcode\": \"quibusdam\",\n    \"zone\": \"quas\",\n    \"country\": \"eaque\",\n    \"fax\": \"quae\",\n    \"ip\": \"sequi\",\n    \"newsletter\": 14,\n    \"status\": 9,\n    \"customer_group_id\": 12,\n    \"periodSaleTotal\": 462086.33459,\n    \"allow_discount\": 14\n}"
+                            "raw": "{\n    \"firstname\": \"sit\",\n    \"lastname\": \"voluptatem\",\n    \"email\": \"cupiditate\",\n    \"telephone\": \"quis\",\n    \"shipping_firstname\": {},\n    \"shipping_lastname\": {},\n    \"shipping_address_1\": {},\n    \"shipping_address_2\": {},\n    \"shipping_city\": {},\n    \"shipping_postcode\": {},\n    \"shipping_country\": {},\n    \"payment_firstname\": {},\n    \"payment_lastname\": {},\n    \"payment_address_1\": {},\n    \"payment_address_2\": {},\n    \"payment_city\": {},\n    \"payment_postcode\": {},\n    \"payment_country\": {},\n    \"company\": \"officiis\",\n    \"address_1\": \"et\",\n    \"address_2\": \"tempore\",\n    \"city\": \"aut\",\n    \"postcode\": \"nam\",\n    \"zone\": \"tempora\",\n    \"country\": \"excepturi\",\n    \"fax\": \"veniam\",\n    \"ip\": \"excepturi\",\n    \"newsletter\": 13,\n    \"status\": 18,\n    \"customer_group_id\": 10,\n    \"periodSaleTotal\": 64803.08,\n    \"allow_discount\": 9\n}"
                         },
                         "description": "",
                         "auth": {
@@ -138,8 +319,8 @@
                                 {
                                     "id": "customer",
                                     "key": "customer",
-                                    "value": "et",
-                                    "description": ""
+                                    "value": "2",
+                                    "description": "customer id"
                                 }
                             ]
                         },
@@ -220,7 +401,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"inventore\"\n}"
+                            "raw": "{\n    \"name\": \"ducimus\"\n}"
                         },
                         "description": "",
                         "auth": {
@@ -242,7 +423,7 @@
                                 {
                                     "id": "customer_group",
                                     "key": "customer_group",
-                                    "value": "provident",
+                                    "value": "vero",
                                     "description": ""
                                 },
                                 {
@@ -285,7 +466,7 @@
                                 {
                                     "id": "customer_group",
                                     "key": "customer_group",
-                                    "value": "numquam",
+                                    "value": "quibusdam",
                                     "description": ""
                                 },
                                 {
@@ -309,7 +490,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"name\": \"neque\"\n}"
+                            "raw": "{\n    \"name\": \"sunt\"\n}"
                         },
                         "description": "",
                         "auth": {
@@ -331,7 +512,7 @@
                                 {
                                     "id": "customer_group",
                                     "key": "customer_group",
-                                    "value": "cum",
+                                    "value": "exercitationem",
                                     "description": ""
                                 }
                             ]
@@ -413,7 +594,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"veniam\",\n    \"password\": \"in\"\n}"
+                            "raw": "{\n    \"email\": \"qui\",\n    \"password\": \"sapiente\"\n}"
                         },
                         "description": "",
                         "auth": {
@@ -522,7 +703,7 @@
                                 {
                                     "id": "token",
                                     "key": "token",
-                                    "value": "excepturi",
+                                    "value": "ut",
                                     "description": ""
                                 }
                             ]
@@ -830,7 +1011,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"code\": \"impedit\",\n    \"recovery_code\": \"qui\"\n}"
+                            "raw": "{\n    \"code\": \"aut\",\n    \"recovery_code\": \"et\"\n}"
                         },
                         "description": "",
                         "auth": {
@@ -1142,7 +1323,7 @@
                                 {
                                     "id": "name",
                                     "key": "name",
-                                    "value": "cumque",
+                                    "value": "voluptas",
                                     "description": ""
                                 }
                             ]
@@ -1208,7 +1389,7 @@
                                 {
                                     "id": "filename",
                                     "key": "filename",
-                                    "value": "nam",
+                                    "value": "voluptatibus",
                                     "description": ""
                                 }
                             ]
@@ -1303,7 +1484,7 @@
                                 {
                                     "id": "order",
                                     "key": "order",
-                                    "value": "unde",
+                                    "value": "tenetur",
                                     "description": ""
                                 }
                             ]
@@ -1340,7 +1521,7 @@
                                 {
                                     "id": "order",
                                     "key": "order",
-                                    "value": "veritatis",
+                                    "value": "inventore",
                                     "description": ""
                                 }
                             ]
@@ -1377,7 +1558,7 @@
                                 {
                                     "id": "order",
                                     "key": "order",
-                                    "value": "et",
+                                    "value": "consequuntur",
                                     "description": ""
                                 }
                             ]
@@ -1414,13 +1595,13 @@
                                 {
                                     "id": "order",
                                     "key": "order",
-                                    "value": "molestiae",
+                                    "value": "ut",
                                     "description": ""
                                 },
                                 {
                                     "id": "history",
                                     "key": "history",
-                                    "value": "libero",
+                                    "value": "tempora",
                                     "description": ""
                                 }
                             ]
@@ -1457,18 +1638,47 @@
                                 {
                                     "id": "order",
                                     "key": "order",
-                                    "value": "saepe",
+                                    "value": "sunt",
                                     "description": ""
                                 },
                                 {
                                     "id": "history",
                                     "key": "history",
-                                    "value": "consequuntur",
+                                    "value": "itaque",
                                     "description": ""
                                 }
                             ]
                         },
                         "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "dashboard",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "dashboard",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/dashboard"
+                        },
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -1828,7 +2038,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"firstname\": \"voluptatibus\",\n    \"lastname\": \"distinctio\",\n    \"email\": \"odio\",\n    \"telephone\": \"unde\",\n    \"shipping_firstname\": \"suscipit\",\n    \"shipping_lastname\": \"qui\",\n    \"shipping_address_1\": \"vel\",\n    \"shipping_address_2\": \"voluptatem\",\n    \"shipping_city\": \"neque\",\n    \"shipping_postcode\": \"ut\",\n    \"shipping_country\": \"asperiores\",\n    \"payment_firstname\": \"ab\",\n    \"payment_lastname\": \"iusto\",\n    \"payment_address_1\": \"quibusdam\",\n    \"payment_address_2\": \"expedita\",\n    \"payment_city\": \"praesentium\",\n    \"payment_postcode\": \"perferendis\",\n    \"payment_country\": \"accusamus\",\n    \"domain\": \"\\\"www.stylka.cz\\\"\",\n    \"currency\": \"aut\",\n    \"customer_id\": 7,\n    \"language\": \"ut\",\n    \"company\": \"corrupti\",\n    \"comment\": \"officia\",\n    \"order_status\": \"\\\"Nevy\\u0159\\u00edzeno.\\\"\",\n    \"shipping_method\": \"\\\"Z\\u00e1silkovna\\\"\",\n    \"payment_status\": 1,\n    \"referrer\": \"possimus\",\n    \"agree_gdpr\": 1,\n    \"payment_method\": \"cumque\",\n    \"fax\": \"sint\",\n    \"regNum\": \"quis\",\n    \"taxRegNum\": \"facere\",\n    \"ip\": \"delectus\",\n    \"reason\": \"\\\"Reklamace\\\"\",\n    \"wrong_order_id\": 4,\n    \"competition\": 20,\n    \"euVAT\": 6,\n    \"viewed\": 0,\n    \"shipping_company\": \"omnis\",\n    \"shipping_zone\": \"et\",\n    \"shipping_address_format\": \"distinctio\",\n    \"payment_company\": \"explicabo\",\n    \"payment_zone\": \"deserunt\",\n    \"payment_address_format\": \"quo\"\n}"
+                            "raw": "{\n    \"firstname\": \"delectus\",\n    \"lastname\": \"doloremque\",\n    \"email\": \"magni\",\n    \"telephone\": \"assumenda\",\n    \"shipping_firstname\": \"molestias\",\n    \"shipping_lastname\": \"maxime\",\n    \"shipping_address_1\": \"nam\",\n    \"shipping_address_2\": \"vel\",\n    \"shipping_city\": \"praesentium\",\n    \"shipping_postcode\": \"in\",\n    \"shipping_country\": \"iste\",\n    \"payment_firstname\": \"et\",\n    \"payment_lastname\": \"esse\",\n    \"payment_address_1\": \"dolore\",\n    \"payment_address_2\": \"esse\",\n    \"payment_city\": \"id\",\n    \"payment_postcode\": \"velit\",\n    \"payment_country\": \"quia\",\n    \"domain\": \"\\\"www.stylka.cz\\\"\",\n    \"currency\": \"officiis\",\n    \"customer_id\": 6,\n    \"language\": \"molestiae\",\n    \"company\": \"nulla\",\n    \"comment\": \"accusantium\",\n    \"order_status\": \"\\\"Nevy\\u0159\\u00edzeno.\\\"\",\n    \"shipping_method\": \"\\\"Z\\u00e1silkovna\\\"\",\n    \"payment_status\": 1,\n    \"referrer\": \"et\",\n    \"agree_gdpr\": 1,\n    \"payment_method\": \"aspernatur\",\n    \"fax\": \"necessitatibus\",\n    \"regNum\": \"debitis\",\n    \"taxRegNum\": \"et\",\n    \"ip\": \"eaque\",\n    \"reason\": \"\\\"Reklamace\\\"\",\n    \"wrong_order_id\": 18,\n    \"competition\": 8,\n    \"euVAT\": 9,\n    \"viewed\": 0,\n    \"shipping_company\": \"voluptas\",\n    \"shipping_zone\": \"in\",\n    \"shipping_address_format\": \"sunt\",\n    \"payment_company\": \"sunt\",\n    \"payment_zone\": \"nihil\",\n    \"payment_address_format\": \"autem\"\n}"
                         },
                         "description": "",
                         "auth": {
@@ -1948,7 +2158,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"product_id\": 17,\n    \"name\": \"nobis\",\n    \"tax\": 10,\n    \"quantity\": 20,\n    \"sort_order\": 10,\n    \"is_transfer\": 11,\n    \"is_action\": 10\n}"
+                            "raw": "{\n    \"product_id\": 20,\n    \"name\": \"blanditiis\",\n    \"tax\": 20,\n    \"quantity\": 2,\n    \"sort_order\": 7,\n    \"is_transfer\": 5,\n    \"is_action\": 15\n}"
                         },
                         "description": "",
                         "auth": {
@@ -1976,7 +2186,7 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "qui",
+                                    "value": "explicabo",
                                     "description": ""
                                 },
                                 {
@@ -2043,7 +2253,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"quantity\": 5\n}"
+                            "raw": "{\n    \"quantity\": 14\n}"
                         },
                         "description": "",
                         "auth": {
@@ -2169,7 +2379,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"cod\": 559005.285624,\n    \"b2c\": 6,\n    \"routing_id\": 13,\n    \"phone\": \"velit\",\n    \"driver_note\": \"corporis\",\n    \"recipient_note\": \"exercitationem\",\n    \"source\": 15,\n    \"gar\": 7,\n    \"package_order\": 16,\n    \"commercial\": 13,\n    \"service\": \"et\",\n    \"weight\": 3436.8154677\n}"
+                            "raw": "{\n    \"cod\": 26425.2,\n    \"b2c\": 14,\n    \"routing_id\": 17,\n    \"phone\": \"esse\",\n    \"driver_note\": \"et\",\n    \"recipient_note\": \"et\",\n    \"source\": 5,\n    \"gar\": 18,\n    \"package_order\": 18,\n    \"commercial\": 15,\n    \"service\": \"eaque\",\n    \"weight\": 272638.74807218\n}"
                         },
                         "description": "Geis - cod, b2c, routing_id, phone, driver_note, recipient_note, source, gar, package_order\n| Postcz - source, cod, commercial, service, phone, package_order, weight\n| Z\u00e1silkovna - cod, weight",
                         "auth": {
@@ -2197,7 +2407,7 @@
                                 {
                                     "id": "package",
                                     "key": "package",
-                                    "value": "quae",
+                                    "value": "reiciendis",
                                     "description": ""
                                 }
                             ]
@@ -2234,13 +2444,13 @@
                                 {
                                     "id": "order",
                                     "key": "order",
-                                    "value": "qui",
+                                    "value": "voluptas",
                                     "description": ""
                                 },
                                 {
                                     "id": "package",
                                     "key": "package",
-                                    "value": "aspernatur",
+                                    "value": "laudantium",
                                     "description": ""
                                 }
                             ]
@@ -2322,7 +2532,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"category_id\": 19,\n    \"category_id2\": 1,\n    \"model\": \"animi\",\n    \"sku\": \"sapiente\",\n    \"location\": \"tempore\",\n    \"quantity\": 11,\n    \"internal_quantity\": 10,\n    \"stock_status_id\": 14,\n    \"image\": \"cupiditate\",\n    \"manufacturer_id\": 14,\n    \"shipping\": 19,\n    \"price\": 99.472253,\n    \"tax_class_id\": 18,\n    \"date_available\": \"qui\",\n    \"weight\": 46160.6,\n    \"weight_class_id\": 17,\n    \"length\": 16874412,\n    \"width\": 2966479,\n    \"height\": 590.33664,\n    \"measurement_class_id\": 11,\n    \"status\": 16,\n    \"viewed\": 12,\n    \"container_capacity\": 16,\n    \"req_container\": 13,\n    \"purchase_price\": 4273.416,\n    \"viewed_month\": 7,\n    \"viewed_quartal\": 12,\n    \"viewed_year\": 7,\n    \"heureka\": \"qui\",\n    \"heureka_cat\": \"autem\",\n    \"heureka_name\": \"impedit\",\n    \"warranty\": 4,\n    \"sold_quartal\": 8,\n    \"conversion_quartal\": 7.6,\n    \"free_shipping\": 12,\n    \"domains\": \"saepe\",\n    \"color1\": \"ut\",\n    \"color2\": \"provident\",\n    \"color3\": \"quis\",\n    \"marketing_domain\": \"debitis\",\n    \"raw_name\": \"tempora\",\n    \"zasilkovna_enabled\": 16,\n    \"condition\": 5,\n    \"erotic\": 13,\n    \"language\": \"omnis\",\n    \"name\": \"quisquam\",\n    \"meta_description\": \"distinctio\",\n    \"meta_keywords\": \"voluptatem\",\n    \"description\": \"soluta\",\n    \"intro\": \"in\"\n}"
+                            "raw": "{\n    \"category_id\": 19,\n    \"category_id2\": 8,\n    \"model\": \"sit\",\n    \"sku\": \"quibusdam\",\n    \"location\": \"fugit\",\n    \"quantity\": 6,\n    \"internal_quantity\": 9,\n    \"stock_status_id\": 20,\n    \"image\": \"vel\",\n    \"manufacturer_id\": 16,\n    \"shipping\": 3,\n    \"price\": 228.9,\n    \"tax_class_id\": 18,\n    \"date_available\": \"et\",\n    \"weight\": 3093.13459647,\n    \"weight_class_id\": 7,\n    \"length\": 22442.396,\n    \"width\": 0,\n    \"height\": 0,\n    \"measurement_class_id\": 11,\n    \"status\": 13,\n    \"viewed\": 19,\n    \"container_capacity\": 10,\n    \"req_container\": 11,\n    \"purchase_price\": 222.235476,\n    \"viewed_month\": 6,\n    \"viewed_quartal\": 16,\n    \"viewed_year\": 17,\n    \"heureka\": \"non\",\n    \"heureka_cat\": \"eum\",\n    \"heureka_name\": \"omnis\",\n    \"warranty\": 15,\n    \"sold_quartal\": 2,\n    \"conversion_quartal\": 175495.653530674,\n    \"free_shipping\": 7,\n    \"domains\": \"enim\",\n    \"color1\": \"sit\",\n    \"color2\": \"repellat\",\n    \"color3\": \"earum\",\n    \"marketing_domain\": \"minus\",\n    \"raw_name\": \"vel\",\n    \"zasilkovna_enabled\": 15,\n    \"condition\": 19,\n    \"erotic\": 9,\n    \"language\": \"velit\",\n    \"name\": \"autem\",\n    \"meta_description\": \"illum\",\n    \"meta_keywords\": \"explicabo\",\n    \"description\": \"voluptatem\",\n    \"intro\": \"omnis\"\n}"
                         },
                         "description": "",
                         "auth": {
@@ -2361,6 +2571,46 @@
                             }
                         ],
                         "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update the specified product in storage.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "products\/:product",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/products\/:product",
+                            "variable": [
+                                {
+                                    "id": "product",
+                                    "key": "product",
+                                    "value": "corporis",
+                                    "description": "product id"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"category_id\": 2,\n    \"category_id2\": 1,\n    \"model\": \"possimus\",\n    \"sku\": 4,\n    \"location\": \"at\",\n    \"quantity\": 9,\n    \"internal_quantity\": 16,\n    \"stock_status_id\": 13,\n    \"image\": \"iusto\",\n    \"manufacturer_id\": 6,\n    \"shipping\": 12,\n    \"price\": 568.7303,\n    \"tax_class_id\": 4,\n    \"date_available\": \"dolores\",\n    \"weight\": 216.113,\n    \"weight_class_id\": 12,\n    \"length\": 2.604725846,\n    \"width\": 44.6,\n    \"height\": 4.07,\n    \"measurement_class_id\": 10,\n    \"status\": 2,\n    \"viewed\": 15,\n    \"container_capacity\": 9,\n    \"req_capacity\": 18,\n    \"req_container\": 4,\n    \"purchase_price\": 485.61894,\n    \"viewed_month\": 1,\n    \"viewed_quartal\": 2,\n    \"viewed_year\": 3,\n    \"heureka\": 15,\n    \"heureka_cat\": 4,\n    \"heureka_name\": 13,\n    \"warranty\": 20,\n    \"sold_quartal\": 12,\n    \"conversion_quartal\": 10,\n    \"free_shipping\": 5,\n    \"domains\": \"sunt\",\n    \"color1\": \"alias\",\n    \"color2\": \"est\",\n    \"color3\": \"voluptas\",\n    \"marketing_damain\": \"ut\",\n    \"raw_name\": \"repudiandae\",\n    \"zasilkovna_enabled\": 7,\n    \"condition\": 5,\n    \"erotic\": 16\n}"
+                        },
                         "description": "",
                         "auth": {
                             "type": "noauth"
@@ -2424,7 +2674,7 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "cupiditate",
+                                    "value": "quisquam",
                                     "description": "product_id"
                                 }
                             ]
@@ -2461,7 +2711,7 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "deleniti",
+                                    "value": "modi",
                                     "description": "product_id"
                                 }
                             ]
@@ -2479,7 +2729,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"gift_id\": 20,\n    \"quantity\": 7\n}"
+                            "raw": "{\n    \"gift_id\": 20,\n    \"quantity\": 3\n}"
                         },
                         "description": "",
                         "auth": {
@@ -2501,13 +2751,13 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "esse",
+                                    "value": "est",
                                     "description": "product_id"
                                 },
                                 {
                                     "id": "gift",
                                     "key": "gift",
-                                    "value": "ipsum",
+                                    "value": "cumque",
                                     "description": "gift_id"
                                 }
                             ]
@@ -2544,13 +2794,13 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "voluptas",
+                                    "value": "praesentium",
                                     "description": "product_id"
                                 },
                                 {
                                     "id": "gift",
                                     "key": "gift",
-                                    "value": "voluptatem",
+                                    "value": "ipsam",
                                     "description": "gift_id"
                                 }
                             ]
@@ -2568,7 +2818,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"product_id\": 10,\n    \"gift_id\": 2,\n    \"quantity\": 14\n}"
+                            "raw": "{\n    \"product_id\": 20,\n    \"gift_id\": 17,\n    \"quantity\": 16\n}"
                         },
                         "description": "",
                         "auth": {
@@ -2590,13 +2840,13 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "suscipit",
+                                    "value": "quas",
                                     "description": "product_id"
                                 },
                                 {
                                     "id": "gift",
                                     "key": "gift",
-                                    "value": "sit",
+                                    "value": "rerum",
                                     "description": "gift_id"
                                 }
                             ]
@@ -2639,7 +2889,7 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "aut",
+                                    "value": "illo",
                                     "description": "product_id"
                                 }
                             ]
@@ -2676,7 +2926,7 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "vitae",
+                                    "value": "et",
                                     "description": "product_id"
                                 }
                             ]
@@ -2694,7 +2944,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"product_id\": 8,\n    \"customer_group_id\": 11,\n    \"domain\": \"velit\",\n    \"priority\": 17,\n    \"price\": 6,\n    \"date_start\": \"voluptas\",\n    \"date_end\": \"sint\"\n}"
+                            "raw": "{\n    \"product_id\": 16,\n    \"customer_group_id\": 19,\n    \"domain\": \"aut\",\n    \"priority\": 4,\n    \"price\": 20,\n    \"date_start\": \"commodi\",\n    \"date_end\": \"est\"\n}"
                         },
                         "description": "",
                         "auth": {
@@ -2716,19 +2966,19 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "aspernatur",
+                                    "value": "totam",
                                     "description": "product_id"
                                 },
                                 {
                                     "id": "special",
                                     "key": "special",
-                                    "value": "voluptatem",
+                                    "value": "veniam",
                                     "description": ""
                                 },
                                 {
                                     "id": "product_special",
                                     "key": "product_special",
-                                    "value": "dolorem",
+                                    "value": "est",
                                     "description": "product_special_id"
                                 }
                             ]
@@ -2765,19 +3015,19 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "et",
+                                    "value": "aut",
                                     "description": "product_id"
                                 },
                                 {
                                     "id": "special",
                                     "key": "special",
-                                    "value": "facere",
+                                    "value": "non",
                                     "description": ""
                                 },
                                 {
                                     "id": "product_special",
                                     "key": "product_special",
-                                    "value": "soluta",
+                                    "value": "in",
                                     "description": "product_special_id"
                                 }
                             ]
@@ -2795,7 +3045,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"product_id\": 20,\n    \"customer_group_id\": 2,\n    \"domain\": \"ipsam\",\n    \"priority\": 7,\n    \"price\": 19,\n    \"date_start\": \"alias\",\n    \"date_end\": \"velit\"\n}"
+                            "raw": "{\n    \"product_id\": 3,\n    \"customer_group_id\": 12,\n    \"domain\": \"accusamus\",\n    \"priority\": 12,\n    \"price\": 2,\n    \"date_start\": \"ipsum\",\n    \"date_end\": \"sit\"\n}"
                         },
                         "description": "",
                         "auth": {
@@ -2817,19 +3067,19 @@
                                 {
                                     "id": "product",
                                     "key": "product",
-                                    "value": "quod",
+                                    "value": "omnis",
                                     "description": "product_id"
                                 },
                                 {
                                     "id": "special",
                                     "key": "special",
-                                    "value": "eum",
+                                    "value": "vel",
                                     "description": ""
                                 },
                                 {
                                     "id": "product_special",
                                     "key": "product_special",
-                                    "value": "neque",
+                                    "value": "expedita",
                                     "description": "product_special_id"
                                 }
                             ]
@@ -2988,7 +3238,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"author\": \"\\\"Jaroslav\\\"\",\n    \"text\": \"et\",\n    \"rating\": 11\n}"
+                            "raw": "{\n    \"author\": \"\\\"Jaroslav\\\"\",\n    \"text\": \"est\",\n    \"rating\": 12\n}"
                         },
                         "description": "",
                         "auth": {

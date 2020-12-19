@@ -10,7 +10,7 @@ use App\Models\Order_product;
 use App\Models\Order_total;
 use App\Models\Product_special;
 
-class Order_totalController extends Controller
+class Order_totalService extends Controller
 {
     public static function addOrder_product(Order_product $op, $coupon_discount, &$noTaxTotal, &$tax, $cgid, $domain)
     {

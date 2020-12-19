@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 
 });
-//Route::post('/log_in', [LoginController::class, 'authenticate'])->name('log_in');
+Route::post('/log_in', [LoginController::class, 'authenticate'])->name('log_in');
 
 Route::get('/orders/{order}/addresses', [OrderController::class, 'getAddresses']);
 Route::get('/orders/{order}/price', [OrderController::class, 'getPrice']);

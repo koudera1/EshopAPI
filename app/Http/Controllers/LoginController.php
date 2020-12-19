@@ -8,16 +8,16 @@ class LoginController extends Controller{
     public function authenticate(Request $request){
         $credentials = $request->only('email', 'password');
 
+        config(['fortify.guard' => 'customer']);
+        config(['defaults.guard' => 'customer']);
         if (Auth::guard('customer')->attempt($credentials)) {
             return redirect('dashboard');
         }
 
-        if (Auth::guard('user')->attempt($credentials)) {
-            config(['auth.defaults.guard' => 'user']);
-            return Auth::guard('user')->user();
-            $user = $details['original'];
-            return $user;
-            //return redirect('');
+        config(['fortify.guard' => 'admin']);
+        config(['defaults.guard' => 'admin']);
+        if (Auth::guard('admin')->attempt($credentials)) {
+            return redirect('dashboard');
         }
 
         return 'auth fail';

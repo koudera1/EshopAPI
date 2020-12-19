@@ -43,7 +43,7 @@ fetch(url, {
 "email":"jan.modry@seznam.cz",
 "telephone":"774215321",
 "company":"Hyundai",
-"address_1":"Zámecká 702"",
+"address_1":"Zámecká 702",
 "address_2":"",
 "postcode":"75501",
 "city":"Olomouc"
@@ -80,14 +80,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/customers/ab" \
+    -G "http://localhost/customers/consequatur" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/customers/ab"
+    "http://localhost/customers/consequatur"
 );
 
 let headers = {
@@ -106,17 +106,16 @@ fetch(url, {
 > Example response (200):
 
 ```json
-
 {
-"firstname":"Pavel",
-"lastname":"Modrý",
-"email":"jan.modry@seznam.cz",
-"telephone":"774215321",
-"company":"Hyundai",
-"address_1":"Zámecká 702"",
-"address_2":"",
-"postcode":"75501",
-"city":"Olomouc"
+    "firstname": "Pavel",
+    "lastname": "Modrý",
+    "email": "jan.modry@seznam.cz",
+    "telephone": "774215321",
+    "company": "Hyundai",
+    "address_1": "Zámecká 702",
+    "address_2": "",
+    "postcode": "75501",
+    "city": "Olomouc"
 }
 ```
 <div id="execution-results-GETcustomers--customer-" hidden>
@@ -159,7 +158,7 @@ curl -X PUT \
     "http://localhost/customers/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"firstname":"delectus","lastname":"provident","email":"omnis","telephone":"ut","shipping_firstname":{},"shipping_lastname":{},"shipping_address_1":{},"shipping_address_2":{},"shipping_city":{},"shipping_postcode":{},"shipping_country":{},"payment_firstname":{},"payment_lastname":{},"payment_address_1":{},"payment_address_2":{},"payment_city":{},"payment_postcode":{},"payment_country":{},"company":"distinctio","address_1":"voluptas","address_2":"et","city":"corporis","postcode":"quibusdam","zone":"quas","country":"eaque","fax":"quae","ip":"sequi","newsletter":14,"status":9,"customer_group_id":12,"periodSaleTotal":462086.33459,"allow_discount":14}'
+    -d '{"firstname":"sit","lastname":"voluptatem","email":"cupiditate","telephone":"quis","shipping_firstname":{},"shipping_lastname":{},"shipping_address_1":{},"shipping_address_2":{},"shipping_city":{},"shipping_postcode":{},"shipping_country":{},"payment_firstname":{},"payment_lastname":{},"payment_address_1":{},"payment_address_2":{},"payment_city":{},"payment_postcode":{},"payment_country":{},"company":"officiis","address_1":"et","address_2":"tempore","city":"aut","postcode":"nam","zone":"tempora","country":"excepturi","fax":"veniam","ip":"excepturi","newsletter":13,"status":18,"customer_group_id":10,"periodSaleTotal":64803.08,"allow_discount":9}'
 
 ```
 
@@ -174,10 +173,10 @@ let headers = {
 };
 
 let body = {
-    "firstname": "delectus",
-    "lastname": "provident",
-    "email": "omnis",
-    "telephone": "ut",
+    "firstname": "sit",
+    "lastname": "voluptatem",
+    "email": "cupiditate",
+    "telephone": "quis",
     "shipping_firstname": {},
     "shipping_lastname": {},
     "shipping_address_1": {},
@@ -192,20 +191,20 @@ let body = {
     "payment_city": {},
     "payment_postcode": {},
     "payment_country": {},
-    "company": "distinctio",
-    "address_1": "voluptas",
-    "address_2": "et",
-    "city": "corporis",
-    "postcode": "quibusdam",
-    "zone": "quas",
-    "country": "eaque",
-    "fax": "quae",
-    "ip": "sequi",
-    "newsletter": 14,
-    "status": 9,
-    "customer_group_id": 12,
-    "periodSaleTotal": 462086.33459,
-    "allow_discount": 14
+    "company": "officiis",
+    "address_1": "et",
+    "address_2": "tempore",
+    "city": "aut",
+    "postcode": "nam",
+    "zone": "tempora",
+    "country": "excepturi",
+    "fax": "veniam",
+    "ip": "excepturi",
+    "newsletter": 13,
+    "status": 18,
+    "customer_group_id": 10,
+    "periodSaleTotal": 64803.08,
+    "allow_discount": 9
 }
 
 fetch(url, {
@@ -427,14 +426,14 @@ customer id</p>
 
 ```bash
 curl -X DELETE \
-    "http://localhost/customers/et" \
+    "http://localhost/customers/2" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/customers/et"
+    "http://localhost/customers/2"
 );
 
 let headers = {
@@ -450,6 +449,11 @@ fetch(url, {
 ```
 
 
+> Example response (200):
+
+```json
+true
+```
 <div id="execution-results-DELETEcustomers--customer-" hidden>
     <blockquote>Received response<span id="execution-response-status-DELETEcustomers--customer-"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-DELETEcustomers--customer-"></code></pre>
@@ -474,7 +478,7 @@ fetch(url, {
 <b><code>customer</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
 <input type="text" name="customer" data-endpoint="DELETEcustomers--customer-" data-component="url" required  hidden>
 <br>
-</p>
+customer id</p>
 </form>
 
 

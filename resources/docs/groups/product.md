@@ -121,7 +121,7 @@ curl -X POST \
     "http://localhost/products" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"category_id":19,"category_id2":1,"model":"animi","sku":"sapiente","location":"tempore","quantity":11,"internal_quantity":10,"stock_status_id":14,"image":"cupiditate","manufacturer_id":14,"shipping":19,"price":99.472253,"tax_class_id":18,"date_available":"qui","weight":46160.6,"weight_class_id":17,"length":16874412,"width":2966479,"height":590.33664,"measurement_class_id":11,"status":16,"viewed":12,"container_capacity":16,"req_container":13,"purchase_price":4273.416,"viewed_month":7,"viewed_quartal":12,"viewed_year":7,"heureka":"qui","heureka_cat":"autem","heureka_name":"impedit","warranty":4,"sold_quartal":8,"conversion_quartal":7.6,"free_shipping":12,"domains":"saepe","color1":"ut","color2":"provident","color3":"quis","marketing_domain":"debitis","raw_name":"tempora","zasilkovna_enabled":16,"condition":5,"erotic":13,"language":"omnis","name":"quisquam","meta_description":"distinctio","meta_keywords":"voluptatem","description":"soluta","intro":"in"}'
+    -d '{"category_id":19,"category_id2":8,"model":"sit","sku":"quibusdam","location":"fugit","quantity":6,"internal_quantity":9,"stock_status_id":20,"image":"vel","manufacturer_id":16,"shipping":3,"price":228.9,"tax_class_id":18,"date_available":"et","weight":3093.13459647,"weight_class_id":7,"length":22442.396,"width":0,"height":0,"measurement_class_id":11,"status":13,"viewed":19,"container_capacity":10,"req_container":11,"purchase_price":222.235476,"viewed_month":6,"viewed_quartal":16,"viewed_year":17,"heureka":"non","heureka_cat":"eum","heureka_name":"omnis","warranty":15,"sold_quartal":2,"conversion_quartal":175495.653530674,"free_shipping":7,"domains":"enim","color1":"sit","color2":"repellat","color3":"earum","marketing_domain":"minus","raw_name":"vel","zasilkovna_enabled":15,"condition":19,"erotic":9,"language":"velit","name":"autem","meta_description":"illum","meta_keywords":"explicabo","description":"voluptatem","intro":"omnis"}'
 
 ```
 
@@ -137,55 +137,55 @@ let headers = {
 
 let body = {
     "category_id": 19,
-    "category_id2": 1,
-    "model": "animi",
-    "sku": "sapiente",
-    "location": "tempore",
-    "quantity": 11,
-    "internal_quantity": 10,
-    "stock_status_id": 14,
-    "image": "cupiditate",
-    "manufacturer_id": 14,
-    "shipping": 19,
-    "price": 99.472253,
+    "category_id2": 8,
+    "model": "sit",
+    "sku": "quibusdam",
+    "location": "fugit",
+    "quantity": 6,
+    "internal_quantity": 9,
+    "stock_status_id": 20,
+    "image": "vel",
+    "manufacturer_id": 16,
+    "shipping": 3,
+    "price": 228.9,
     "tax_class_id": 18,
-    "date_available": "qui",
-    "weight": 46160.6,
-    "weight_class_id": 17,
-    "length": 16874412,
-    "width": 2966479,
-    "height": 590.33664,
+    "date_available": "et",
+    "weight": 3093.13459647,
+    "weight_class_id": 7,
+    "length": 22442.396,
+    "width": 0,
+    "height": 0,
     "measurement_class_id": 11,
-    "status": 16,
-    "viewed": 12,
-    "container_capacity": 16,
-    "req_container": 13,
-    "purchase_price": 4273.416,
-    "viewed_month": 7,
-    "viewed_quartal": 12,
-    "viewed_year": 7,
-    "heureka": "qui",
-    "heureka_cat": "autem",
-    "heureka_name": "impedit",
-    "warranty": 4,
-    "sold_quartal": 8,
-    "conversion_quartal": 7.6,
-    "free_shipping": 12,
-    "domains": "saepe",
-    "color1": "ut",
-    "color2": "provident",
-    "color3": "quis",
-    "marketing_domain": "debitis",
-    "raw_name": "tempora",
-    "zasilkovna_enabled": 16,
-    "condition": 5,
-    "erotic": 13,
-    "language": "omnis",
-    "name": "quisquam",
-    "meta_description": "distinctio",
-    "meta_keywords": "voluptatem",
-    "description": "soluta",
-    "intro": "in"
+    "status": 13,
+    "viewed": 19,
+    "container_capacity": 10,
+    "req_container": 11,
+    "purchase_price": 222.235476,
+    "viewed_month": 6,
+    "viewed_quartal": 16,
+    "viewed_year": 17,
+    "heureka": "non",
+    "heureka_cat": "eum",
+    "heureka_name": "omnis",
+    "warranty": 15,
+    "sold_quartal": 2,
+    "conversion_quartal": 175495.653530674,
+    "free_shipping": 7,
+    "domains": "enim",
+    "color1": "sit",
+    "color2": "repellat",
+    "color3": "earum",
+    "marketing_domain": "minus",
+    "raw_name": "vel",
+    "zasilkovna_enabled": 15,
+    "condition": 19,
+    "erotic": 9,
+    "language": "velit",
+    "name": "autem",
+    "meta_description": "illum",
+    "meta_keywords": "explicabo",
+    "description": "voluptatem",
+    "intro": "omnis"
 }
 
 fetch(url, {
@@ -588,6 +588,355 @@ fetch(url, {
 <input type="text" name="product" data-endpoint="GETproducts--product-" data-component="url" required  hidden>
 <br>
 product id</p>
+</form>
+
+
+## Update the specified product in storage.
+
+
+
+
+> Example request:
+
+```bash
+curl -X PUT \
+    "http://localhost/products/corporis" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"category_id":2,"category_id2":1,"model":"possimus","sku":4,"location":"at","quantity":9,"internal_quantity":16,"stock_status_id":13,"image":"iusto","manufacturer_id":6,"shipping":12,"price":568.7303,"tax_class_id":4,"date_available":"dolores","weight":216.113,"weight_class_id":12,"length":2.604725846,"width":44.6,"height":4.07,"measurement_class_id":10,"status":2,"viewed":15,"container_capacity":9,"req_capacity":18,"req_container":4,"purchase_price":485.61894,"viewed_month":1,"viewed_quartal":2,"viewed_year":3,"heureka":15,"heureka_cat":4,"heureka_name":13,"warranty":20,"sold_quartal":12,"conversion_quartal":10,"free_shipping":5,"domains":"sunt","color1":"alias","color2":"est","color3":"voluptas","marketing_damain":"ut","raw_name":"repudiandae","zasilkovna_enabled":7,"condition":5,"erotic":16}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/products/corporis"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "category_id": 2,
+    "category_id2": 1,
+    "model": "possimus",
+    "sku": 4,
+    "location": "at",
+    "quantity": 9,
+    "internal_quantity": 16,
+    "stock_status_id": 13,
+    "image": "iusto",
+    "manufacturer_id": 6,
+    "shipping": 12,
+    "price": 568.7303,
+    "tax_class_id": 4,
+    "date_available": "dolores",
+    "weight": 216.113,
+    "weight_class_id": 12,
+    "length": 2.604725846,
+    "width": 44.6,
+    "height": 4.07,
+    "measurement_class_id": 10,
+    "status": 2,
+    "viewed": 15,
+    "container_capacity": 9,
+    "req_capacity": 18,
+    "req_container": 4,
+    "purchase_price": 485.61894,
+    "viewed_month": 1,
+    "viewed_quartal": 2,
+    "viewed_year": 3,
+    "heureka": 15,
+    "heureka_cat": 4,
+    "heureka_name": 13,
+    "warranty": 20,
+    "sold_quartal": 12,
+    "conversion_quartal": 10,
+    "free_shipping": 5,
+    "domains": "sunt",
+    "color1": "alias",
+    "color2": "est",
+    "color3": "voluptas",
+    "marketing_damain": "ut",
+    "raw_name": "repudiandae",
+    "zasilkovna_enabled": 7,
+    "condition": 5,
+    "erotic": 16
+}
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response => response.json());
+```
+
+
+> Example response (200):
+
+```json
+{
+    "location": true,
+    "shipping": true
+}
+```
+<div id="execution-results-PUTproducts--product-" hidden>
+    <blockquote>Received response<span id="execution-response-status-PUTproducts--product-"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-PUTproducts--product-"></code></pre>
+</div>
+<div id="execution-error-PUTproducts--product-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTproducts--product-"></code></pre>
+</div>
+<form id="form-PUTproducts--product-" data-method="PUT" data-path="products/{product}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('PUTproducts--product-', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-PUTproducts--product-" onclick="tryItOut('PUTproducts--product-');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-PUTproducts--product-" onclick="cancelTryOut('PUTproducts--product-');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-PUTproducts--product-" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-darkblue">PUT</small>
+ <b><code>products/{product}</code></b>
+</p>
+<p>
+<small class="badge badge-purple">PATCH</small>
+ <b><code>products/{product}</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>product</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="product" data-endpoint="PUTproducts--product-" data-component="url" required  hidden>
+<br>
+product id</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>category_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="category_id" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>category_id2</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="category_id2" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>model</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="model" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>sku</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="sku" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>location</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="location" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>quantity</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="quantity" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>internal_quantity</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="internal_quantity" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>stock_status_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="stock_status_id" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>image</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="image" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>manufacturer_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="manufacturer_id" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>shipping</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="shipping" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>price</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+<input type="number" name="price" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>tax_class_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="tax_class_id" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>date_available</code></b>&nbsp;&nbsp;<small>date</small>     <i>optional</i> &nbsp;
+<input type="text" name="date_available" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>weight</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+<input type="number" name="weight" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>weight_class_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="weight_class_id" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>length</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+<input type="number" name="length" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>width</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+<input type="number" name="width" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>height</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+<input type="number" name="height" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>measurement_class_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="measurement_class_id" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>status</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="status" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>viewed</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="viewed" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>container_capacity</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="container_capacity" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>req_capacity</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="req_capacity" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>req_container</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="req_container" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>purchase_price</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+<input type="number" name="purchase_price" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>viewed_month</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="viewed_month" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>viewed_quartal</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="viewed_quartal" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>viewed_year</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="viewed_year" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>heureka</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="heureka" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>heureka_cat</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="heureka_cat" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>heureka_name</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="heureka_name" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>warranty</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="warranty" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>sold_quartal</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="sold_quartal" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>conversion_quartal</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="conversion_quartal" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>free_shipping</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="free_shipping" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>domains</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="domains" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>color1</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="color1" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>color2</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="color2" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>color3</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="color3" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>marketing_damain</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="marketing_damain" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>raw_name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="raw_name" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>zasilkovna_enabled</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="zasilkovna_enabled" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>condition</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="condition" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>erotic</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="erotic" data-endpoint="PUTproducts--product-" data-component="body"  hidden>
+<br>
+</p>
+
 </form>
 
 

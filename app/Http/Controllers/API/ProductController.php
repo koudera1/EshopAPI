@@ -307,7 +307,7 @@ class ProductController extends Controller
      * @bodyParam heureka_name integer
      * @bodyParam warranty integer
      * @bodyParam sold_quartal integer
-     * @bodyParam conversion_quartal
+     * @bodyParam conversion_quartal integer
      * @bodyParam free_shipping integer
      * @bodyParam domains string
      * @bodyParam color1 string

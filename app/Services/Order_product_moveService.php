@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
-class Order_product_moveController extends Controller
+class Order_product_moveService extends Controller
 {
     /**
      * Get how many products are in stock.

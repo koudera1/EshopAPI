@@ -1,14 +1,15 @@
 # GENERATED. YOU SHOULDN'T MODIFY OR DELETE THIS FILE.
 # Scribe uses this file to know when you change something manually in your docs.
-resources/docs/groups/customer.md=1608317655
-resources/docs/groups/customer-group.md=1608317655
-resources/docs/groups/endpoints.md=1608317655
-resources/docs/groups/order.md=1608317655
-resources/docs/groups/order-product.md=1608317655
-resources/docs/groups/package.md=1608317655
-resources/docs/groups/product.md=1608317655
-resources/docs/groups/product-gift.md=1608317655
-resources/docs/groups/product-special.md=1608317655
-resources/docs/groups/review.md=1608317655
-resources/docs/index.md=1608317655
-resources/docs/authentication.md=1608317655
+resources/docs/groups/customer.md=1608335505
+resources/docs/groups/customer-group.md=1608335505
+resources/docs/groups/endpoints.md=1608335505
+resources/docs/groups/order.md=1608335505
+resources/docs/groups/order-product.md=1608335505
+resources/docs/groups/package.md=1608335505
+resources/docs/groups/product.md=1608335505
+resources/docs/groups/product-gift.md=1608335505
+resources/docs/groups/product-special.md=1608335505
+resources/docs/groups/review.md=1608335505
+resources/docs/index.md=1608335505
+resources/docs/authentication.md=1608335505
+resources/docs/groups/coupon.md=1608335505

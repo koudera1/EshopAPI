@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Admin;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
@@ -14,8 +15,7 @@ class Policy
 
     public function authorize($user, $needle, $action, Order $order = null, Customer $customer = null)
     {
-        //return true;
-        if($user instanceof User)
+        if($user instanceof Admin)
         {
             $permission = unserialize(DB::table('oc_user_group')
                 ->where('user_group_id',$user->user_group_id)

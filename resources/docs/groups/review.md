@@ -264,7 +264,7 @@ curl -X PUT \
     "http://localhost/reviews/2" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"author":"\"Jaroslav\"","text":"et","rating":11}'
+    -d '{"author":"\"Jaroslav\"","text":"est","rating":12}'
 
 ```
 
@@ -280,8 +280,8 @@ let headers = {
 
 let body = {
     "author": "\"Jaroslav\"",
-    "text": "et",
-    "rating": 11
+    "text": "est",
+    "rating": 12
 }
 
 fetch(url, {

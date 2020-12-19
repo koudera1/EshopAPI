@@ -356,7 +356,7 @@ class OrderController extends Controller
                     ->where('code', $order->currency)->value('value')
             ]);
 
-            $bool2 = Order_totalController::insertOrUpdate($order);
+            $bool2 = Order_totalService::insertOrUpdate($order);
 
             if ($bool1 and $bool2) $ret_array += array('currency' => true);
             else $ret_array += array('currency' => false);
@@ -461,7 +461,7 @@ class OrderController extends Controller
             $ret_array += array('coupon_id' => $order->update([
                 'coupon_id' => $request->input('coupon_id')
             ]));
-            Order_totalController::insertOrUpdate($order);
+            Order_totalService::insertOrUpdate($order);
         }
         if ($request->has('shipping_gp')) {
             $ret_array += array('shipping_gp' => $order->update([

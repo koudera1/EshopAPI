@@ -112,8 +112,8 @@ class Order_productController extends Controller
             ]);
 
 
-        Order_product_moveController::updateStock($order, $product, $request->input('quantity'));
-        Order_totalController::insertOrUpdate($order, 1);
+        Order_product_moveService::updateStock($order, $product, $request->input('quantity'));
+        Order_totalService::insertOrUpdate($order, 1);
 
         return
             [
@@ -161,7 +161,7 @@ class Order_productController extends Controller
             $diff = $order_product->quantity - $request->input('quantity');
             if($diff > 0)//lowering quantity of products
             {
-                $bool1 = $bool2 = Order_product_moveController::lowerQuantityOfProducts($product,$opm,$diff);
+                $bool1 = $bool2 = Order_product_moveService::lowerQuantityOfProducts($product,$opm,$diff);
             }
             if($diff < 0)//adding more products
             {
@@ -199,7 +199,7 @@ class Order_productController extends Controller
                 'total' => $product->price * $request->input('quantity'),
             ]);
 
-            $bool4 = Order_totalController::insertOrUpdate($order, 1);
+            $bool4 = Order_totalService::insertOrUpdate($order, 1);
 
             if($order->customer_id != 0)
             {
@@ -240,7 +240,7 @@ class Order_productController extends Controller
         if(self::updateProductsWhenDeleting($order_product, $product))
         {
             if($order_product->delete()) {
-                if(Order_totalController::insertOrUpdate($order))
+                if(Order_totalService::insertOrUpdate($order))
                     return response()->json(true);
                 else return response()->json(false);
             }
@@ -260,7 +260,7 @@ class Order_productController extends Controller
         $opm = Order_product_move::where('product_id',$order_product->product_id)
             ->where('order_id',$order_product->order_id)->first();
         $diff = $order_product->quantity;
-        $bool1 = Order_product_moveController
+        $bool1 = Order_product_moveService
             ::lowerQuantityOfProducts($product, $opm, $diff, false);
         $bool2 = $opm->delete();
         if($bool1 and $bool2) return true;
