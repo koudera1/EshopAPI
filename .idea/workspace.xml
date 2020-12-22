@@ -3,12 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="7bc0afc0-91ca-4c6c-a61e-754d89118848" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LoginController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Policies/Policy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/Policy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/FortifyServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/FortifyServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/fortify.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/fortify.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,6 +56,13 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
         <item name="oc_customer: table" type="dbc44a63:MariaImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="dev_admin_mujremington_db@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="dev_admin_mujremington_db: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+        <item name="oc_user_group: table" type="dbc44a63:MariaImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -360,7 +368,7 @@
       <workItem from="1601067025985" duration="37536000" />
       <workItem from="1601741434497" duration="5903000" />
       <workItem from="1601809892110" duration="105803000" />
-      <workItem from="1604592792847" duration="289651000" />
+      <workItem from="1604592792847" duration="298102000" />
     </task>
     <servers />
   </component>
@@ -398,7 +406,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>688</line>
+          <line>690</line>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -408,7 +416,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
-          <line>249</line>
+          <line>251</line>
           <option name="timeStamp" value="167" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">

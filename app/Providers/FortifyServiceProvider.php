@@ -8,7 +8,9 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
@@ -23,7 +25,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        if (request()->isAdmin()) {
+            config(['fortify.domain' => adminUrl()]);
+            config(['auth.guards.web.provider' => 'admins']);
+        }
     }
 
     /**
@@ -37,21 +42,5 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        Fortify::authenticateUsing(function (Request $request) {
-            $admin = Admin::where('email', $request->email)
-                ->first();
-            if ($admin != null and Hash::check($request->password, $admin->password))
-            {
-                config(['auth.guards.web.provider' => 'admins']);
-                return $admin;
-            }
-            $customer = Customer::where('email', $request->email)
-                ->first();
-            if ($customer != null and Hash::check($request->password, $customer->password))
-            {
-                config(['auth.guards.web.provider' => 'customers']);
-                return $customer;
-            }
-        });
     }
 }

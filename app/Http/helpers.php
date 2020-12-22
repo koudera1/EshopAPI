@@ -2,13 +2,13 @@
 
 if (! function_exists('baseUrl')) {
     function baseUrl() {
-        return 'localhost';
+        return config('app.base_url');
     }
 }
 
 
 if (! function_exists('adminUrl')) {
     function adminUrl() {
-        return 'admin' . '.' . baseUrl();
+        return config('app.admin_subdomain') . '.' . baseUrl();
     }
 }

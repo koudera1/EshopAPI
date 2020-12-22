@@ -15,9 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        /*Request::macro('isAdmin', function () {
-            return $this->getHost() === adminUrl();
-        });*/
+        Request::macro('isAdmin', function () {
+            return ($this->getHost() === adminUrl());
+        });
     }
 
     /**

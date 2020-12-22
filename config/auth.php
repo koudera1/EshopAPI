@@ -44,7 +44,6 @@ return [
             'driver' => 'session',
             'provider' => 'customers',
         ],
-
         'api' => [
             'driver' => 'token',
             'provider' => 'customers',

@@ -58,6 +58,8 @@ class OrderController extends Controller
      */
     public function index()
     {
+        dd(unserialize(DB::table('oc_user_group')
+            ->where('user_group_id', 1)->value('permission')));
         $this->authorize('accessByAdmin', Order::class);
         return Cache::remember('orders', 5, function () {
             return Order
