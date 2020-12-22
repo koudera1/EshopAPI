@@ -22,9 +22,11 @@ class Customer_groupController extends Controller
      * ]}
      *
      * @return Customer_group[]|Collection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('access', Customer_group::class);
         return Customer_group::all();
     }
 
@@ -37,9 +39,11 @@ class Customer_groupController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request)
     {
+        $this->authorize('modify', Customer_group::class);
         $cgid = Customer_group::insertGetId(
             [
                 'name' => $request->input('name')
@@ -58,9 +62,11 @@ class Customer_groupController extends Controller
      *
      * @param Customer_group $customer_group
      * @return Customer_group
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Customer_group $customer_group)
     {
+        $this->authorize('access', Customer_group::class);
         return $customer_group;
     }
 
@@ -72,9 +78,11 @@ class Customer_groupController extends Controller
      * @param Request $request
      * @param Customer_group $customer_group
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Customer_group $customer_group)
     {
+        $this->authorize('modify', Customer_group::class);
         $ret_array = [];
         if ($request->has('name')) {
             $ret_array += array('name' => $customer_group->update([
@@ -94,6 +102,7 @@ class Customer_groupController extends Controller
      */
     public function destroy(Customer_group $customer_group)
     {
+        $this->authorize('modify', Customer_group::class);
         return response()->json([
             $customer_group->delete()
             ]);

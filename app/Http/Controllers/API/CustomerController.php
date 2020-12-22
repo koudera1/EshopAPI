@@ -33,9 +33,11 @@ class CustomerController extends Controller
      * ]}
      *
      * @return mixed
+     * @throws AuthorizationException
      */
     public function index()
     {
+        $this->authorize('accessByAdmin', Customer::class);
         return Customer::join('oc_address', 'oc_address.address_id', '=', 'oc_customer.address_id')
             ->select('oc_customer.firstname', 'oc_customer.lastname', 'oc_customer.email',
                 'oc_customer.telephone', 'oc_address.company', 'oc_address.address_1',
@@ -60,9 +62,11 @@ class CustomerController extends Controller
      *
      * @param Customer $customer
      * @return Response
+     * @throws AuthorizationException
      */
     public function show(Customer $customer)
     {
+        $this->authorize('accessByAdminOrAuthenticatedCustomer', $customer);
         return Customer::join('oc_address', 'oc_address.address_id', '=', 'oc_customer.address_id')
             ->select('oc_customer.firstname', 'oc_customer.lastname', 'oc_customer.email',
                 'oc_customer.telephone', 'oc_address.company', 'oc_address.address_1',
@@ -243,6 +247,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
+        $this->authorize('updateByAdminOrAuthenticatedCustomer', $customer);
         return response()->json($customer->delete());
     }
 }

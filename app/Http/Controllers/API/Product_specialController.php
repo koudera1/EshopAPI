@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Product_special;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -50,9 +51,11 @@ class Product_specialController extends Controller
      * @param Request $request
      * @param $product_id
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request, $product_id)
     {
+        $this->authorize('modify', Product::class);
         $psid = Product_special::insertGetId(
             [
                 'product_id' => $product_id,
@@ -108,9 +111,11 @@ class Product_specialController extends Controller
      * @param Request $request
      * @param Product_special $product_special
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Product_special $product_special)
     {
+        $this->authorize('modify', Product::class);
         $ret_array = [];
         if ($request->has('product_id')) {
             $ret_array += array('product_id' => $product_special->update([
@@ -158,9 +163,11 @@ class Product_specialController extends Controller
      *
      * @param Product_special $product_special
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Product_special $product_special)
     {
+        $this->authorize('modify', Product::class);
         return response()->json($product_special);
     }
 }

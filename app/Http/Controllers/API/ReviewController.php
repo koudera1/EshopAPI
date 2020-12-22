@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Order;
 use App\Models\Review;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,6 +19,7 @@ class ReviewController extends Controller
 {
     /**
      * Display a listing of all reviews.
+     * @bodyParam product_id required integer
      * @response  {[
      * "review_id":2,
      * "product_id":66,
@@ -29,12 +32,12 @@ class ReviewController extends Controller
      * "date_modified":"2012-01-28 17:00:18"
      * ]}
      *
+     * @param Request $request
      * @return Review[]|Collection
      */
-    public function index()
+    public function index(Request $request)
     {
-        //$this->authorize('')
-        return Review::all();
+        return Review::where('product_id', $request->input('product_id'))->all();
     }
 
     /**
@@ -107,9 +110,11 @@ class ReviewController extends Controller
      * @param Request $request
      * @param Review $review
      * @return Response
+     * @throws AuthorizationException
      */
     public function update(Request $request, Review $review)
     {
+        $this->authorize('modify', Review::class);
         $ret_array = [];
         if ($request->has('author')) {
             $ret_array += array('author' => $review->update([
@@ -140,6 +145,7 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
+        $this->authorize('modify', Review::class);
         return response()->json($review->delete());
     }
 }

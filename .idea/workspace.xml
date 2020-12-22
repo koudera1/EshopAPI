@@ -2,14 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bc0afc0-91ca-4c6c-a61e-754d89118848" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Policies/CouponPolicy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Policies/Customer_groupPolicy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Policies/ReviewPolicy.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CouponController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CouponController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Customer_groupController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Customer_groupController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Product_giftController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Product_giftController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Product_specialController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Product_specialController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ReviewController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ReviewController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/CustomerPolicy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/CustomerPolicy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/Policy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/Policy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/ProductPolicy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/ProductPolicy.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/FortifyServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/FortifyServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -368,7 +374,7 @@
       <workItem from="1601067025985" duration="37536000" />
       <workItem from="1601741434497" duration="5903000" />
       <workItem from="1601809892110" duration="105803000" />
-      <workItem from="1604592792847" duration="298102000" />
+      <workItem from="1604592792847" duration="301562000" />
     </task>
     <servers />
   </component>
@@ -421,7 +427,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Providers/FortifyServiceProvider.php</url>
-          <line>6</line>
+          <line>4</line>
           <option name="timeStamp" value="174" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">

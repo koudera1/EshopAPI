@@ -14,7 +14,6 @@ class Policy
 
     public function authorize($user, $needle, $action, Order $order = null, Customer $customer = null)
     {
-        dd($user);
         if($user instanceof Admin)
         {
             $permission = unserialize(DB::table('oc_user_group')
@@ -25,15 +24,15 @@ class Policy
             if($key === false) return false;
             else return true;
         }
-        else if($order != null)
-        {
-            if(session('ip_address') === $order->ip)
-                return true;
-            else return false;
-        }
         else if($user instanceof Customer)
         {
             if($user->customer_id === $customer->customer_id)
+                return true;
+            else return false;
+        }
+        else if($order != null)
+        {
+            if(session('ip_address') === $order->ip)
                 return true;
             else return false;
         }

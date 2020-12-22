@@ -35,9 +35,11 @@ class CouponController extends Controller
      * ]}
      *
      * @return Coupon[]|Collection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('access', Coupon::class);
         return Coupon::all();
     }
 
@@ -66,9 +68,11 @@ class CouponController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request)
     {
+        $this->authorize('modify', Coupon::class);
         $cid = Coupon::insertGetId(
             [
                 'domain' => $request->input('domain'),
@@ -117,9 +121,11 @@ class CouponController extends Controller
      *
      * @param Coupon $coupon
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Coupon $coupon)
     {
+        $this->authorize('access', Coupon::class);
         return $coupon;
     }
 
@@ -149,9 +155,11 @@ class CouponController extends Controller
      * @param Request $request
      * @param Coupon $coupon
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Coupon $coupon)
     {
+        $this->authorize('modify', Coupon::class);
         $ret_array = [];
         if ($request->has('domain')) {
             $ret_array += array('domain' => $coupon->update([
@@ -239,6 +247,7 @@ class CouponController extends Controller
      */
     public function destroy(Coupon $coupon)
     {
+        $this->authorize('modify', Coupon::class);
         return response()->json($coupon->delete());
     }
 }

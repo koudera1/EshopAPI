@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\Customer;
-use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy extends Policy
+class ReviewPolicy extends Policy
 {
     use HandlesAuthorization;
 
@@ -18,6 +18,6 @@ class ProductPolicy extends Policy
      */
     public function modify($user = null)
     {
-        return $this->authorize($user,'catalog/product','modify');
+        return $this->authorize($user,'catalog/review','modify');
     }
 }

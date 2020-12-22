@@ -9,6 +9,16 @@ class CustomerPolicy extends Policy
 {
     use HandlesAuthorization;
 
+    public function accessByAdmin($user = null)
+    {
+        return $this->authorize($user,'sale/customer','access', null, null);
+    }
+
+    public function accessByAdminOrAuthenticatedCustomer($user = null, Customer $customer)
+    {
+        return $this->authorize($user,'sale/customer','access', null, $customer);
+    }
+
     /**
      * Determine whether the user can update the model.
      *
@@ -18,6 +28,6 @@ class CustomerPolicy extends Policy
      */
     public function updateByAdminOrAuthenticatedCustomer($user = null, Customer $customer)
     {
-        return $this->authorize($user,'sale/order','modify', null, $customer);
+        return $this->authorize($user,'sale/customer','modify', null, $customer);
     }
 }
