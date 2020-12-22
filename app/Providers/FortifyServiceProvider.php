@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\User;
+use App\Models\Admin;
 use App\Models\Customer;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
@@ -23,10 +23,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        /*if (request()->isAdmin()) {
-            config(['fortify.domain' => adminUrl()]);
-            config(['fortify.guard' => 'user']);
-        }*/
+
     }
 
     /**
@@ -40,25 +37,21 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        /*Fortify::authenticateUsing(function (Request $request) {
-            $user = User::where('email', $request->email)->first();
-            return $user;
-            if($user === null)
+        Fortify::authenticateUsing(function (Request $request) {
+            $admin = Admin::where('email', $request->email)
+                ->first();
+            if ($admin != null and Hash::check($request->password, $admin->password))
             {
-                $user = Customer::where('email', $request->email)->first();
+                config(['auth.guards.web.provider' => 'admins']);
+                return $admin;
             }
-
-            if (Hash::check($request->password, $user->password)) {
-                return $user;
+            $customer = Customer::where('email', $request->email)
+                ->first();
+            if ($customer != null and Hash::check($request->password, $customer->password))
+            {
+                config(['auth.guards.web.provider' => 'customers']);
+                return $customer;
             }
-        });*/
-
-         /*Fortify::loginView(function () {
-            if (request()->isAdmin()) {
-                return view('auth.login');
-            }
-
-            return view('auth.login');
-        });*/
+        });
     }
 }

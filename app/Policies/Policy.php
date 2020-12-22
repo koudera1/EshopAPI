@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Admin;
 use App\Models\Customer;
 use App\Models\Order;
-use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +14,7 @@ class Policy
 
     public function authorize($user, $needle, $action, Order $order = null, Customer $customer = null)
     {
+        dd($user);
         if($user instanceof Admin)
         {
             $permission = unserialize(DB::table('oc_user_group')
