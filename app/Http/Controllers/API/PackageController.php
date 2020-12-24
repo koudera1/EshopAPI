@@ -9,6 +9,7 @@ use App\Models\Postcz_numbering;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use SoapClient;
 use SoapFault;
@@ -23,8 +24,8 @@ class PackageController extends Controller
      * Display a listing of packages.
      * @urlParam order required order id Example: 35022
      *
-     * @param  \Illuminate\Http\Order  $order
-     * @return Response
+     * @param Order $order
+     * @return Collection
      */
     public function index(Order $order)
     {

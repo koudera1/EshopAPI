@@ -70,7 +70,6 @@ class Order_productController extends Controller
 
             if($customer->customer_group_id != 0)
             {
-
                 $pid = $product->product_id;
                 $cgid = $customer->customer_group_id;
                 $domain = $order->domain;

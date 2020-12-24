@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
+use OrderService;
 
 /**
  * @group Order
@@ -433,6 +434,7 @@ class OrderController extends Controller
             $ret_array += array('payment_method' => $order->update([
                 'payment_method' => $request->input('payment_method')
             ]));
+            $price = OrderService::getTransitOrPaymentPrice($order, true);
         }
         if ($request->has('email')) {
             $ret_array += array('email' => $order->update([
@@ -705,7 +707,7 @@ class OrderController extends Controller
      */
     public function getPayment_methods()
     {
-        return ["Na dobírku", "Platba kartou", "Bankovní převod", "Hotově"];
+        return ["Na dobírku", "Platba kartou", "Bankovní převod"];
     }
 
     /**
@@ -734,139 +736,6 @@ class OrderController extends Controller
                 "Zrušeno pro nezaplacení",
                 "Dobropis",
                 "Pouze zásilka"];
-    }
-
-    /**
-     * Display the price of the specified order.
-     *
-     * @urlParam order required order id Example: 35022
-     *
-     * @param \App\Order $order
-     * @return Response
-     */
-    public function getPrice(Order $order)
-    {
-        $sm_transcript = "";
-        switch ($order->shipping_method) {
-            case "Česká pošta (Balík Do ruky)":
-                $sm_transcript = "shipping:ceska_posta_dr:";
-                break;
-            case "Česká pošta (Balík Na poštu)":
-                $sm_transcript = "shipping:ceska_posta_np:";
-                break;
-            case "Česká pošta (Balík Do balíkovny)":
-                $sm_transcript = "shipping:ceska_posta_balikomat:";
-                break;
-            case "Slovenská pošta":
-                $sm_transcript = "shipping:zasilkovna_sk_post:";
-                break;
-            case "Zásilkovna":
-                $sm_transcript = "shipping:zasilkovna_cz:";
-                break;
-            case "Zásielkovňa":
-                $sm_transcript = "shipping:zasilkovna_sk:";
-                break;
-            case "GLS":
-                $sm_transcript = "shipping:zasilkovna_sk_gls:";
-                break;
-            case "DPD":
-                $sm_transcript = "shipping:zasilkovna_cz_dpd:";
-                break;
-            case "Geis":
-                $sm_transcript = "shipping:geis:";
-                break;
-            case "Geis Slovensko":
-                $sm_transcript = "shipping:geis_sk:";
-                break;
-            default:
-                return response()->json(false);
-        }
-
-        $product_ids = DB::table('oc_order_product')
-            ->where('order_id', $order->order_id)
-            ->pluck('product_id');
-
-        $free_shipping = 0;
-        foreach ($product_ids as $product_id) {
-            $free_shipping = DB::table('oc_product')
-                ->where('product_id', $product_id)
-                ->value('free_shipping');
-            if ($free_shipping == 1) {
-                break;
-            }
-        }
-        $total = Order::where('order_id', $order->order_id)->value('total');
-        $key = $sm_transcript . "base";
-        $domain_setup = DB::table('oc_domain_setup')
-            ->where('key', $key)
-            ->where('domain', $order->domain)
-            ->value('value');
-        $base = $this->domain_setupValue($domain_setup, $free_shipping, $total);
-        if ($base === false) return response()->json(false);
-
-        $payment_method = Order::where('order_id', $order->order_id)->value('payment_method');
-        if ($payment_method === "Na dobírku" || $payment_method === "Na dobierku"
-            || $payment_method === "Hotově") {
-            $c = new Currency;
-            $key = $sm_transcript . "cod";
-            $domain_setup = DB::table('oc_domain_setup')
-                ->where('key', $key)->value('value');
-            $cod = $this->domain_setupValue($domain_setup, $free_shipping, $total);
-            if ($cod === false) return response()->json(false);
-            if (strpos($base, "<EUR>") and strpos($cod, "<EUR>")) {
-                $base = str_replace("<EUR>", "", $base);
-                $cod = str_replace("<EUR>", "", $cod);
-                return ($base + $cod) . "<EUR>";
-            } elseif ((strpos($base, "<EUR>") and !strpos($cod, "<EUR>"))) {
-                //v korunách
-                $base = str_replace("<EUR>", "", $base);
-                $base = $base / Currency::getEuroValue();
-                return $base + $cod;
-
-            } elseif (!(strpos($base, "<EUR>")) and strpos($cod, "<EUR>")) {
-                $cod = str_replace("<EUR>", "", $cod);
-                $cod = $cod / Currency::getEuroValue();
-                return $base + $cod;
-            } else return $base + $cod;
-        } else return $base;
-    }
-
-    public static function domain_setupValue($domain_setup, $free_shipping, $total)
-    {
-        $arr = explode(",", $domain_setup);
-        foreach ($arr as $el) {
-            if ($el[0] === 'f') {
-                if ($free_shipping === 1) {
-                    $val = 0;
-                    return $val;
-                } else {
-                    continue;
-                }
-            } elseif (is_numeric($el[0])) {
-                $arr2 = explode(":", $el);
-                if (strpos($arr2[0], "<EUR>") and strpos($total, "<EUR>")) {
-                    $arr2[0] = str_replace("<EUR>", "", $arr2[0]);
-                    $total = str_replace("<EUR>", "", $total);
-                } elseif ((strpos($arr2[0], "<EUR>") and !strpos($total, "<EUR>"))) {
-                    //v korunách
-                    $arr2[0] = str_replace("<EUR>", "", $arr2[0]);
-                    $arr2[0] = $arr2[0] / Currency::getEuroValue();
-                } elseif (!(strpos($arr2[0], "<EUR>")) and (strpos($total, "<EUR>"))) {
-                    $total = str_replace("<EUR>", "", $total);
-                    $value = Currency::getEuroValue();
-                    $total = $total / $value;
-                }
-                if ($total <= $arr2[0]) {
-                    $val = $arr2[1];
-                    return $val;
-                } else {
-                    continue;
-                }
-            } elseif ($el[0] === ':') {
-                $val = ltrim($el, ':');
-                return $val;
-            } else return false;
-        }
     }
 }
 
