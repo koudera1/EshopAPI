@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\Admin;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Customer_group;
 use App\Models\Geis_numbering;
-use App\Models\User;
 use App\Models\Postcz_numbering;
 use App\Models\Product;
 use Tests\TestCase;
@@ -26,7 +26,7 @@ class TestEshop extends TestCase
     protected function setUp() : void
     {
         parent::setUp();
-        $this->user = User::find(1);
+        $this->user = Admin::find(1);
         $this->oid = Order::max('order_id');
     }
 
@@ -232,7 +232,10 @@ class TestEshop extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'order_id' => $oid,
-                'order_product_id' => $opid
+                'order_product_id' => $opid,
+                'noTaxTotal' => 600,
+                'tax' => 126,
+                'total' => 726
             ]);
         $this->assertDatabaseHas('oc_order', [
             'order_id' => $oid,
@@ -2096,7 +2099,7 @@ class TestEshop extends TestCase
         ]);
     }
 
-    public function testGetPrice_1()
+    /*public function testGetPrice_1()
     {
         Order::where('order_id',$this->oid)->update(
             [
@@ -2268,7 +2271,7 @@ class TestEshop extends TestCase
         $response = $this->get('/orders/'.$this->oid.'/price');
         $response->assertStatus(200);
         $this->assertEquals('2.99<EUR>',$response->baseResponse->content());
-    }
+    }*/
 
     public function testShowOrder()
     {

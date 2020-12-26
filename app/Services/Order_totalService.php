@@ -10,69 +10,17 @@ use App\Models\Order_total;
 
 class Order_totalService extends Controller
 {
-    public static function addOrder_product(Order_product $op, $coupon_discount, &$noTaxTotal, &$tax)
-    {
-        $noTaxTotal += $op->total * $coupon_discount;
-        $taxCoeficient = '0.' . str_replace('.', '', $op->tax);
-        $tax += $op->total * $taxCoeficient * $coupon_discount;
-    }
-
-    public static function countPrice(Order $order)
-    {
-        $ops = Order_product::where('order_id', $order->order_id)->select('total','tax', 'is_transfer')->get();
-        $tax = 0; $noTaxTotal = 0;
-        $coupon_discount = 1; $shipping = 1;
-        if($order->coupon_id != 0)
-        {
-            $coupon = Coupon::find($order->coupon_id);
-            $discountCoeficient = '0.' . str_replace('.', '', $coupon->discount);
-            $coupon_discount = 1 - $discountCoeficient;
-            if($coupon->shipping != 1) $shipping = 0;
-        }
-
-        if($coupon_discount === 1 or $shipping === 1)
-        {
-            foreach($ops as $op)
-            {
-                self::addOrder_product($op, $coupon_discount, $noTaxTotal, $tax);
-            }
-        } else {
-            foreach($ops as $op)
-            {
-                if($op->is_transfer)
-                {
-                    self::addOrder_product($op, 1, $noTaxTotal, $tax);
-                } else {
-                    self::addOrder_product($op, $coupon_discount, $noTaxTotal, $tax);
-                }
-            }
-        }
-
-        $noTaxTotal = round($noTaxTotal * $order->value, 4);
-        $tax = round($tax * $order->value, 4);
-
-        return [
-            'noTaxTotal' => $noTaxTotal,
-            'tax' => $tax
-        ];
-    }
-
-    public static function useCoupon(Order $order)
-    {
-
-    }
 
     /**
      * @param Order $order
      * @param Order_product $op
      * @param $quantity
-     * @param $plus
+     * @param $action
      * @return bool
      */
-    public static function updateOrCreateTotalPrice(Order $order, Order_product $op, $quantity, $action)
+    public static function updateOrInsert(Order $order, Order_product $op = null, $quantity, $action)
     {
-        //$action == 1 ... add product
-        //$action == -1 ... subtract product
+        //$action == "add" ... add product
         //$action == "coupon" ... update price with new coupon
         //$action == "currency" ... update price with new currency
 
@@ -80,25 +28,21 @@ class Order_totalService extends Controller
         $origNoTax = $origTax = 0;
         if($array != [])
         {
-            $noTax = null; $tax = null;
             foreach($array as $struct) {
                 if (4 == $struct->sort_order) {
                     $origNoTax = $struct->value;
-                    break;
                 }
                 if (5 == $struct->sort_order) {
                     $origTax = $struct->value;
-                    break;
                 }
             }
         }
 
         $tax = $noTax = 0;
-        if($action === 1 or $action === -1)
+        if($action === "add")
         {
             $coupon_discount = 1;
             if($order->coupon_id != 0) {
-
                 $coupon = Coupon::find($order->coupon_id);
                 if($coupon->shipping === 1 or ($coupon->shipping === 0 and $op->is_transfer != 1))
                 {
@@ -107,7 +51,7 @@ class Order_totalService extends Controller
                 }
             }
 
-            $noTaxAddend = round($op->price * $quantity * $action * $order->value * $coupon_discount, 4);
+            $noTaxAddend = round($op->price * $quantity * $order->value * $coupon_discount, 4);
             $taxCoef = '0.' . str_replace('.', '', $op->tax);
             $taxAddend = round($noTaxAddend * $taxCoef, 4);
 
@@ -154,7 +98,12 @@ class Order_totalService extends Controller
         ], ['order_id', 'title', 'sort_order'], ['text', 'value']);
 
 
-        if($bool1 and $bool2) return true;
+        if($bool1 and $bool2) return
+            [
+                'noTaxTotal' => $noTax,
+                'tax' => $tax,
+                'total' => $total
+            ];
         else return false;
     }
 }

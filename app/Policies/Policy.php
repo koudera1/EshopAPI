@@ -24,15 +24,15 @@ class Policy
             if($key === false) return false;
             else return true;
         }
-        else if($user instanceof Customer)
-        {
-            if($user->customer_id === $customer->customer_id)
-                return true;
-            else return false;
-        }
         else if($order != null)
         {
             if(session('ip_address') === $order->ip)
+                return true;
+            else return false;
+        }
+        else if($user instanceof Customer)
+        {
+            if($user->customer_id === $customer->customer_id)
                 return true;
             else return false;
         }

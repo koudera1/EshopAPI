@@ -59,8 +59,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        dd(unserialize(DB::table('oc_user_group')
-            ->where('user_group_id', 1)->value('permission')));
         $this->authorize('accessByAdmin', Order::class);
         return Cache::remember('orders', 5, function () {
             return Order
@@ -181,12 +179,15 @@ class OrderController extends Controller
             'quantity' => $request->input('quantity'),
         ]);
         $opc = new Order_productController();
-        $opid = $opc->store($request, $order);
+        $order_total = $opc->store($request, $order);
 
         return response()->json(
             [
                 'order_id' => $oid,
-                'order_product_id' => $opid['order_product_id']
+                'order_product_id' => $order_total['order_product_id'],
+                'noTaxTotal' => $order_total['noTaxTotal'],
+                'tax' => $order_total['tax'],
+                'total' => $order_total['total']
             ]
         );
     }
@@ -323,12 +324,15 @@ class OrderController extends Controller
      *
      * @response  {
      * "domain":true,
-     * "currency":true
+     * "currency":true,
+     * "noTaxTotal":100,
+     * "tax":21,
+     * "total":121
      * }
      *
-     * @param Request $request
+     * @param UpdateOrder $request
      * @param Order $order
-     * @return Response
+     * @return array
      * @throws AuthorizationException
      */
     public function update(UpdateOrder $request, Order $order)
@@ -359,9 +363,15 @@ class OrderController extends Controller
                     ->where('code', $order->currency)->value('value')
             ]);
 
-            $bool2 = Order_totalService::insertOrUpdate($order);
-
-            if ($bool1 and $bool2) $ret_array += array('currency' => true);
+            $order_total = Order_totalService::updateOrInsert($order, null, 0, "currency");
+            if ($bool1)
+                $ret_array +=
+                    [
+                        'currency' => true,
+                        'noTaxTotal' => $order_total['noTaxTotal'],
+                        'tax' => $order_total['tax'],
+                        'total' => $order_total['total']
+                    ];
             else $ret_array += array('currency' => false);
 
             $ret_array += array('currency' => true);
@@ -434,7 +444,7 @@ class OrderController extends Controller
             $ret_array += array('payment_method' => $order->update([
                 'payment_method' => $request->input('payment_method')
             ]));
-            $price = OrderService::getTransitOrPaymentPrice($order, true);
+            //$price = OrderService::getTransitOrPaymentPrice($order, true);
         }
         if ($request->has('email')) {
             $ret_array += array('email' => $order->update([
@@ -462,10 +472,14 @@ class OrderController extends Controller
             ]));
         }
         if ($request->has('coupon_id')) {
-            $ret_array += array('coupon_id' => $order->update([
-                'coupon_id' => $request->input('coupon_id')
-            ]));
-            Order_totalService::insertOrUpdate($order);
+            $bool = $order->update(['coupon_id' => $request->input('coupon_id')]);
+            $order_total = Order_totalService::updateOrInsert($order, null ,0, "coupon");
+            $ret_array += array('coupon_id' => $bool,
+                'noTaxTotal' => $order_total['noTaxTotal'],
+                'tax' => $order_total['tax'],
+                'total' => $order_total['total']
+                );
+
         }
         if ($request->has('shipping_gp')) {
             $ret_array += array('shipping_gp' => $order->update([
@@ -630,7 +644,7 @@ class OrderController extends Controller
             ]));
         }
 
-        return $ret_array;
+        return response()->json($ret_array);
     }
 
     /**
@@ -689,9 +703,14 @@ class OrderController extends Controller
     public function getShipping_methods(Order $order)
     {
         if ($order->shipping_country === 'Česká republika')
-            return ["Česká pošta (Balík Do balíkovny)", "Česká pošta (Balík Do ruky)",
-                "Česká pošta (Balík Na poštu)", "Geis",
-                "Zásilkovna", "DPD"];
+            return response()->json(
+                [
+                    "Česká pošta (Balík Do balíkovny)" => OrderService::getTransitOrCODPrice($order, "base"),
+                    "Česká pošta (Balík Do ruky)",
+                    "Česká pošta (Balík Na poštu)",
+                    "Geis",
+                    "Zásilkovna", "DPD"
+                ]);
 
         else if ($order->shipping_country === 'Slovensko')
             return ["Slovenská pošta", "Geis Slovensko", "Zásielkovňa", "GLS"];
@@ -702,12 +721,18 @@ class OrderController extends Controller
      * Display all payment methods.
      *
      * @param Request $request
-     * @param \App\Order $order
+     * @param Order $order
      * @return Response
      */
-    public function getPayment_methods()
+    public function getPayment_methods(Order $order)
     {
-        return ["Na dobírku", "Platba kartou", "Bankovní převod"];
+        return response()->json(
+            [
+                "Na dobírku" => OrderService::getTransitOrCODPrice($order, "cod"),
+                "Platba kartou" => 0,
+                "Bankovní převod" => 0,
+                "Osobní odběr" => 0
+            ]);
     }
 
     /**

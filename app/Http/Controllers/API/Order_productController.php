@@ -46,12 +46,15 @@ class Order_productController extends Controller
      * @bodyParam is_transfer integer
      * @bodyParam is_action integer
      * @response  {
-     * "order_product_id":3332
+     * "order_product_id":3332,
+     * "noTaxTotal":100,
+     * "tax":21,
+     * "total":121
      * }
      *
      * @param Request $request
      * @param Order $order
-     * @return Response
+     * @return array
      * @throws AuthorizationException
      */
     public function store(Request $request, Order $order)
@@ -88,7 +91,7 @@ class Order_productController extends Controller
             }
         }
 
-        $opid = Order_product::insertGetId(
+        $op = Order_product::create(
             [
                 'order_id' => $order->order_id,
                 'product_id' => $request->input('product_id'),
@@ -110,13 +113,15 @@ class Order_productController extends Controller
                 'total' => $price * $request->input('quantity',0)
             ]);
 
-
         Order_product_moveService::updateStock($order, $product, $request->input('quantity'));
-        Order_totalService::insertOrUpdate($order, 1);
+        $order_total = (array)Order_totalService::updateOrInsert($order, $op, $op->quantity, "add");
 
         return
             [
-                'order_product_id' => $opid
+                'order_product_id' => $op->order_product_id,
+                'noTaxTotal' => $order_total['noTaxTotal'],
+                'tax' => $order_total['tax'],
+                'total' => $order_total['total']
             ]
         ;
     }
@@ -139,6 +144,15 @@ class Order_productController extends Controller
      * @urlParam order required order id Example: 35022
      * @urlParam product required product id Example: 2400
      * @bodyParam quantity integer
+     * @response  {
+     * "quantity":true,
+     * "noTaxTotal":100,
+     * "tax":21,
+     * "total":121
+     * }
+     * @response  {
+     * "quantity":false
+     * }
      *
      * @param Request $request
      * @param Order $order
@@ -160,7 +174,7 @@ class Order_productController extends Controller
             $diff = $order_product->quantity - $request->input('quantity');
             if($diff > 0)//lowering quantity of products
             {
-                $bool1 = $bool2 = Order_product_moveService::lowerQuantityOfProducts($product,$opm,$diff);
+                $bool1 = $bool2 = Order_product_moveService::lowerQuantityOfProducts($product, $opm, $diff);
             }
             if($diff < 0)//adding more products
             {
@@ -191,6 +205,7 @@ class Order_productController extends Controller
                         'date_modified' => date("Y-m-d H:i:s")
                     ]);
                 }
+                $diff = -$diff;
             }
 
             $bool3 = $order_product->update([
@@ -198,7 +213,7 @@ class Order_productController extends Controller
                 'total' => $product->price * $request->input('quantity'),
             ]);
 
-            $bool4 = Order_totalService::insertOrUpdate($order, 1);
+            $order_total = Order_totalService::updateOrInsert($order, $order_product, -$diff, "add");
 
             if($order->customer_id != 0)
             {
@@ -210,8 +225,14 @@ class Order_productController extends Controller
                 ]);
             }
 
-            if($bool1 and $bool2 and $bool3 and $bool4)
-                $ret_array += array('quantity' => true);
+            if($bool1 and $bool2 and $bool3)
+                $ret_array +=
+                    [
+                        'quantity' => 'true',
+                        'noTaxTotal' => $order_total['noTaxTotal'],
+                        'tax' => $order_total['tax'],
+                        'total' => $order_total['total']
+                    ];
             else
                 $ret_array += array('quantity' => false);
         }
@@ -224,6 +245,11 @@ class Order_productController extends Controller
      * @urlParam order required order id Example: 35022
      * @urlParam product required product id Example: 2400
      * @response true
+     * @response  {
+     * "noTaxTotal":100,
+     * "tax":21,
+     * "total":121
+     * }
      *
      * @param Order $order
      * @param Product $product
@@ -238,10 +264,13 @@ class Order_productController extends Controller
 
         if(self::updateProductsWhenDeleting($order_product, $product))
         {
+            $order_total = Order_totalService::updateOrInsert($order, $order_product, -$order_product->quantity, "add");
             if($order_product->delete()) {
-                if(Order_totalService::insertOrUpdate($order))
-                    return response()->json(true);
-                else return response()->json(false);
+                return response()->json([
+                    'noTaxTotal' => $order_total['noTaxTotal'],
+                    'tax' => $order_total['tax'],
+                    'total' => $order_total['total']
+                ]);
             }
         }
         return response()->json(false);

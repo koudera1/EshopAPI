@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class OrderService extends Controller
 {
-    public static function getTransitOrPaymentPrice(Order $order, bool $is_payment)
+    public static function getTransitOrCODPrice(Order $order, $keySuffix, $shipping_method)
     {
-        if ($is_payment and $order->payment_method != "Na dobírku" and $order->payment_method != "Na dobierku"
-            and $order->payment_method != "Hotově") return 0;
+        /*if ($keySuffix === "cod" and $order->payment_method != "Na dobírku" and $order->payment_method != "Na dobierku"
+            and $order->payment_method != "Hotově") return 0;*/
         $sm_transcript = "";
         switch ($order->shipping_method) {
             case "Česká pošta (Balík Do ruky)":
@@ -57,8 +57,7 @@ class OrderService extends Controller
                 break;
             }
         }
-        if ($is_payment) $key = $sm_transcript . "cod";
-        else $key = $sm_transcript . "base";
+        $key = $sm_transcript . $keySuffix;
         $domain_setup = DB::table('oc_domain_setup')
             ->where('key', $key)
             ->where('domain', $order->domain)
