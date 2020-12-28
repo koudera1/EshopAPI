@@ -1,4 +1,5 @@
 <?php
+namespace App\Services;
 
 use App\Http\Controllers\Controller;
 use App\Models\Currency;
@@ -11,10 +12,8 @@ class OrderService extends Controller
 {
     public static function getTransitOrCODPrice(Order $order, $keySuffix, $shipping_method)
     {
-        /*if ($keySuffix === "cod" and $order->payment_method != "Na dobírku" and $order->payment_method != "Na dobierku"
-            and $order->payment_method != "Hotově") return 0;*/
         $sm_transcript = "";
-        switch ($order->shipping_method) {
+        switch ($shipping_method) {
             case "Česká pošta (Balík Do ruky)":
                 $sm_transcript = "shipping:ceska_posta_dr:";
                 break;
@@ -64,6 +63,11 @@ class OrderService extends Controller
             ->value('value');
         $price = self::domain_setupValue($domain_setup, $free_shipping, $order->total);
         if ($price === false) return response()->json(false);
+        if (strpos($price, "<EUR>"))
+        {
+            $price = str_replace("<EUR>", "", $price);
+            $price = $price / Currency::getEuroValue();
+        }
         return $price;
     }
 

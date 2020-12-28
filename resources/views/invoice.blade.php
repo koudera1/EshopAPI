@@ -82,7 +82,7 @@
                 IČ:  88038335<br>
                 DIČ: CZ8758302960<br>
                 Telefon +420 604 304 650<br>
-                info@stylka.cz<br>
+                {{"info@" . $eshopSmall}}<br>
                 č.ú. 2700251053 / 2010<br>
                 {{$order->domain}}</td>
             <td valign="top" align="right"><table>
@@ -230,11 +230,6 @@
         </td>
     </tr>
     </tbody></table>
-<div style="word-wrap: break-word;page-break-inside:avoid;">
-    <strong>Elektronická účtenka</strong><br>
-    <strong>Režim tržby:</strong> běžný, <strong>Číslo účtenky: </strong> 713, <strong>Celková částka:</strong> 1618,00 Kč<br>
-    <strong>Datum a čas transakce:</strong> 10.1.2018 11:19:29, <strong>DIČ:</strong> CZ8758302960, <strong>Provozovna:</strong> 81, <strong>Pokladna:</strong> 1<br>
-    <strong>FIK:</strong> 915f3b8c-da55-469a-877c-115ff956a4ab-06<br>    <strong>BKP:</strong> DCC207A2-C8B2B32F-91BFBAE8-00323B71-60C72992    </div>
 <div style="text-align:center;page-break-inside:avoid;">Živnostenský list, číslo jednací ŽÚ/2700/2011/EFF<br>
     Jsme plátci DPH | Faktura slouží jako podklad pro případnou reklamaci či vrácení zboží<br>
     Zboží lze v souladu s občanským zákoníkem vrátit bez udání důvodu v ochranné lhůtě 14 dní od převzetí.<br>

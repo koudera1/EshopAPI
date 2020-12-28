@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Order_product;
@@ -10,6 +9,9 @@ use App\Models\Order_product_move;
 use App\Models\Product;
 
 use App\Models\Product_special;
+use App\Services\Order_totalService;
+use App\services\Order_product_moveService;
+
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -114,7 +116,7 @@ class Order_productController extends Controller
             ]);
 
         Order_product_moveService::updateStock($order, $product, $request->input('quantity'));
-        $order_total = (array)Order_totalService::updateOrInsert($order, $op, $op->quantity, "add");
+        $order_total = Order_totalService::updateOrInsert($order, $op, $op->quantity, "add");
 
         return
             [
@@ -122,8 +124,7 @@ class Order_productController extends Controller
                 'noTaxTotal' => $order_total['noTaxTotal'],
                 'tax' => $order_total['tax'],
                 'total' => $order_total['total']
-            ]
-        ;
+            ];
     }
 
     /**
@@ -252,16 +253,29 @@ class Order_productController extends Controller
      * }
      *
      * @param Order $order
-     * @param Product $product
+     * @param $product_id
      * @return Response
      * @throws AuthorizationException
      */
-    public function destroy(Order $order, Product $product)
+    public function destroy(Order $order, $product_id)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
         $order_product = Order_product::where('order_id', $order->order_id)
-            ->where('product_id', $product->product_id)->firstOrFail();
+            ->where('product_id', $product_id)->firstOrFail();
 
+        if($product_id === 0)
+        {
+            $order_total = Order_totalService::updateOrInsert($order, $order_product, -$order_product->quantity, "add");
+            if($order_product->delete()) {
+                return response()->json([
+                    'noTaxTotal' => $order_total['noTaxTotal'],
+                    'tax' => $order_total['tax'],
+                    'total' => $order_total['total']
+                ]);
+            }
+        }
+
+        $product = Product::find($product_id);
         if(self::updateProductsWhenDeleting($order_product, $product))
         {
             $order_total = Order_totalService::updateOrInsert($order, $order_product, -$order_product->quantity, "add");

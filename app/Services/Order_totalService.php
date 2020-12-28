@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Services;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
@@ -10,6 +10,21 @@ use App\Models\Order_total;
 
 class Order_totalService extends Controller
 {
+    public static function getOrder_totalValue($order_id, &$origNoTax, &$origTax)
+    {
+        $array = Order_total::where('order_id', $order_id)->get();
+        if($array != [])
+        {
+            foreach($array as $struct) {
+                if (4 == $struct->sort_order) {
+                    $origNoTax = $struct->value;
+                }
+                if (5 == $struct->sort_order) {
+                    $origTax = $struct->value;
+                }
+            }
+        }
+    }
 
     /**
      * @param Order $order
@@ -24,20 +39,8 @@ class Order_totalService extends Controller
         //$action == "coupon" ... update price with new coupon
         //$action == "currency" ... update price with new currency
 
-        $array = Order_total::where('order_id', $order->order_id)->get();
         $origNoTax = $origTax = 0;
-        if($array != [])
-        {
-            foreach($array as $struct) {
-                if (4 == $struct->sort_order) {
-                    $origNoTax = $struct->value;
-                }
-                if (5 == $struct->sort_order) {
-                    $origTax = $struct->value;
-                }
-            }
-        }
-
+        self::getOrder_totalValue($order->order_id, $origNoTax, $origTax);
         $tax = $noTax = 0;
         if($action === "add")
         {

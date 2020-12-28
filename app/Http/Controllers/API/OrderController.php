@@ -10,7 +10,6 @@ use App\Models\Order;
 use App\Models\Order_history;
 use App\Models\Product;
 use App\Models\Order_product;
-use App\Models\Currency;
 
 use App\Models\Order_total;
 use Exception;
@@ -20,7 +19,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
-use OrderService;
+use App\Services\OrderService;
+use App\Services\Order_totalService;
 
 /**
  * @group Order
@@ -422,6 +422,17 @@ class OrderController extends Controller
             $ret_array += array('shipping_method' => $order->update([
                 'shipping_method' => $request->input('shipping_method')
             ]));
+            $origNoTax = $origTax = 0;
+            Order_totalService::getOrder_totalValue($order->order_id, $origNoTax, $origTax);
+            $price = OrderService::getTransitOrCODPrice
+            ($order, "base", $request->input('shipping_method'));
+            $ret_array +=
+                [
+                    'noTaxTotal' => round($origNoTax + 100/121 * $price, 4),
+                    'tax' => round($origTax + 21/121 * $price, 4),
+                    'total' => round($origTax + $origNoTax + $price, 4),
+                    'transitPrice' => $price,
+                ];
         }
         if ($request->has('payment_status')) {
             $this->authorize('updateByAdmin', $order);
@@ -444,7 +455,39 @@ class OrderController extends Controller
             $ret_array += array('payment_method' => $order->update([
                 'payment_method' => $request->input('payment_method')
             ]));
-            //$price = OrderService::getTransitOrPaymentPrice($order, true);
+            if ($order->payment_method != "Na dobírku" and $order->payment_method != "Na dobierku") $paymentPrice = 0;
+            else $paymentPrice = OrderService
+                ::getTransitOrCODPrice($order, "cod", $order->shipping_method);
+            $transitPrice = OrderService
+                ::getTransitOrCODPrice($order, "base", $order->shipping_method);
+
+            $op = Order_product::create(
+                [
+                    'order_id' => $order->order_id,
+                    'product_id' => 0,
+                    'name' => $order->shipping_method . ' + ' . $order->payment_method,
+                    'tax' => 21.0000,
+                    'quantity' => 1,
+                    'sort_order' => 18,
+                    'is_transfer' => 1,
+                    'is_action' => 0,
+                    'gift' => 0,
+                    'model' => '',
+                    'price' => ($paymentPrice + $transitPrice) * 100/121,
+                    'purchase_price' => 130.0000,
+                    'warranty' => 24,
+                    'total' => ($paymentPrice + $transitPrice) * 100/121
+                ]);
+            $order_total = Order_totalService::updateOrInsert($order, $op, 1, "add");
+            $ret_array +=
+                [
+                    'order_product_id' => $op->order_product_id,
+                    'paymentPrice' => $paymentPrice,
+                    'noTaxTotal' => $order_total['noTaxTotal'],
+                    'tax' => $order_total['tax'],
+                    'total' => $order_total['total']
+                ];
+
         }
         if ($request->has('email')) {
             $ret_array += array('email' => $order->update([
@@ -705,15 +748,32 @@ class OrderController extends Controller
         if ($order->shipping_country === 'Česká republika')
             return response()->json(
                 [
-                    "Česká pošta (Balík Do balíkovny)" => OrderService::getTransitOrCODPrice($order, "base"),
-                    "Česká pošta (Balík Do ruky)",
-                    "Česká pošta (Balík Na poštu)",
-                    "Geis",
-                    "Zásilkovna", "DPD"
+                    "Česká pošta (Balík Do balíkovny)" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "Česká pošta (Balík Do balíkovny)"),
+                    "Česká pošta (Balík Do ruky)" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "Česká pošta (Balík Do ruky)" ),
+                    "Česká pošta (Balík Na poštu)" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "Česká pošta (Balík Na poštu)"),
+                    "Geis" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "Geis"),
+                    "Zásilkovna" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "Zásilkovna"),
+                    "DPD" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "DPD")
                 ]);
 
         else if ($order->shipping_country === 'Slovensko')
-            return ["Slovenská pošta", "Geis Slovensko", "Zásielkovňa", "GLS"];
+            return response()->json(
+                [
+                    "Slovenská pošta" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "Slovenská pošta"),
+                    "Geis Slovensko" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "Geis Slovensko"),
+                    "Zásielkovňa" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "Zásielkovňa"),
+                    "GLS" => OrderService::getTransitOrCODPrice
+                    ($order, "base", "GLS")
+                ]);
     }
 
 
@@ -728,7 +788,8 @@ class OrderController extends Controller
     {
         return response()->json(
             [
-                "Na dobírku" => OrderService::getTransitOrCODPrice($order, "cod"),
+                "Na dobírku" => OrderService::getTransitOrCODPrice
+                ($order, "cod", $order->shipping_method),
                 "Platba kartou" => 0,
                 "Bankovní převod" => 0,
                 "Osobní odběr" => 0

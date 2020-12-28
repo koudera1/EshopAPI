@@ -4,9 +4,10 @@ namespace App\Actions\Fortify;
 
 use App\Http\Requests\UpdateOrder;
 use App\Models\Customer;
-use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -16,17 +17,24 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Validate and create a newly registered user.
      *
-     * @param  array  $input
-     * @return \App\Models\Customer
+     * @param array $input
+     * @return Customer
+     * @throws ValidationException
      */
     public function create(array $input)
     {
-        Validator::make($input, [
-            'password' => $this->passwordRules(),
-        ])->validate();
-
-        /*$request = new UpdateOrder($input);
-        $request->validated();*/
+        $input['firstname'] = $input['name'];
+        Validator::make($input,
+            [
+                'password' => $this->passwordRules(),
+                'firstname' => 'regex:/^[\s\-\p{L}]*$/u',
+                'email' => 'email'
+            ],
+            [
+                'firstname' => "Neplatné jméno.",
+                'email' => "Neplatný email."
+            ]
+        )->validate();
 
         return Customer::create([
             'firstname' => $input['name'],

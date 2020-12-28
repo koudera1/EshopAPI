@@ -4,11 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Admin;
 use App\Models\Coupon;
+use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Customer_group;
 use App\Models\Geis_numbering;
 use App\Models\Postcz_numbering;
 use App\Models\Product;
+use App\Services\OrderService;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
@@ -1242,20 +1244,7 @@ class TestEshop extends TestCase
             ]);
     }
 
-    public function testPutShipping_method()
-    {
-        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
-            [
-                'shipping_method' => 'Geis'
-            ]);
-        $response->assertStatus(200)
-            ->assertJson(['shipping_method' => 'true']);
-        $this->assertDatabaseHas('oc_order',
-            [
-                'order_id' => $this->oid,
-                'shipping_method' => 'Geis'
-            ]);
-    }
+
 
     public function testPutPayment_status()
     {
@@ -1311,20 +1300,6 @@ class TestEshop extends TestCase
             ]);
     }
 
-    public function testPutPayment_method()
-    {
-        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
-            [
-                'payment_method' => 'Hotově'
-            ]);
-        $response->assertStatus(200)
-            ->assertJson(['payment_method' => 'true']);
-        $this->assertDatabaseHas('oc_order',
-            [
-                'order_id' => $this->oid,
-                'payment_method' => 'Hotově'
-            ]);
-    }
 
     public function testPutEmail()
     {
@@ -1984,6 +1959,7 @@ class TestEshop extends TestCase
 
     public function testStoreGeisPackage()
     {
+        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Geis']);
         $delivery_id =  Geis_numbering::select('min')->where('is_free', 1)->first();
         $response = $this->actingAs($this->user)->postJson('/orders/'.$this->oid.'/packages',
             [
@@ -2099,179 +2075,247 @@ class TestEshop extends TestCase
         ]);
     }
 
-    /*public function testGetPrice_1()
+    public function testPutShipping_method()
     {
-        Order::where('order_id',$this->oid)->update(
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
-                'shipping_method' => 'Zásilkovna',
+                'domain' => 'www.moje-medisana.cz',
+                'shipping_method' => 'DPD'
+            ]);
+        $response->assertStatus(200)
+            ->assertJson(
+                [
+                    'shipping_method' => 'true',
+                    'noTaxTotal' => 981.8182,
+                    'tax' => 206.1818,
+                    'total' => 1188,
+                    'transitPrice' => 99
+                ]);
+        $this->assertDatabaseHas('oc_order',
+            [
+                'order_id' => $this->oid,
+                'shipping_method' => 'DPD'
+            ]);
+    }
+
+    public function testPutPayment_method()
+    {
+        $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
+            [
+                'payment_method' => 'Na dobírku'
+            ]);
+        $response->assertStatus(200)
+            ->assertJson(
+                [
+                    'payment_method' => 'true',
+                    'noTaxTotal' => 1023.1405,
+                    'tax' => 214.8595,
+                    'total' => 1238,
+                    'paymentPrice' => 50
+                ]);
+        $this->assertDatabaseHas('oc_order', [
+            'order_id' => $this->oid,
+            'payment_method' => 'Na dobírku'
+        ])->assertDatabaseHas('oc_order_product', [
+            'order_id' => $this->oid,
+            'product_id' => 0,
+            'name' => "DPD" . ' + ' . "Na dobírku",
+            'tax' => 21.0000,
+            'quantity' => 1,
+            'sort_order' => 18,
+            'is_transfer' => 1,
+            'is_action' => 0,
+            'gift' => 0,
+            'model' => '',
+            'price' => 149,
+            'purchase_price' => 130.0000,
+            'warranty' => 24,
+            'total' => 149
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $this->oid,
+            'title' => 'Cena celkem bez DPH',
+            'text' => '1023.1405 Kč',
+            'value' => 1023.1405,
+            'sort_order' => 4
+        ])->assertDatabaseHas('oc_order_total',[
+            'order_id' => $this->oid,
+            'title' => 'DPH 21%',
+            'text' => '214.8595 Kč',
+            'value' => 214.8595,
+            'sort_order' => 5
+        ])->assertDatabaseHas('oc_order_total', [
+            'order_id' => $this->oid,
+            'title' => 'Cena celkem s DPH',
+            'text' => '1238 Kč',
+            'value' => 1238,
+            'sort_order' => 6
+        ]);
+        $this->actingAs($this->user)->delete('/orders/' . $this->oid . '/products/' . 0);
+    }
+
+    public function testGetTransitOrCODPrice_1()
+    {
+        $order = Order::find($this->oid);
+        $order->update(
+            [
                 'total' => 3000
             ]);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(0,$response->baseResponse->content());
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Zásilkovna");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "Zásilkovna");
+        $this->assertEquals(0, $base + $cod);
     }
 
-    public function testGetPrice_2()
+    public function testGetTransitOrCODPrice_2()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Zásielkovňa']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals('4.99<EUR>',$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Zásielkovňa");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "Zásielkovňa");
+        $this->assertEquals(4.99/Currency::getEuroValue(), $base + $cod);
     }
 
-    public function testGetPrice_3()
+    public function testGetTransitOrCODPrice_3()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'GLS']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals('7.99<EUR>',$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "GLS");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "GLS");
+        $this->assertEquals(7.99/Currency::getEuroValue(), $base + $cod);
     }
 
-    public function testGetPrice_4()
+    public function testGetTransitOrCODPrice_4()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Slovenská pošta']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals('7.99<EUR>',$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Slovenská pošta");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "Slovenská pošta");
+        $this->assertEquals(7.99/Currency::getEuroValue(), $base + $cod);
     }
 
-    public function testGetPrice_5()
+    public function testGetTransitOrCODPrice_5()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'DPD']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(149,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "DPD");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "DPD");
+        $this->assertEquals(149, $base + $cod);
     }
 
-    public function testGetPrice_6()
+    public function testGetTransitOrCODPrice_6()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Geis']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(0,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Geis");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "Geis");
+        $this->assertEquals(0, $base + $cod);
     }
 
-    public function testGetPrice_7()
+    public function testGetTransitOrCODPrice_7()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Česká pošta (Balík Do ruky)']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(119,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Česká pošta (Balík Do ruky)");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "Česká pošta (Balík Do ruky)");
+        $this->assertEquals(119, $base + $cod);
     }
 
-    public function testGetPrice_8()
+    public function testGetTransitOrCODPrice_8()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Česká pošta (Balík Na poštu)']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(30,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Česká pošta (Balík Na poštu)");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "Česká pošta (Balík Na poštu)");
+        $this->assertEquals(30, $base + $cod);
     }
 
-    public function testGetPrice_9()
+    public function testGetTransitOrCODPrice_9()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Česká pošta (Balík Do balíkovny)']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(30,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Česká pošta (Balík Do balíkovny)");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "Česká pošta (Balík Do balíkovny)");
+        $this->assertEquals(30, $base + $cod);
     }
 
-    public function testGetPrice_10()
+    public function testGetTransitOrCODPrice_10()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Geis Slovensko']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals('9.99<EUR>',$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Geis Slovensko");
+        $cod = OrderService::getTransitOrCODPrice($order, "cod", "Geis Slovensko");
+        $this->assertEquals(9.99/Currency::getEuroValue(), $base + $cod);
     }
 
-    public function testGetPrice_11()
+    public function testGetTransitOrCODPrice_11()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Zásilkovna',
-            'payment_method'=>'Platba kartou','domain'=>'www.stylka.cz']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(0,$response->baseResponse->content());
+        Order::where('order_id',$this->oid)->update(['payment_method'=>'Platba kartou','domain'=>'www.stylka.cz']);
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Zásilkovna");
+        $this->assertEquals(0, $base);
     }
 
-    public function testGetPrice_12()
+    public function testGetTransitOrCODPrice_12()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Zásielkovňa']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(0,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Zásielkovňa");
+        $this->assertEquals(0, $base);
     }
 
-    public function testGetPrice_13()
+    public function testGetTransitOrCODPrice_13()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'GLS']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals('4.99<EUR>',$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "GLS");
+        $this->assertEquals(4.99/Currency::getEuroValue(), $base);
     }
 
-    public function testGetPrice_14()
+    public function testGetTransitOrCODPrice_14()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Slovenská pošta']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals('4.99<EUR>',$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Slovenská pošta");
+        $this->assertEquals(4.99/Currency::getEuroValue(), $base);
     }
 
-    public function testGetPrice_15()
+    public function testGetTransitOrCODPrice_15()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'DPD']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(99,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "DPD");
+        $this->assertEquals(99, $base);
     }
 
-    public function testGetPrice_16()
+    public function testGetTransitOrCODPrice_16()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Geis']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(0,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Geis");
+        $this->assertEquals(0, $base);
     }
 
-    public function testGetPrice_17()
+    public function testGetTransitOrCODPrice_17()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Česká pošta (Balík Do ruky)']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(89,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Česká pošta (Balík Do ruky)");
+        $this->assertEquals(89, $base);
     }
 
-    public function testGetPrice_18()
+    public function testGetTransitOrCODPrice_18()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Česká pošta (Balík Na poštu)']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(0,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Česká pošta (Balík Na poštu)");
+        $this->assertEquals(0, $base);
     }
 
-    public function testGetPrice_19()
+    public function testGetTransitOrCODPrice_19()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Česká pošta (Balík Do balíkovny)']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals(0,$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Česká pošta (Balík Do balíkovny)");
+        $this->assertEquals(0, $base);
     }
 
-    public function testGetPrice_20()
+    public function testGetTransitOrCODPrice_20()
     {
-        Order::where('order_id',$this->oid)->update(['shipping_method' => 'Geis Slovensko']);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals('6.99<EUR>',$response->baseResponse->content());
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Geis Slovensko");
+        $this->assertEquals(6.99/Currency::getEuroValue(), $base);
     }
 
-    public function testGetPrice_21()
+    public function testGetTransitOrCODPrice_21()
     {
         Order::where('order_id',$this->oid)->update(['shipping_method' => 'Zásielkovňa',
-            'total' => "2<EUR>"]);
-        $response = $this->get('/orders/'.$this->oid.'/price');
-        $response->assertStatus(200);
-        $this->assertEquals('2.99<EUR>',$response->baseResponse->content());
-    }*/
+            'total' => 50]);
+        $order = Order::find($this->oid);
+        $base = OrderService::getTransitOrCODPrice($order, "base", "Zásielkovňa");
+        $this->assertEquals(2.99/Currency::getEuroValue(), $base);
+    }
 
     public function testShowOrder()
     {
