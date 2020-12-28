@@ -3,16 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7bc0afc0-91ca-4c6c-a61e-754d89118848" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Actions/Fortify/CreateNewUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Actions/Fortify/CreateNewUser.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Order_productController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Currency.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Currency.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/OrderService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/OrderService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/Order_product_moveService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Order_product_moveService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Services/Order_totalService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/Order_totalService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/invoice.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/invoice.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/TestEshop.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/TestEshop.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -238,7 +231,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.TestEshop.testPutPayment_method">
+  <component name="RunManager" selected="PHPUnit.TestEshop">
     <configuration name="Laravel Built-in Server" type="LaravelStorm_run_conf_serve" factoryName="Laravel">
       <option name="host" value="localhost" />
       <option name="port" value="8000" />
@@ -291,8 +284,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="PHPUnit.TestEshop.testPutPayment_method" />
         <item itemvalue="PHPUnit.TestEshop" />
+        <item itemvalue="PHPUnit.TestEshop.testPutPayment_method" />
         <item itemvalue="PHPUnit.TestEshop.testStoreOrder_product1" />
         <item itemvalue="PHPUnit.TestEshop.testPutShipping_method" />
         <item itemvalue="PHPUnit.TestEshop.testStoreCustomersOrder" />
@@ -313,6 +306,11 @@
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@29a8aa03" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceNode@62948b67" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@29a8aa03" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@56ca6ab2" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -351,7 +349,7 @@
       <workItem from="1601741434497" duration="5903000" />
       <workItem from="1601809892110" duration="105803000" />
       <workItem from="1604592792847" duration="323373000" />
-      <workItem from="1608852639709" duration="61890000" />
+      <workItem from="1608852639709" duration="66263000" />
     </task>
     <servers />
   </component>
@@ -423,24 +421,9 @@
           <option name="timeStamp" value="287" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/ProductController.php</url>
-          <line>578</line>
-          <option name="timeStamp" value="328" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/ProductController.php</url>
-          <line>581</line>
-          <option name="timeStamp" value="329" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/ReviewController.php</url>
           <line>4</line>
           <option name="timeStamp" value="333" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
-          <line>1703</line>
-          <option name="timeStamp" value="344" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
@@ -466,6 +449,21 @@
           <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
           <line>463</line>
           <option name="timeStamp" value="363" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
+          <line>458</line>
+          <option name="timeStamp" value="364" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/API/OrderController.php</url>
+          <line>460</line>
+          <option name="timeStamp" value="365" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
+          <line>2152</line>
+          <option name="timeStamp" value="369" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/tests/Feature/TestEshop.php</url>
@@ -493,6 +491,7 @@
         <watch expression="$GLOBALS['IDE_EVAL_CACHE']['be1f6979-46d1-485b-bade-81447c9e6642']-&gt;baseResponse-&gt;statusCode" />
         <watch expression="$response-&gt;baseResponse" />
         <watch expression="$response-&gt;baseResponse" />
+        <watch expression="$this" />
       </configuration>
     </watches-manager>
   </component>

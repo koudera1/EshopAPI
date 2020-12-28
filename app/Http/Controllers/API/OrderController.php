@@ -473,10 +473,10 @@ class OrderController extends Controller
                     'is_action' => 0,
                     'gift' => 0,
                     'model' => '',
-                    'price' => ($paymentPrice + $transitPrice) * 100/121,
+                    'price' => round(($paymentPrice + $transitPrice) * 100/121, 4),
                     'purchase_price' => 130.0000,
                     'warranty' => 24,
-                    'total' => ($paymentPrice + $transitPrice) * 100/121
+                    'total' =>  round(($paymentPrice + $transitPrice) * 100/121, 4)
                 ]);
             $order_total = Order_totalService::updateOrInsert($order, $op, 1, "add");
             $ret_array +=

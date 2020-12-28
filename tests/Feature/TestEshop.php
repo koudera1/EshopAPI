@@ -2127,10 +2127,10 @@ class TestEshop extends TestCase
             'is_action' => 0,
             'gift' => 0,
             'model' => '',
-            'price' => 149,
+            'price' => round(149 * 100/121, 4),
             'purchase_price' => 130.0000,
             'warranty' => 24,
-            'total' => 149
+            'total' => round(149 * 100/121, 4)
         ])->assertDatabaseHas('oc_order_total', [
             'order_id' => $this->oid,
             'title' => 'Cena celkem bez DPH',

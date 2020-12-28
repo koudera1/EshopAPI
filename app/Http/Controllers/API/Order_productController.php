@@ -263,7 +263,7 @@ class Order_productController extends Controller
         $order_product = Order_product::where('order_id', $order->order_id)
             ->where('product_id', $product_id)->firstOrFail();
 
-        if($product_id === 0)
+        if($product_id == 0)
         {
             $order_total = Order_totalService::updateOrInsert($order, $order_product, -$order_product->quantity, "add");
             if($order_product->delete()) {

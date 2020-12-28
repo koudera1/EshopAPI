@@ -86,7 +86,7 @@ class Order_totalService extends Controller
             ],
             [
                 'order_id' => $order->order_id,
-                'title' => 'DPH ' . (int)($tax / $noTax * 100) . '%',
+                'title' => 'DPH ' . round($tax / $noTax * 100, 0) . '%',
                 'sort_order' => 5,
                 'text' => $tax . $c,
                 'value' => $tax
@@ -98,7 +98,7 @@ class Order_totalService extends Controller
                 'text' => $total . $c,
                 'value' => $total
             ],
-        ], ['order_id', 'title', 'sort_order'], ['text', 'value']);
+        ], ['order_id', 'sort_order'], ['text', 'value']);
 
 
         if($bool1 and $bool2) return
