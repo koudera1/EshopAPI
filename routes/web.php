@@ -21,9 +21,8 @@ Route::get('/', function () {
 });
 
 Route::get('/orders/{order}/addresses', [OrderController::class, 'getAddresses']);
-Route::get('/orders/{order}/price', [OrderController::class, 'getPrice']);
+Route::get('/orders/{order}/payment_methods', [OrderController::class, 'getPayment_methods']);
 Route::get('/orders/{order}/shipping_methods', [OrderController::class, 'getShipping_methods']);
-Route::get('/payment_methods', [OrderController::class, 'getPayment_methods']);
 Route::get('/order_statuses', [OrderController::class, 'getOrder_statuses']);
 
 Route::put('/orders/{order}/invoice', [OrderController::class, 'putInvoice']);

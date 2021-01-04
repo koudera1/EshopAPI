@@ -174,7 +174,7 @@
         @php
             $total = round($order_product->total * $order->value, 1);
             $totalsSum += $total;
-            $taxCoeficient = '0.' . str_replace('.', '', $order_product->tax);
+            $taxCoeficient = $order_product->tax / 100;
             $tax = round($order_product->total * $taxCoeficient * $order->value, 1);
             $taxesSum += $tax;
         @endphp

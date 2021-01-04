@@ -24,8 +24,25 @@ use Illuminate\Support\Facades\DB;
 class Order_productController extends Controller
 {
     /**
-     * Display a listing of ordered products.
+     * Display a listing of all ordered products.
      * @urlParam order required order id Example: 35022
+     * @response  {[
+     * "order_product_id:112,
+     * "order_id":50,
+     * "product_id":183,
+     * "name":"Náhradní hřebeny SP-HC5000",
+     * "model":"4008496717552",
+     * "price":207.5000,
+     * "total":207.5000,
+     * "tax":21.0000,
+     * "quantity":1,
+     * "sort_order":0,
+     * "is_transfer":0,
+     * "is_action":0,
+     * "purchase_price":131.8200,
+     * "warranty":24,
+     * "gift":0
+     * ]}
      *
      * @param Order $order
      * @return Collection
@@ -41,8 +58,6 @@ class Order_productController extends Controller
      * Store a newly created ordered product in storage.
      * @urlParam order required order id Example: 35022
      * @bodyParam product_id integer required
-     * @bodyParam name string required
-     * @bodyParam tax integer
      * @bodyParam quantity integer
      * @bodyParam sort_order integer
      * @bodyParam is_transfer integer
@@ -131,13 +146,35 @@ class Order_productController extends Controller
      * Display the specified ordered product.
      * @urlParam order required order id Example: 35022
      * @urlParam order_product required order product id Example: 74850
+     * @response  {
+     * "order_product_id:112,
+     * "order_id":50,
+     * "product_id":183,
+     * "name":"Náhradní hřebeny SP-HC5000",
+     * "model":"4008496717552",
+     * "price":207.5000,
+     * "total":207.5000,
+     * "tax":21.0000,
+     * "quantity":1,
+     * "sort_order":0,
+     * "is_transfer":0,
+     * "is_action":0,
+     * "purchase_price":131.8200,
+     * "warranty":24,
+     * "gift":0
+     * }
      *
-     * @param Order_product $order_product
+     * @param Order $order
+     * @param Product $product
      * @return Order_product
+     * @throws AuthorizationException
      */
-    public function show(Order_product $order_product)
+    public function show(Order $order, Product $product)
     {
-        return $order_product;
+        $this->authorize('accessByAdminOrCustomer', $order);
+        return Order_product
+            ::where('product_id', $product->product_id)
+            ->where('order_id', $order->order_id)->first();
     }
 
     /**
@@ -145,6 +182,8 @@ class Order_productController extends Controller
      * @urlParam order required order id Example: 35022
      * @urlParam product required product id Example: 2400
      * @bodyParam quantity integer
+     * @bodyParam sort_order integer
+     * @bodyParam is_action integer
      * @response  {
      * "quantity":true,
      * "noTaxTotal":100,
@@ -237,6 +276,16 @@ class Order_productController extends Controller
             else
                 $ret_array += array('quantity' => false);
         }
+        if ($request->has('sort_order')) {
+            $ret_array += array('sort_order' => $product->update([
+                'sort_order' => $request->input('sort_order')
+            ]));
+        }
+        if ($request->has('is_action')) {
+            $ret_array += array('is_action' => $product->update([
+                'is_action' => $request->input('is_action')
+            ]));
+        }
 
         return response()->json($ret_array);
     }
@@ -276,7 +325,7 @@ class Order_productController extends Controller
         }
 
         $product = Product::find($product_id);
-        if(self::updateProductsWhenDeleting($order_product, $product))
+        if(Order_product_moveService::updateProductsWhenDeleting($order_product, $product))
         {
             $order_total = Order_totalService::updateOrInsert($order, $order_product, -$order_product->quantity, "add");
             if($order_product->delete()) {
@@ -290,22 +339,4 @@ class Order_productController extends Controller
         return response()->json(false);
     }
 
-    /**
-     * Lower quantity of products counted in order and delete order_product_move.
-     *
-     * @param Order_product $order_product
-     * @param Product $product
-     * @return bool
-     */
-    public static function updateProductsWhenDeleting(Order_product $order_product, Product $product)
-    {
-        $opm = Order_product_move::where('product_id',$order_product->product_id)
-            ->where('order_id',$order_product->order_id)->first();
-        $diff = $order_product->quantity;
-        $bool1 = Order_product_moveService
-            ::lowerQuantityOfProducts($product, $opm, $diff, false);
-        $bool2 = $opm->delete();
-        if($bool1 and $bool2) return true;
-        else return false;
-    }
 }

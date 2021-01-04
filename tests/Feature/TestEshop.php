@@ -1209,10 +1209,10 @@ class TestEshop extends TestCase
     {
         $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
             [
-                'comment' => 'Super.'
+                'comment_c' => 'Super.'
             ]);
         $response->assertStatus(200)
-            ->assertJson(['comment' => 'true']);
+            ->assertJson(['comment_c' => 'true']);
         $this->assertDatabaseHas('oc_order',
             [
                 'order_id' => $this->oid,
@@ -1226,7 +1226,7 @@ class TestEshop extends TestCase
             [
                 'order_status' => 'Odesláno dopravcem',
                 'notify' => 1,
-                'comment' => 'Objednávka zaplacena.'
+                'comment_e' => 'Objednávka zaplacena.'
             ]);
         $response->assertStatus(200)
             ->assertJson(['order_status' => 'true']);
@@ -2128,7 +2128,7 @@ class TestEshop extends TestCase
             'gift' => 0,
             'model' => '',
             'price' => round(149 * 100/121, 4),
-            'purchase_price' => 130.0000,
+            'purchase_price' => 92,
             'warranty' => 24,
             'total' => round(149 * 100/121, 4)
         ])->assertDatabaseHas('oc_order_total', [

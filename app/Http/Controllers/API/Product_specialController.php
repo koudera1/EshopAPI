@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Product_special;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -51,7 +52,7 @@ class Product_specialController extends Controller
      * @param Request $request
      * @param $product_id
      * @return Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function store(Request $request, $product_id)
     {
@@ -87,12 +88,13 @@ class Product_specialController extends Controller
      * "date_added":"2012-01-28 17:00:18"
      * }
      *
-     * @param Product_special $product_special
+     * @param $product_id
+     * @param $product_special_id
      * @return Response
      */
-    public function show(Product_special $product_special)
+    public function show($product_id, $product_special_id)
     {
-        return $product_special;
+        return Product_special::find($product_special_id);
     }
 
     /**
@@ -109,12 +111,14 @@ class Product_specialController extends Controller
      * @response  {"domain":true, "price":true}
      *
      * @param Request $request
-     * @param Product_special $product_special
+     * @param $product_id
+     * @param $product_special_id
      * @return Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
-    public function update(Request $request, Product_special $product_special)
+    public function update(Request $request, $product_id, $product_special_id)
     {
+        $product_special = Product_special::find($product_special_id);
         $this->authorize('modify', Product::class);
         $ret_array = [];
         if ($request->has('product_id')) {
@@ -161,13 +165,15 @@ class Product_specialController extends Controller
      * @urlParam product_special required product_special_id
      * @response true
      *
-     * @param Product_special $product_special
+     * @param $product_id
+     * @param $product_special_id
      * @return Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
-    public function destroy(Product_special $product_special)
+    public function destroy($product_id, $product_special_id)
     {
         $this->authorize('modify', Product::class);
+        $product_special = Product_special::find($product_special_id);
         return response()->json($product_special);
     }
 }

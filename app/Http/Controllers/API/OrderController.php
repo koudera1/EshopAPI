@@ -283,7 +283,9 @@ class OrderController extends Controller
      * @bodyParam firstname string
      * @bodyParam lastname string
      * @bodyParam company string
-     * @bodyParam comment string The comment written by the customer.
+     * @bodyParam comment_c string The comment written by the customer.
+     * @bodyParam comment_e string The comment written by somebody else than customer.
+     * @bodyParam notify string
      * @bodyParam order_status string Example: "Nevyřízeno."
      * @bodyParam shipping_method string Example: "Zásilkovna"
      * @bodyParam payment_status integer Whether the order was paid. Example: 1
@@ -399,9 +401,9 @@ class OrderController extends Controller
             ]));
         }
 
-        if ($request->has('comment')) {
-            $ret_array += array('comment' => $order->update([
-                'comment' => $request->input('comment')
+        if ($request->has('comment_c')) {
+            $ret_array += array('comment_c' => $order->update([
+                'comment_c' => $request->input('comment_c')
             ]));
         }
         if ($request->has('order_status')) {
@@ -415,7 +417,7 @@ class OrderController extends Controller
                 'order_id' => $order->order_id,
                 'order_status_id' => $osid,
                 'notify' => $request->input('notify'),
-                'comment' => $request->input('comment'),
+                'comment_e' => $request->input('comment_e'),
             ]);
     }
         if ($request->has('shipping_method')) {
@@ -474,7 +476,7 @@ class OrderController extends Controller
                     'gift' => 0,
                     'model' => '',
                     'price' => round(($paymentPrice + $transitPrice) * 100/121, 4),
-                    'purchase_price' => 130.0000,
+                    'purchase_price' => OrderService::getTransitAndPaymentPurchasePrice($order),
                     'warranty' => 24,
                     'total' =>  round(($paymentPrice + $transitPrice) * 100/121, 4)
                 ]);
@@ -522,7 +524,6 @@ class OrderController extends Controller
                 'tax' => $order_total['tax'],
                 'total' => $order_total['total']
                 );
-
         }
         if ($request->has('shipping_gp')) {
             $ret_array += array('shipping_gp' => $order->update([
@@ -691,11 +692,12 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the addresses of the order.
+     * Display addresses of the order.
      * @urlParam order required order id Example: 35022
      *
-     * @param \App\Order $order
+     * @param Order $order
      * @return Response
+     * @throws AuthorizationException
      */
     public function getAddresses(Order $order)
     {
@@ -713,7 +715,7 @@ class OrderController extends Controller
      * Make a new invoice.
      * @urlParam order required order id Example: 35202
      *
-     * @param Request $request
+     * @param Order $order
      * @return Response
      */
     public function putInvoice(Order $order)
@@ -737,7 +739,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Display all shipping methods.
+     * Display all shipping methods with corresponding prices.
      * @urlParam order required order id Example: 35022
      *
      * @param Order $order
@@ -778,9 +780,9 @@ class OrderController extends Controller
 
 
     /**
-     * Display all payment methods.
+     * Display all payment methods with corresponding prices.
+     * @urlParam order required order id Example: 35022
      *
-     * @param Request $request
      * @param Order $order
      * @return Response
      */
@@ -799,9 +801,7 @@ class OrderController extends Controller
     /**
      * Display all order statuses.
      *
-     * @param Request $request
-     * @param \App\Order $order
-     * @return Response
+     * @return array
      */
     public function getOrder_statuses()
     {

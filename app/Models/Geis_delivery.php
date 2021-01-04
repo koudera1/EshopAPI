@@ -2,33 +2,37 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class Geis_delivery extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_product_description';
+    protected $table = 'geis_delivery';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'review_id';
+    protected $primaryKey = 'delivery_id';
 
     /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
-    public $timestamps = true;
-    const CREATED_AT = 'date_added';
-    const UPDATED_AT = 'date_modified';
+    public $timestamps = false;
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->creation_time = date("Y-m-d H:i:s");
+        });
+    }
 
     /**
      * The attributes that aren't mass assignable.

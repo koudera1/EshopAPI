@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Order_history;
+use App\Models\Order_product;
 use App\Models\Order_product_move;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -137,5 +138,24 @@ class Order_product_moveService extends Controller
 
         if($bool1 and $bool2) return true;
             else return false;
+    }
+
+    /**
+     * Lower quantity of products counted in order and delete order_product_move.
+     *
+     * @param Order_product $order_product
+     * @param Product $product
+     * @return bool
+     */
+    public static function updateProductsWhenDeleting(Order_product $order_product, Product $product)
+    {
+        $opm = Order_product_move::where('product_id', $order_product->product_id)
+            ->where('order_id', $order_product->order_id)->first();
+        $diff = $order_product->quantity;
+        $bool1 = Order_product_moveService
+            ::lowerQuantityOfProducts($product, $opm, $diff, false);
+        $bool2 = $opm->delete();
+        if ($bool1 and $bool2) return true;
+        else return false;
     }
 }

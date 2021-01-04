@@ -6,6 +6,7 @@ use App\Models\Currency;
 use App\Models\Order;
 use App\Models\Order_product;
 use App\Models\Product;
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 
 class OrderService extends Controller
@@ -45,7 +46,7 @@ class OrderService extends Controller
                 $sm_transcript = "shipping:geis_sk:";
                 break;
             default:
-                return response()->json(false);
+                return false;
         }
 
         $product_ids = Order_product::where('order_id', $order->order_id)->pluck('product_id');
@@ -62,7 +63,7 @@ class OrderService extends Controller
             ->where('domain', $order->domain)
             ->value('value');
         $price = self::domain_setupValue($domain_setup, $free_shipping, $order->total);
-        if ($price === false) return response()->json(false);
+        if ($price === false) return false;
         if (strpos($price, "<EUR>"))
         {
             $price = str_replace("<EUR>", "", $price);
@@ -108,5 +109,55 @@ class OrderService extends Controller
                 return $val;
             } else return false;
         }
+    }
+
+    public static function getTransitAndPaymentPurchasePrice(Order $order)
+    {
+        $sm_transcript = "";
+        switch($order->shipping_method) {
+            case "Česká pošta (Balík Do ruky)":
+                $sm_transcript = "ceska_posta_purchase_dr";
+                break;
+            case "Česká pošta (Balík Na poštu)":
+                $sm_transcript = "ceska_posta_purchase_np";
+                break;
+            case "Česká pošta (Balík Do balíkovny)":
+                $sm_transcript = "ceska_posta_purchase_balikomat";
+                break;
+            case "Slovenská pošta":
+                $sm_transcript = "zasilkovna_sk_purchase_post";
+                break;
+            case "Zásilkovna":
+                $sm_transcript = "zasilkovna_cz_purchase";
+                break;
+            case "Zásielkovňa":
+                $sm_transcript = "zasilkovna_sk_purchase";
+                break;
+            case "GLS" or "Geis" or "DPD":
+                $sm_transcript = "gls_purchase";
+                break;
+            case "Geis Slovensko":
+                $sm_transcript = "zasilkovna_sk_purchase_gls";
+                break;
+            default:
+                return false;
+        }
+        $shipping_price = Setting::where('key', $sm_transcript)->value('value');
+
+        if($order->payment_method === "Platba kartou")
+        {
+            $value = Setting::where('key','agmo_purchase_fixed')->value('value');
+            $pct = Setting::where('key','agmo_purchase_pct')->value('value');
+            return $shipping_price + $value + $pct / 100 * $order->value;
+        }
+
+        if($order->payment_method === "Na dobírku" or $order->payment_method === "Na dobierku")
+        {
+            $sm_transcript = $sm_transcript . "_cod";
+            $codPrice = Setting::where('key',$sm_transcript)->value('value');
+            return $shipping_price + $codPrice;
+        }
+
+        return $shipping_price;
     }
 }

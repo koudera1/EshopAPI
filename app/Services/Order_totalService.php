@@ -49,13 +49,13 @@ class Order_totalService extends Controller
                 $coupon = Coupon::find($order->coupon_id);
                 if($coupon->shipping === 1 or ($coupon->shipping === 0 and $op->is_transfer != 1))
                 {
-                    $discountCoeficient = '0.' . str_replace('.', '', $coupon->discount);
+                    $discountCoeficient = $coupon->discount / 100;
                     $coupon_discount = 1 - $discountCoeficient;
                 }
             }
 
             $noTaxAddend = round($op->price * $quantity * $order->value * $coupon_discount, 4);
-            $taxCoef = '0.' . str_replace('.', '', $op->tax);
+            $taxCoef = $op->tax / 100;
             $taxAddend = round($noTaxAddend * $taxCoef, 4);
 
             $tax = $origTax + $taxAddend;
@@ -66,7 +66,7 @@ class Order_totalService extends Controller
             $noTax = round($origNoTax * $order->value, 4);
         } else {
             $coupon = Coupon::find($order->coupon_id);
-            $discountCoeficient = '0.' . str_replace('.', '', $coupon->discount);
+            $discountCoeficient = $coupon->discount / 100;;
             $coupon_discount = 1 - $discountCoeficient;
             $tax = round($origTax * $coupon_discount, 4);
             $noTax = round($origNoTax * $coupon_discount, 4);

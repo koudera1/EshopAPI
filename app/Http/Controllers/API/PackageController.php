@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Geis_delivery;
 use App\Models\Geis_numbering;
 use App\Http\Controllers\Controller;
+use App\Models\Geis_package;
 use App\Models\Order;
+use App\Models\Postcz_delivery;
 use App\Models\Postcz_numbering;
+use App\Models\Postcz_package;
+use App\Models\Zasilkovna_package;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use SoapClient;
 use SoapFault;
 
@@ -21,7 +25,7 @@ use SoapFault;
 class PackageController extends Controller
 {
     /**
-     * Display a listing of packages.
+     * Display a listing of all packages.
      * @urlParam order required order id Example: 35022
      *
      * @param Order $order
@@ -30,11 +34,13 @@ class PackageController extends Controller
     public function index(Order $order)
     {
        if($order->shipping_method == "Geis")
-            return DB::table('geis_package')->where('order_id', $order->order_id)->get();
+            return Geis_package::join('geis_delivery', 'geis_package.order_id', '=', 'geis_delivery.order_id')
+                ->where('geis_package.order_id', $order->order_id)->get();
         elseif (mb_substr($order->shipping_method, 0, 11) === "Česká pošta")
-            return DB::table('postcz_package')->where('order_id', $order->order_id)->get();
+            return Postcz_package::join('postcz_delivery', 'postcz_package.order_id', '=', 'postcz_delivery.order_id')
+                ->where('postcz_delivery.order_i', $order->order_id)->get();
         else
-            return DB::table('zasilkovna_package')->where('order_id', $order->order_id)->get();
+            return Zasilkovna_package::where('order_id', $order->order_id)->get();
     }
 
     /**
@@ -72,7 +78,7 @@ class PackageController extends Controller
             $delivery_id =  Geis_numbering::select('min')->where('is_free', 1)->firstOrFail();
             Geis_numbering::where('is_free', 0)->update(['max' => $delivery_id['min']]);
             Geis_numbering::where('is_free', 1)->update(['min' => ($delivery_id['min'] + 1)]);
-            $bool1 = DB::table('geis_delivery')->insert(
+            $bool1 = Geis_delivery::insert(
                 [
                     'delivery_id' => $delivery_id['min'],
                     'order_id' => $order->order_id,
@@ -89,7 +95,7 @@ class PackageController extends Controller
                 ]
             );
 
-            $bool2 = DB::table('geis_package')->insert(
+            $bool2 = Geis_package::insert(
                 [
                     'package_id' => $delivery_id['min'],
                     'delivery_id' => $delivery_id['min'],
@@ -116,7 +122,7 @@ class PackageController extends Controller
             Postcz_numbering::where('is_free', 1)
                 ->where('source',$request->input('source'))
                 ->update(['min' => ($delivery_id['min'] + 1)]);
-            $bool1 = DB::table('postcz_delivery')->insert(
+            $bool1 =Postcz_delivery::insert(
                 [
                     'delivery_id' => $delivery_id['min'],
                     'order_id' => $order->order_id,
@@ -131,7 +137,7 @@ class PackageController extends Controller
                 ]
             );
 
-            $bool2 = DB::table('postcz_package')->insert(
+            $bool2 = Postcz_package::insert(
                 [
                     'package_id' => $delivery_id['min'],
                     'delivery_id' => $delivery_id['min'],
@@ -199,8 +205,7 @@ class PackageController extends Controller
                     return new \Exception($e->getMessage()); // property detail contains error info
                 }
 
-                $bool = DB::table('zasilkovna_package')
-                    ->insert(
+                $bool = Zasilkovna_package::insert(
                         [
                             'package_id' => $packet->id,
                             'order_id' => $order->order_id,
@@ -216,27 +221,4 @@ class PackageController extends Controller
         abort('404');
     }
 
-    /**
-     * Update the specified package in storage.
-     * @urlParam order required order id Example: 35022
-     *
-     * @param Request $request
-     * @param  \App\Package  $package
-     * @return Response
-     */
-    public function update(Request $request, Order $order, $package_id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified package from storage.
-     *
-     * @param  \App\Package  $package
-     * @return Response
-     */
-    public function destroy($package_id)
-    {
-
-    }
 }
