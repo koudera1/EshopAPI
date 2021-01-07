@@ -1,7 +1,7 @@
 # Package
 
 
-## Display a listing of packages.
+## Display a listing of all packages.
 
 
 
@@ -92,7 +92,7 @@ curl -X POST \
     "http://localhost/orders/35022/packages" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"cod":26425.2,"b2c":14,"routing_id":17,"phone":"esse","driver_note":"et","recipient_note":"et","source":5,"gar":18,"package_order":18,"commercial":15,"service":"eaque","weight":272638.74807218}'
+    -d '{"cod":19122.6,"b2c":11,"routing_id":8,"phone":"quia","driver_note":"voluptatum","recipient_note":"non","source":11,"gar":19,"package_order":3,"commercial":9,"service":"dolor","weight":4735.87395236}'
 
 ```
 
@@ -107,18 +107,18 @@ let headers = {
 };
 
 let body = {
-    "cod": 26425.2,
-    "b2c": 14,
-    "routing_id": 17,
-    "phone": "esse",
-    "driver_note": "et",
-    "recipient_note": "et",
-    "source": 5,
-    "gar": 18,
-    "package_order": 18,
-    "commercial": 15,
-    "service": "eaque",
-    "weight": 272638.74807218
+    "cod": 19122.6,
+    "b2c": 11,
+    "routing_id": 8,
+    "phone": "quia",
+    "driver_note": "voluptatum",
+    "recipient_note": "non",
+    "source": 11,
+    "gar": 19,
+    "package_order": 3,
+    "commercial": 9,
+    "service": "dolor",
+    "weight": 4735.87395236
 }
 
 fetch(url, {
@@ -224,140 +224,6 @@ Whether it has cash on delivery for the customer to pay.</p>
 <br>
 The weight of the package.</p>
 
-</form>
-
-
-## Update the specified package in storage.
-
-
-
-
-> Example request:
-
-```bash
-curl -X PUT \
-    "http://localhost/orders/35022/packages/reiciendis" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://localhost/orders/35022/packages/reiciendis"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-
-fetch(url, {
-    method: "PUT",
-    headers,
-}).then(response => response.json());
-```
-
-
-<div id="execution-results-PUTorders--order--packages--package-" hidden>
-    <blockquote>Received response<span id="execution-response-status-PUTorders--order--packages--package-"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-PUTorders--order--packages--package-"></code></pre>
-</div>
-<div id="execution-error-PUTorders--order--packages--package-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTorders--order--packages--package-"></code></pre>
-</div>
-<form id="form-PUTorders--order--packages--package-" data-method="PUT" data-path="orders/{order}/packages/{package}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('PUTorders--order--packages--package-', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-PUTorders--order--packages--package-" onclick="tryItOut('PUTorders--order--packages--package-');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-PUTorders--order--packages--package-" onclick="cancelTryOut('PUTorders--order--packages--package-');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-PUTorders--order--packages--package-" hidden>Send Request 💥</button>
-    </h3>
-<p>
-<small class="badge badge-darkblue">PUT</small>
- <b><code>orders/{order}/packages/{package}</code></b>
-</p>
-<p>
-<small class="badge badge-purple">PATCH</small>
- <b><code>orders/{order}/packages/{package}</code></b>
-</p>
-<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-<p>
-<b><code>order</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="order" data-endpoint="PUTorders--order--packages--package-" data-component="url" required  hidden>
-<br>
-order id</p>
-<p>
-<b><code>package</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="package" data-endpoint="PUTorders--order--packages--package-" data-component="url" required  hidden>
-<br>
-</p>
-</form>
-
-
-## Remove the specified package from storage.
-
-
-
-
-> Example request:
-
-```bash
-curl -X DELETE \
-    "http://localhost/orders/voluptas/packages/laudantium" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
-```javascript
-const url = new URL(
-    "http://localhost/orders/voluptas/packages/laudantium"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-
-fetch(url, {
-    method: "DELETE",
-    headers,
-}).then(response => response.json());
-```
-
-
-<div id="execution-results-DELETEorders--order--packages--package-" hidden>
-    <blockquote>Received response<span id="execution-response-status-DELETEorders--order--packages--package-"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEorders--order--packages--package-"></code></pre>
-</div>
-<div id="execution-error-DELETEorders--order--packages--package-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEorders--order--packages--package-"></code></pre>
-</div>
-<form id="form-DELETEorders--order--packages--package-" data-method="DELETE" data-path="orders/{order}/packages/{package}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('DELETEorders--order--packages--package-', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-DELETEorders--order--packages--package-" onclick="tryItOut('DELETEorders--order--packages--package-');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-DELETEorders--order--packages--package-" onclick="cancelTryOut('DELETEorders--order--packages--package-');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-DELETEorders--order--packages--package-" hidden>Send Request 💥</button>
-    </h3>
-<p>
-<small class="badge badge-red">DELETE</small>
- <b><code>orders/{order}/packages/{package}</code></b>
-</p>
-<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-<p>
-<b><code>order</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="order" data-endpoint="DELETEorders--order--packages--package-" data-component="url" required  hidden>
-<br>
-</p>
-<p>
-<b><code>package</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="package" data-endpoint="DELETEorders--order--packages--package-" data-component="url" required  hidden>
-<br>
-</p>
 </form>
 
 

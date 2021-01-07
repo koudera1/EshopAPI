@@ -88,7 +88,7 @@ curl -X POST \
     "http://localhost/coupons" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"coupon_id":17,"domain":"est","code":"ut","type":"rerum","discount":301.71970689,"logged":17,"shipping":4,"total":240235162.4446,"date_start":"velit","date_end":"dolores","uses_total":10,"uses_customer":15,"status":5,"date_added":"nam","language_id":4,"name":"ipsum","description":"quas"}'
+    -d '{"coupon_id":6,"domain":"ipsam","code":"nihil","type":"voluptas","discount":211956924.2,"logged":10,"shipping":13,"total":155463936.6132,"date_start":"blanditiis","date_end":"atque","uses_total":7,"uses_customer":18,"status":5,"date_added":"excepturi","language_id":4,"name":"quaerat","description":"hic"}'
 
 ```
 
@@ -103,23 +103,23 @@ let headers = {
 };
 
 let body = {
-    "coupon_id": 17,
-    "domain": "est",
-    "code": "ut",
-    "type": "rerum",
-    "discount": 301.71970689,
-    "logged": 17,
-    "shipping": 4,
-    "total": 240235162.4446,
-    "date_start": "velit",
-    "date_end": "dolores",
-    "uses_total": 10,
-    "uses_customer": 15,
+    "coupon_id": 6,
+    "domain": "ipsam",
+    "code": "nihil",
+    "type": "voluptas",
+    "discount": 211956924.2,
+    "logged": 10,
+    "shipping": 13,
+    "total": 155463936.6132,
+    "date_start": "blanditiis",
+    "date_end": "atque",
+    "uses_total": 7,
+    "uses_customer": 18,
     "status": 5,
-    "date_added": "nam",
+    "date_added": "excepturi",
     "language_id": 4,
-    "name": "ipsum",
-    "description": "quas"
+    "name": "quaerat",
+    "description": "hic"
 }
 
 fetch(url, {
@@ -338,7 +338,7 @@ curl -X PUT \
     "http://localhost/coupons/2" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"domain":"explicabo","code":"minus","type":"voluptas","discount":135.226300507,"logged":3,"shipping":16,"total":0.688,"date_start":"architecto","date_end":"asperiores","uses_total":7,"uses_customer":3,"status":9,"name":"aspernatur","description":"et"}'
+    -d '{"domain":"libero","code":"ex","type":"doloribus","discount":0,"logged":8,"shipping":4,"total":3939493.549163,"date_start":"non","date_end":"et","uses_total":9,"uses_customer":20,"status":5,"name":"aut","description":"sunt"}'
 
 ```
 
@@ -353,20 +353,20 @@ let headers = {
 };
 
 let body = {
-    "domain": "explicabo",
-    "code": "minus",
-    "type": "voluptas",
-    "discount": 135.226300507,
-    "logged": 3,
-    "shipping": 16,
-    "total": 0.688,
-    "date_start": "architecto",
-    "date_end": "asperiores",
-    "uses_total": 7,
-    "uses_customer": 3,
-    "status": 9,
-    "name": "aspernatur",
-    "description": "et"
+    "domain": "libero",
+    "code": "ex",
+    "type": "doloribus",
+    "discount": 0,
+    "logged": 8,
+    "shipping": 4,
+    "total": 3939493.549163,
+    "date_start": "non",
+    "date_end": "et",
+    "uses_total": 9,
+    "uses_customer": 20,
+    "status": 5,
+    "name": "aut",
+    "description": "sunt"
 }
 
 fetch(url, {

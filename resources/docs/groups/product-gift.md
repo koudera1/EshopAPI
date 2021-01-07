@@ -10,14 +10,14 @@
 
 ```bash
 curl -X GET \
-    -G "http://localhost/products/quisquam/gifts" \
+    -G "http://localhost/products/ut/gifts" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/quisquam/gifts"
+    "http://localhost/products/ut/gifts"
 );
 
 let headers = {
@@ -80,16 +80,16 @@ product_id</p>
 
 ```bash
 curl -X POST \
-    "http://localhost/products/modi/gifts" \
+    "http://localhost/products/dolores/gifts" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"gift_id":20,"quantity":3}'
+    -d '{"gift_id":9,"quantity":6}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/modi/gifts"
+    "http://localhost/products/dolores/gifts"
 );
 
 let headers = {
@@ -98,8 +98,8 @@ let headers = {
 };
 
 let body = {
-    "gift_id": 20,
-    "quantity": 3
+    "gift_id": 9,
+    "quantity": 6
 }
 
 fetch(url, {
@@ -165,14 +165,14 @@ product_id</p>
 
 ```bash
 curl -X GET \
-    -G "http://localhost/products/est/gifts/cumque" \
+    -G "http://localhost/products/laudantium/gifts/tempore" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/est/gifts/cumque"
+    "http://localhost/products/laudantium/gifts/tempore"
 );
 
 let headers = {
@@ -240,16 +240,16 @@ gift_id</p>
 
 ```bash
 curl -X PUT \
-    "http://localhost/products/praesentium/gifts/ipsam" \
+    "http://localhost/products/dolores/gifts/qui" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"product_id":20,"gift_id":17,"quantity":16}'
+    -d '{"product_id":2,"gift_id":1,"quantity":9}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/praesentium/gifts/ipsam"
+    "http://localhost/products/dolores/gifts/qui"
 );
 
 let headers = {
@@ -258,9 +258,9 @@ let headers = {
 };
 
 let body = {
-    "product_id": 20,
-    "gift_id": 17,
-    "quantity": 16
+    "product_id": 2,
+    "gift_id": 1,
+    "quantity": 9
 }
 
 fetch(url, {
@@ -341,14 +341,14 @@ gift_id</p>
 
 ```bash
 curl -X DELETE \
-    "http://localhost/products/quas/gifts/rerum" \
+    "http://localhost/products/nulla/gifts/doloremque" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/quas/gifts/rerum"
+    "http://localhost/products/nulla/gifts/doloremque"
 );
 
 let headers = {

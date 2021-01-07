@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -35,4 +37,16 @@ class Product extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Scope a query to get product by id.
+     *
+     * @param Builder $query
+     * @param $id
+     * @return Builder|Builder[]|Collection|Model
+     */
+    public function scopeGetById($query, $id)
+    {
+        return $query->findOrFail($id);
+    }
 }

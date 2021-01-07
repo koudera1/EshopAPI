@@ -51,7 +51,7 @@ class Order_productController extends Controller
     public function index(Order $order)
     {
         $this->authorize('accessByAdminOrCustomer', $order);
-        return $order->products()->get();
+        return Order_product::getOrderProductsOfAnOrder($order->order_id);
     }
 
     /**
@@ -77,11 +77,11 @@ class Order_productController extends Controller
     public function store(Request $request, Order $order)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $product = Product::where('product_id', $request->input('product_id'))->firstOrFail();
+        $product = Product::getById($request->input('product_id'));
         $price = $product->price;
         if($order->customer_id != 0)
         {
-            $customer = Customer::find($order->customer_id);
+            $customer = Customer::getById($order->customer_id);
             $cart = unserialize($customer->cart);
             $cart[$product->product_id] = $request->input('quantity');
             $customer->update([
@@ -94,16 +94,7 @@ class Order_productController extends Controller
                 $cgid = $customer->customer_group_id;
                 $domain = $order->domain;
                 $price = Product_special
-                    ::where('product_id', $pid)
-                    ->where('customer_group_id', $cgid)
-                    ->where('domain', $domain)
-                    ->where('priority', function($query) use ($pid, $cgid, $domain)
-                    {
-                        $query->selectRaw('max(priority)')
-                            ->where('product_id', $pid)
-                            ->where('customer_group_id', $cgid)
-                            ->where('domain', $domain);
-                    })->value('price');
+                    ::getSpecialPrice($pid, $cgid, $domain)->value('price');
                 if($price === null) $price = $product->price;
             }
         }
@@ -165,16 +156,15 @@ class Order_productController extends Controller
      * }
      *
      * @param Order $order
-     * @param Product $product
+     * @param $product_id
      * @return Order_product
      * @throws AuthorizationException
      */
-    public function show(Order $order, Product $product)
+    public function show(Order $order, $product_id)
     {
         $this->authorize('accessByAdminOrCustomer', $order);
         return Order_product
-            ::where('product_id', $product->product_id)
-            ->where('order_id', $order->order_id)->first();
+            ::getByIds($order->order_id, $product_id);
     }
 
     /**
@@ -203,14 +193,12 @@ class Order_productController extends Controller
     public function update(Request $request, Order $order, Product $product)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $order_product = Order_product::where('order_id', $order->order_id)
-            ->where('product_id', $product->product_id)->firstOrFail();
+        $order_product = Order_product::getByIds($order->order_id, $product->product_id);
         $bool1 = $bool2 = false;
         $ret_array = [];
         if ($request->has('quantity')) {
-            $product = Product::where('product_id', $order_product->product_id)->firstOrFail();
-            $opm = Order_product_move::where('product_id',$order_product->product_id)
-                ->where('order_id',$order_product->order_id)->firstOrFail();
+            $product = Product::getById($order_product->product_id);
+            $opm = Order_product_move::getByIds($order_product->order_id, $order_product->product_id);
             $diff = $order_product->quantity - $request->input('quantity');
             if($diff > 0)//lowering quantity of products
             {
@@ -257,7 +245,7 @@ class Order_productController extends Controller
 
             if($order->customer_id != 0)
             {
-                $customer = Customer::find($order->customer_id);
+                $customer = Customer::getById($order->customer_id);
                 $cart = unserialize($customer->cart);
                 $cart[$product->product_id] = $request->input('quantity');
                 $customer->update([
@@ -309,8 +297,7 @@ class Order_productController extends Controller
     public function destroy(Order $order, $product_id)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $order_product = Order_product::where('order_id', $order->order_id)
-            ->where('product_id', $product_id)->firstOrFail();
+        $order_product = Order_product::getByIds($order->order_id, $product_id);
 
         if($product_id == 0)
         {
@@ -324,7 +311,7 @@ class Order_productController extends Controller
             }
         }
 
-        $product = Product::find($product_id);
+        $product = Product::getById($product_id);
         if(Order_product_moveService::updateProductsWhenDeleting($order_product, $product))
         {
             $order_total = Order_totalService::updateOrInsert($order, $order_product, -$order_product->quantity, "add");

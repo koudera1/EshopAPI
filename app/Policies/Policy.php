@@ -14,6 +14,7 @@ class Policy
 
     public function authorize($user, $needle, $action, Order $order = null, Customer $customer = null)
     {
+        //return true; //uncomment to generate documentation with responses
         if($user instanceof Admin)
         {
             $permission = unserialize(DB::table('oc_user_group')

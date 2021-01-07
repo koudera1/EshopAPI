@@ -44,7 +44,7 @@
                             <li><a href='http://github.com/knuckleswtf/scribe'>Documentation powered by Scribe ✍</a></li>
                     </ul>
             <ul class="toc-footer" id="last-updated">
-            <li>Last updated: December 18 2020</li>
+            <li>Last updated: January 5 2021</li>
         </ul>
 </div>
 <div class="page-wrapper">
@@ -133,7 +133,7 @@ fetch(url, {
     "http://localhost/coupons" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"coupon_id":17,"domain":"est","code":"ut","type":"rerum","discount":301.71970689,"logged":17,"shipping":4,"total":240235162.4446,"date_start":"velit","date_end":"dolores","uses_total":10,"uses_customer":15,"status":5,"date_added":"nam","language_id":4,"name":"ipsum","description":"quas"}'
+    -d '{"coupon_id":6,"domain":"ipsam","code":"nihil","type":"voluptas","discount":211956924.2,"logged":10,"shipping":13,"total":155463936.6132,"date_start":"blanditiis","date_end":"atque","uses_total":7,"uses_customer":18,"status":5,"date_added":"excepturi","language_id":4,"name":"quaerat","description":"hic"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/coupons"
@@ -145,23 +145,23 @@ let headers = {
 };
 
 let body = {
-    "coupon_id": 17,
-    "domain": "est",
-    "code": "ut",
-    "type": "rerum",
-    "discount": 301.71970689,
-    "logged": 17,
-    "shipping": 4,
-    "total": 240235162.4446,
-    "date_start": "velit",
-    "date_end": "dolores",
-    "uses_total": 10,
-    "uses_customer": 15,
+    "coupon_id": 6,
+    "domain": "ipsam",
+    "code": "nihil",
+    "type": "voluptas",
+    "discount": 211956924.2,
+    "logged": 10,
+    "shipping": 13,
+    "total": 155463936.6132,
+    "date_start": "blanditiis",
+    "date_end": "atque",
+    "uses_total": 7,
+    "uses_customer": 18,
     "status": 5,
-    "date_added": "nam",
+    "date_added": "excepturi",
     "language_id": 4,
-    "name": "ipsum",
-    "description": "quas"
+    "name": "quaerat",
+    "description": "hic"
 }
 
 fetch(url, {
@@ -356,7 +356,7 @@ coupon id</p>
     "http://localhost/coupons/2" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"domain":"explicabo","code":"minus","type":"voluptas","discount":135.226300507,"logged":3,"shipping":16,"total":0.688,"date_start":"architecto","date_end":"asperiores","uses_total":7,"uses_customer":3,"status":9,"name":"aspernatur","description":"et"}'
+    -d '{"domain":"libero","code":"ex","type":"doloribus","discount":0,"logged":8,"shipping":4,"total":3939493.549163,"date_start":"non","date_end":"et","uses_total":9,"uses_customer":20,"status":5,"name":"aut","description":"sunt"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/coupons/2"
@@ -368,20 +368,20 @@ let headers = {
 };
 
 let body = {
-    "domain": "explicabo",
-    "code": "minus",
-    "type": "voluptas",
-    "discount": 135.226300507,
-    "logged": 3,
-    "shipping": 16,
-    "total": 0.688,
-    "date_start": "architecto",
-    "date_end": "asperiores",
-    "uses_total": 7,
-    "uses_customer": 3,
-    "status": 9,
-    "name": "aspernatur",
-    "description": "et"
+    "domain": "libero",
+    "code": "ex",
+    "type": "doloribus",
+    "discount": 0,
+    "logged": 8,
+    "shipping": 4,
+    "total": 3939493.549163,
+    "date_start": "non",
+    "date_end": "et",
+    "uses_total": 9,
+    "uses_customer": 20,
+    "status": 5,
+    "name": "aut",
+    "description": "sunt"
 }
 
 fetch(url, {
@@ -607,7 +607,7 @@ fetch(url, {
     "http://localhost/customer_groups" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"ducimus"}'
+    -d '{"name":"sed"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/customer_groups"
@@ -619,7 +619,7 @@ let headers = {
 };
 
 let body = {
-    "name": "ducimus"
+    "name": "sed"
 }
 
 fetch(url, {
@@ -666,11 +666,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/customer_groups/vero" \
+    -G "http://localhost/customer_groups/ea" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/customer_groups/vero"
+    "http://localhost/customer_groups/ea"
 );
 
 let headers = {
@@ -725,13 +725,13 @@ group required customer group id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT \
-    "http://localhost/customer_groups/quibusdam" \
+    "http://localhost/customer_groups/quidem" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"sunt"}'
+    -d '{"name":"corporis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/customer_groups/quibusdam"
+    "http://localhost/customer_groups/quidem"
 );
 
 let headers = {
@@ -740,7 +740,7 @@ let headers = {
 };
 
 let body = {
-    "name": "sunt"
+    "name": "corporis"
 }
 
 fetch(url, {
@@ -795,11 +795,11 @@ group required customer group id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/customer_groups/exercitationem" \
+    "http://localhost/customer_groups/facilis" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/customer_groups/exercitationem"
+    "http://localhost/customer_groups/facilis"
 );
 
 let headers = {
@@ -898,11 +898,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/customers/consequatur" \
+    -G "http://localhost/customers/iste" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/customers/consequatur"
+    "http://localhost/customers/iste"
 );
 
 let headers = {
@@ -962,7 +962,7 @@ customer id</p>
     "http://localhost/customers/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"firstname":"sit","lastname":"voluptatem","email":"cupiditate","telephone":"quis","shipping_firstname":{},"shipping_lastname":{},"shipping_address_1":{},"shipping_address_2":{},"shipping_city":{},"shipping_postcode":{},"shipping_country":{},"payment_firstname":{},"payment_lastname":{},"payment_address_1":{},"payment_address_2":{},"payment_city":{},"payment_postcode":{},"payment_country":{},"company":"officiis","address_1":"et","address_2":"tempore","city":"aut","postcode":"nam","zone":"tempora","country":"excepturi","fax":"veniam","ip":"excepturi","newsletter":13,"status":18,"customer_group_id":10,"periodSaleTotal":64803.08,"allow_discount":9}'
+    -d '{"firstname":"quis","lastname":"nam","email":"magni","telephone":"rerum","shipping_firstname":{},"shipping_lastname":{},"shipping_address_1":{},"shipping_address_2":{},"shipping_city":{},"shipping_postcode":{},"shipping_country":{},"payment_firstname":{},"payment_lastname":{},"payment_address_1":{},"payment_address_2":{},"payment_city":{},"payment_postcode":{},"payment_country":{},"company":"laboriosam","address_1":"dolores","address_2":"nihil","city":"vero","postcode":"quidem","zone":"optio","country":"a","fax":"veniam","ip":"repellendus","newsletter":5,"status":14,"customer_group_id":17,"periodSaleTotal":1700.999387129,"allow_discount":14}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/customers/1"
@@ -974,10 +974,10 @@ let headers = {
 };
 
 let body = {
-    "firstname": "sit",
-    "lastname": "voluptatem",
-    "email": "cupiditate",
-    "telephone": "quis",
+    "firstname": "quis",
+    "lastname": "nam",
+    "email": "magni",
+    "telephone": "rerum",
     "shipping_firstname": {},
     "shipping_lastname": {},
     "shipping_address_1": {},
@@ -992,20 +992,20 @@ let body = {
     "payment_city": {},
     "payment_postcode": {},
     "payment_country": {},
-    "company": "officiis",
-    "address_1": "et",
-    "address_2": "tempore",
-    "city": "aut",
-    "postcode": "nam",
-    "zone": "tempora",
-    "country": "excepturi",
+    "company": "laboriosam",
+    "address_1": "dolores",
+    "address_2": "nihil",
+    "city": "vero",
+    "postcode": "quidem",
+    "zone": "optio",
+    "country": "a",
     "fax": "veniam",
-    "ip": "excepturi",
-    "newsletter": 13,
-    "status": 18,
-    "customer_group_id": 10,
-    "periodSaleTotal": 64803.08,
-    "allow_discount": 9
+    "ip": "repellendus",
+    "newsletter": 5,
+    "status": 14,
+    "customer_group_id": 17,
+    "periodSaleTotal": 1700.999387129,
+    "allow_discount": 14
 }
 
 fetch(url, {
@@ -1293,7 +1293,7 @@ fetch(url, {
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
         &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-        &lt;meta name="csrf-token" content="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+        &lt;meta name="csrf-token" content="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
 
         &lt;title&gt;Laravel&lt;/title&gt;
 
@@ -1320,7 +1320,7 @@ fetch(url, {
 
     &lt;div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"&gt;
         &lt;form method="POST" action="http://localhost/login"&gt;
-            &lt;input type="hidden" name="_token" value="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+            &lt;input type="hidden" name="_token" value="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
             &lt;div&gt;
                  &lt;label class="block font-medium text-sm text-gray-700"&gt;
     Email
@@ -1391,7 +1391,7 @@ fetch(url, {
     "http://localhost/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"email":"qui","password":"sapiente"}'
+    -d '{"email":"amet","password":"quia"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/login"
@@ -1403,8 +1403,8 @@ let headers = {
 };
 
 let body = {
-    "email": "qui",
-    "password": "sapiente"
+    "email": "amet",
+    "password": "quia"
 }
 
 fetch(url, {
@@ -1515,7 +1515,7 @@ fetch(url, {
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
         &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-        &lt;meta name="csrf-token" content="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+        &lt;meta name="csrf-token" content="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
 
         &lt;title&gt;Laravel&lt;/title&gt;
 
@@ -1546,7 +1546,7 @@ fetch(url, {
         &lt;/div&gt;
 
         &lt;form method="POST" action="http://localhost/forgot-password"&gt;
-            &lt;input type="hidden" name="_token" value="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+            &lt;input type="hidden" name="_token" value="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
             &lt;div class="block"&gt;
                  &lt;label class="block font-medium text-sm text-gray-700"&gt;
     Email
@@ -1589,57 +1589,16 @@ fetch(url, {
  <b><code>forgot-password</code></b>
 </p>
 </form>
-<h2>Send a reset link to the given user.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://localhost/forgot-password" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/forgot-password"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-<div id="execution-results-POSTforgot-password" hidden>
-    <blockquote>Received response<span id="execution-response-status-POSTforgot-password"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-POSTforgot-password"></code></pre>
-</div>
-<div id="execution-error-POSTforgot-password" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTforgot-password"></code></pre>
-</div>
-<form id="form-POSTforgot-password" data-method="POST" data-path="forgot-password" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTforgot-password', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTforgot-password" onclick="tryItOut('POSTforgot-password');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTforgot-password" onclick="cancelTryOut('POSTforgot-password');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTforgot-password" hidden>Send Request 💥</button>
-    </h3>
-<p>
-<small class="badge badge-black">POST</small>
- <b><code>forgot-password</code></b>
-</p>
-</form>
 <h2>Show the new password view.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/reset-password/ut" \
+    -G "http://localhost/reset-password/vitae" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/reset-password/ut"
+    "http://localhost/reset-password/vitae"
 );
 
 let headers = {
@@ -1660,7 +1619,7 @@ fetch(url, {
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
         &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-        &lt;meta name="csrf-token" content="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+        &lt;meta name="csrf-token" content="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
 
         &lt;title&gt;Laravel&lt;/title&gt;
 
@@ -1687,8 +1646,8 @@ fetch(url, {
 
     &lt;div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"&gt;
         &lt;form method="POST" action="http://localhost/reset-password"&gt;
-            &lt;input type="hidden" name="_token" value="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
-            &lt;input type="hidden" name="token" value="ut"&gt;
+            &lt;input type="hidden" name="_token" value="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
+            &lt;input type="hidden" name="token" value="vitae"&gt;
 
             &lt;div class="block"&gt;
                  &lt;label class="block font-medium text-sm text-gray-700"&gt;
@@ -1754,6 +1713,47 @@ fetch(url, {
 <b><code>token</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
 <input type="text" name="token" data-endpoint="GETreset-password--token-" data-component="url" required  hidden>
 <br>
+</p>
+</form>
+<h2>Send a reset link to the given user.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/forgot-password" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/forgot-password"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<div id="execution-results-POSTforgot-password" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTforgot-password"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTforgot-password"></code></pre>
+</div>
+<div id="execution-error-POSTforgot-password" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTforgot-password"></code></pre>
+</div>
+<form id="form-POSTforgot-password" data-method="POST" data-path="forgot-password" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTforgot-password', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTforgot-password" onclick="tryItOut('POSTforgot-password');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTforgot-password" onclick="cancelTryOut('POSTforgot-password');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTforgot-password" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>forgot-password</code></b>
 </p>
 </form>
 <h2>Reset the user&#039;s password.</h2>
@@ -1827,7 +1827,7 @@ fetch(url, {
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
         &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-        &lt;meta name="csrf-token" content="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+        &lt;meta name="csrf-token" content="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
 
         &lt;title&gt;Laravel&lt;/title&gt;
 
@@ -1854,7 +1854,7 @@ fetch(url, {
 
     &lt;div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"&gt;
         &lt;form method="POST" action="http://localhost/register"&gt;
-            &lt;input type="hidden" name="_token" value="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+            &lt;input type="hidden" name="_token" value="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
             &lt;div&gt;
                  &lt;label class="block font-medium text-sm text-gray-700"&gt;
     Name
@@ -2098,47 +2098,6 @@ fetch(url, {
  <b><code>user/confirm-password</code></b>
 </p>
 </form>
-<h2>Confirm the user&#039;s password.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
-    "http://localhost/user/confirm-password" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/user/confirm-password"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "POST",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-<div id="execution-results-POSTuser-confirm-password" hidden>
-    <blockquote>Received response<span id="execution-response-status-POSTuser-confirm-password"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-POSTuser-confirm-password"></code></pre>
-</div>
-<div id="execution-error-POSTuser-confirm-password" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTuser-confirm-password"></code></pre>
-</div>
-<form id="form-POSTuser-confirm-password" data-method="POST" data-path="user/confirm-password" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTuser-confirm-password', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTuser-confirm-password" onclick="tryItOut('POSTuser-confirm-password');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTuser-confirm-password" onclick="cancelTryOut('POSTuser-confirm-password');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTuser-confirm-password" hidden>Send Request 💥</button>
-    </h3>
-<p>
-<small class="badge badge-black">POST</small>
- <b><code>user/confirm-password</code></b>
-</p>
-</form>
 <h2>Get the password confirmation status.</h2>
 <blockquote>
 <p>Example request:</p>
@@ -2186,6 +2145,47 @@ fetch(url, {
  <b><code>user/confirmed-password-status</code></b>
 </p>
 </form>
+<h2>Confirm the user&#039;s password.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/user/confirm-password" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/user/confirm-password"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+<div id="execution-results-POSTuser-confirm-password" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTuser-confirm-password"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTuser-confirm-password"></code></pre>
+</div>
+<div id="execution-error-POSTuser-confirm-password" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTuser-confirm-password"></code></pre>
+</div>
+<form id="form-POSTuser-confirm-password" data-method="POST" data-path="user/confirm-password" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTuser-confirm-password', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTuser-confirm-password" onclick="tryItOut('POSTuser-confirm-password');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTuser-confirm-password" onclick="cancelTryOut('POSTuser-confirm-password');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTuser-confirm-password" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-black">POST</small>
+ <b><code>user/confirm-password</code></b>
+</p>
+</form>
 <h2>Show the two factor authentication challenge view.</h2>
 <blockquote>
 <p>Example request:</p>
@@ -2216,7 +2216,7 @@ fetch(url, {
     &lt;head&gt;
         &lt;meta charset="utf-8"&gt;
         &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-        &lt;meta name="csrf-token" content="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+        &lt;meta name="csrf-token" content="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
 
         &lt;title&gt;Laravel&lt;/title&gt;
 
@@ -2252,7 +2252,7 @@ fetch(url, {
             &lt;/div&gt;
 
             &lt;form method="POST" action="/two-factor-challenge"&gt;
-                &lt;input type="hidden" name="_token" value="saxgokTCipzuJd9UeWou0JmgSdqgtqqnFZy49v2x"&gt;
+                &lt;input type="hidden" name="_token" value="ngmIgvDt9DTb0pQGRkmcFxwP8LZZegUDZL0RegCc"&gt;
                 &lt;div class="mt-4" x-show="! recovery"&gt;
                      &lt;label class="block font-medium text-sm text-gray-700"&gt;
     Code
@@ -2331,7 +2331,7 @@ fetch(url, {
     "http://localhost/two-factor-challenge" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"code":"aut","recovery_code":"et"}'
+    -d '{"code":"error","recovery_code":"quis"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/two-factor-challenge"
@@ -2343,8 +2343,8 @@ let headers = {
 };
 
 let body = {
-    "code": "aut",
-    "recovery_code": "et"
+    "code": "error",
+    "recovery_code": "quis"
 }
 
 fetch(url, {
@@ -2823,11 +2823,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost/livewire/message/voluptas" \
+    "http://localhost/livewire/message/aliquam" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/livewire/message/voluptas"
+    "http://localhost/livewire/message/aliquam"
 );
 
 let headers = {
@@ -2911,11 +2911,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/livewire/preview-file/voluptatibus" \
+    -G "http://localhost/livewire/preview-file/est" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/livewire/preview-file/voluptatibus"
+    "http://localhost/livewire/preview-file/est"
 );
 
 let headers = {
@@ -2962,7 +2962,7 @@ fetch(url, {
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-            "line": 255,
+            "line": 254,
             "function": "dispatch",
             "class": "Illuminate\\Routing\\ControllerDispatcher",
             "type": "-&gt;"
@@ -2976,7 +2976,7 @@ fetch(url, {
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 691,
+            "line": 692,
             "function": "run",
             "class": "Illuminate\\Routing\\Route",
             "type": "-&gt;"
@@ -3102,28 +3102,28 @@ fetch(url, {
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 693,
+            "line": 694,
             "function": "then",
             "class": "Illuminate\\Pipeline\\Pipeline",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 668,
+            "line": 669,
             "function": "runRouteWithinStack",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 634,
+            "line": 635,
             "function": "runRoute",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 623,
+            "line": 624,
             "function": "dispatchToRoute",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
@@ -3290,14 +3290,11 @@ fetch(url, {
             "type": "-&gt;"
         },
         {
+            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 36,
             "function": "handle",
             "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
             "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 37,
-            "function": "call_user_func_array"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
@@ -3308,21 +3305,21 @@ fetch(url, {
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 95,
+            "line": 93,
             "function": "unwrapIfClosure",
             "class": "Illuminate\\Container\\Util",
             "type": "::"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 39,
+            "line": 37,
             "function": "callBoundMethod",
             "class": "Illuminate\\Container\\BoundMethod",
             "type": "::"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-            "line": 596,
+            "line": 610,
             "function": "call",
             "class": "Illuminate\\Container\\BoundMethod",
             "type": "::"
@@ -3608,11 +3605,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/orders/tenetur/invoice" \
+    -G "http://localhost/orders/illo/invoice" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/tenetur/invoice"
+    "http://localhost/orders/illo/invoice"
 );
 
 let headers = {
@@ -3625,61 +3622,47 @@ fetch(url, {
     headers,
 }).then(response =&gt; response.json());</code></pre>
 <blockquote>
-<p>Example response (500):</p>
+<p>Example response (404):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "Trying to get property 'order_id' of non-object",
-    "exception": "ErrorException",
-    "file": "C:\\Users\\koude\\Eshop\\routes\\web.php",
-    "line": 32,
+    "message": "No query results for model [App\\Models\\Order] illo",
+    "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
+    "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
+    "line": 365,
     "trace": [
         {
-            "file": "C:\\Users\\koude\\Eshop\\routes\\web.php",
-            "line": 32,
-            "function": "handleError",
-            "class": "Illuminate\\Foundation\\Bootstrap\\HandleExceptions",
+            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
+            "line": 314,
+            "function": "prepareException",
+            "class": "Illuminate\\Foundation\\Exceptions\\Handler",
             "type": "-&gt;"
         },
         {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-            "line": 230,
-            "function": "{closure}",
-            "class": "Illuminate\\Routing\\RouteFileRegistrar",
+            "file": "C:\\Users\\koude\\Eshop\\app\\Exceptions\\Handler.php",
+            "line": 54,
+            "function": "render",
+            "class": "Illuminate\\Foundation\\Exceptions\\Handler",
             "type": "-&gt;"
         },
         {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Route.php",
-            "line": 200,
-            "function": "runCallable",
-            "class": "Illuminate\\Routing\\Route",
+            "file": "C:\\Users\\koude\\Eshop\\vendor\\nunomaduro\\collision\\src\\Adapters\\Laravel\\ExceptionHandler.php",
+            "line": 54,
+            "function": "render",
+            "class": "App\\Exceptions\\Handler",
             "type": "-&gt;"
         },
         {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 691,
-            "function": "run",
-            "class": "Illuminate\\Routing\\Route",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 128,
-            "function": "Illuminate\\Routing\\{closure}",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
-            "line": 41,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
+            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
+            "line": 51,
+            "function": "render",
+            "class": "NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
+            "line": 172,
+            "function": "handleException",
+            "class": "Illuminate\\Routing\\Pipeline",
             "type": "-&gt;"
         },
         {
@@ -3782,28 +3765,28 @@ fetch(url, {
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 693,
+            "line": 694,
             "function": "then",
             "class": "Illuminate\\Pipeline\\Pipeline",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 668,
+            "line": 669,
             "function": "runRouteWithinStack",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 634,
+            "line": 635,
             "function": "runRoute",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 623,
+            "line": 624,
             "function": "dispatchToRoute",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
@@ -3970,14 +3953,11 @@ fetch(url, {
             "type": "-&gt;"
         },
         {
+            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 36,
             "function": "handle",
             "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
             "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 37,
-            "function": "call_user_func_array"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
@@ -3988,21 +3968,21 @@ fetch(url, {
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 95,
+            "line": 93,
             "function": "unwrapIfClosure",
             "class": "Illuminate\\Container\\Util",
             "type": "::"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 39,
+            "line": 37,
             "function": "callBoundMethod",
             "class": "Illuminate\\Container\\BoundMethod",
             "type": "::"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-            "line": 596,
+            "line": 610,
             "function": "call",
             "class": "Illuminate\\Container\\BoundMethod",
             "type": "::"
@@ -4103,11 +4083,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/orders/inventore/history" \
+    -G "http://localhost/orders/enim/history" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/inventore/history"
+    "http://localhost/orders/enim/history"
 );
 
 let headers = {
@@ -4123,14 +4103,14 @@ fetch(url, {
 <p>Example response (404):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "No query results for model [App\\Models\\Order] inventore",
+    "message": "No query results for model [App\\Models\\Order] enim",
     "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
     "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-    "line": 364,
+    "line": 365,
     "trace": [
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-            "line": 313,
+            "line": 314,
             "function": "prepareException",
             "class": "Illuminate\\Foundation\\Exceptions\\Handler",
             "type": "-&gt;"
@@ -4263,28 +4243,28 @@ fetch(url, {
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 693,
+            "line": 694,
             "function": "then",
             "class": "Illuminate\\Pipeline\\Pipeline",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 668,
+            "line": 669,
             "function": "runRouteWithinStack",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 634,
+            "line": 635,
             "function": "runRoute",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 623,
+            "line": 624,
             "function": "dispatchToRoute",
             "class": "Illuminate\\Routing\\Router",
             "type": "-&gt;"
@@ -4451,14 +4431,11 @@ fetch(url, {
             "type": "-&gt;"
         },
         {
+            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
+            "line": 36,
             "function": "handle",
             "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
             "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 37,
-            "function": "call_user_func_array"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
@@ -4469,21 +4446,21 @@ fetch(url, {
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 95,
+            "line": 93,
             "function": "unwrapIfClosure",
             "class": "Illuminate\\Container\\Util",
             "type": "::"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 39,
+            "line": 37,
             "function": "callBoundMethod",
             "class": "Illuminate\\Container\\BoundMethod",
             "type": "::"
         },
         {
             "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-            "line": 596,
+            "line": 610,
             "function": "call",
             "class": "Illuminate\\Container\\BoundMethod",
             "type": "::"
@@ -4584,11 +4561,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost/orders/consequuntur/history" \
+    "http://localhost/orders/natus/history" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/consequuntur/history"
+    "http://localhost/orders/natus/history"
 );
 
 let headers = {
@@ -4631,11 +4608,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/orders/ut/history/tempora" \
+    -G "http://localhost/orders/ut/history/quae" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/ut/history/tempora"
+    "http://localhost/orders/ut/history/quae"
 );
 
 let headers = {
@@ -4688,11 +4665,11 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/orders/sunt/history/itaque" \
+    "http://localhost/orders/quam/history/laboriosam" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/sunt/history/itaque"
+    "http://localhost/orders/quam/history/laboriosam"
 );
 
 let headers = {
@@ -4782,7 +4759,7 @@ fetch(url, {
  <b><code>dashboard</code></b>
 </p>
 </form><h1>Order_product</h1>
-<h2>Display a listing of ordered products.</h2>
+<h2>Display a listing of all ordered products.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -4804,453 +4781,26 @@ fetch(url, {
     headers,
 }).then(response =&gt; response.json());</code></pre>
 <blockquote>
-<p>Example response (403):</p>
+<p>Example response (200):</p>
 </blockquote>
-<pre><code class="language-json">{
-    "message": "This action is unauthorized.",
-    "exception": "Symfony\\Component\\HttpKernel\\Exception\\AccessDeniedHttpException",
-    "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-    "line": 366,
-    "trace": [
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-            "line": 313,
-            "function": "prepareException",
-            "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\app\\Exceptions\\Handler.php",
-            "line": 54,
-            "function": "render",
-            "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\nunomaduro\\collision\\src\\Adapters\\Laravel\\ExceptionHandler.php",
-            "line": 54,
-            "function": "render",
-            "class": "App\\Exceptions\\Handler",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
-            "line": 51,
-            "function": "render",
-            "class": "NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 130,
-            "function": "handleException",
-            "class": "Illuminate\\Routing\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
-            "line": 41,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php",
-            "line": 77,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php",
-            "line": 49,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\View\\Middleware\\ShareErrorsFromSession",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\AuthenticateSession.php",
-            "line": 39,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Session\\Middleware\\AuthenticateSession",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php",
-            "line": 121,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php",
-            "line": 63,
-            "function": "handleStatefulRequest",
-            "class": "Illuminate\\Session\\Middleware\\StartSession",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Session\\Middleware\\StartSession",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php",
-            "line": 37,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php",
-            "line": 67,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Cookie\\Middleware\\EncryptCookies",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 103,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 693,
-            "function": "then",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 668,
-            "function": "runRouteWithinStack",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 634,
-            "function": "runRoute",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 623,
-            "function": "dispatchToRoute",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-            "line": 166,
-            "function": "dispatch",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 128,
-            "function": "Illuminate\\Foundation\\Http\\{closure}",
-            "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-            "line": 21,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
-            "line": 27,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",
-            "line": 87,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\fideloper\\proxy\\src\\TrustProxies.php",
-            "line": 57,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Fideloper\\Proxy\\TrustProxies",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 103,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-            "line": 141,
-            "function": "then",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-            "line": 110,
-            "function": "sendRequestThroughRouter",
-            "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 324,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 305,
-            "function": "callLaravelOrLumenRoute",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 76,
-            "function": "makeApiCall",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 51,
-            "function": "makeResponseCall",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 41,
-            "function": "makeResponseCallIfEnabledAndNoSuccessResponses",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Generator.php",
-            "line": 236,
-            "function": "__invoke",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Generator.php",
-            "line": 172,
-            "function": "iterateThroughStrategies",
-            "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Generator.php",
-            "line": 127,
-            "function": "fetchResponses",
-            "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-            "line": 119,
-            "function": "processRoute",
-            "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-            "line": 73,
-            "function": "processRoutes",
-            "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-            "type": "-&gt;"
-        },
-        {
-            "function": "handle",
-            "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 37,
-            "function": "call_user_func_array"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
-            "line": 40,
-            "function": "Illuminate\\Container\\{closure}",
-            "class": "Illuminate\\Container\\BoundMethod",
-            "type": "::"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 95,
-            "function": "unwrapIfClosure",
-            "class": "Illuminate\\Container\\Util",
-            "type": "::"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 39,
-            "function": "callBoundMethod",
-            "class": "Illuminate\\Container\\BoundMethod",
-            "type": "::"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-            "line": 596,
-            "function": "call",
-            "class": "Illuminate\\Container\\BoundMethod",
-            "type": "::"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-            "line": 136,
-            "function": "call",
-            "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\symfony\\console\\Command\\Command.php",
-            "line": 255,
-            "function": "execute",
-            "class": "Illuminate\\Console\\Command",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-            "line": 121,
-            "function": "run",
-            "class": "Symfony\\Component\\Console\\Command\\Command",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\symfony\\console\\Application.php",
-            "line": 971,
-            "function": "run",
-            "class": "Illuminate\\Console\\Command",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\symfony\\console\\Application.php",
-            "line": 290,
-            "function": "doRunCommand",
-            "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\symfony\\console\\Application.php",
-            "line": 166,
-            "function": "doRun",
-            "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
-            "line": 93,
-            "function": "run",
-            "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
-            "line": 129,
-            "function": "run",
-            "class": "Illuminate\\Console\\Application",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\artisan",
-            "line": 37,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Console\\Kernel",
-            "type": "-&gt;"
-        }
-    ]
-}</code></pre>
+<pre><code class="language-json">
+{[
+"order_product_id:112,
+"order_id":50,
+"product_id":183,
+"name":"Náhradní hřebeny SP-HC5000",
+"model":"4008496717552",
+"price":207.5000,
+"total":207.5000,
+"tax":21.0000,
+"quantity":1,
+"sort_order":0,
+"is_transfer":0,
+"is_action":0,
+"purchase_price":131.8200,
+"warranty":24,
+"gift":0
+]}</code></pre>
 <div id="execution-results-GETorders--order--products" hidden>
     <blockquote>Received response<span id="execution-response-status-GETorders--order--products"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-GETorders--order--products"></code></pre>
@@ -5285,7 +4835,7 @@ order id</p>
     "http://localhost/orders/35022/products" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"product_id":20,"name":"blanditiis","tax":20,"quantity":2,"sort_order":7,"is_transfer":5,"is_action":15}'
+    -d '{"product_id":9,"quantity":20,"sort_order":6,"is_transfer":8,"is_action":12}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/orders/35022/products"
@@ -5297,13 +4847,11 @@ let headers = {
 };
 
 let body = {
-    "product_id": 20,
-    "name": "blanditiis",
-    "tax": 20,
-    "quantity": 2,
-    "sort_order": 7,
-    "is_transfer": 5,
-    "is_action": 15
+    "product_id": 9,
+    "quantity": 20,
+    "sort_order": 6,
+    "is_transfer": 8,
+    "is_action": 12
 }
 
 fetch(url, {
@@ -5315,7 +4863,10 @@ fetch(url, {
 <p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "order_product_id": 3332
+    "order_product_id": 3332,
+    "noTaxTotal": 100,
+    "tax": 21,
+    "total": 121
 }</code></pre>
 <div id="execution-results-POSTorders--order--products" hidden>
     <blockquote>Received response<span id="execution-response-status-POSTorders--order--products"></span>:</blockquote>
@@ -5349,16 +4900,6 @@ order id</p>
 <br>
 </p>
 <p>
-<b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="name" data-endpoint="POSTorders--order--products" data-component="body" required  hidden>
-<br>
-</p>
-<p>
-<b><code>tax</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
-<input type="number" name="tax" data-endpoint="POSTorders--order--products" data-component="body"  hidden>
-<br>
-</p>
-<p>
 <b><code>quantity</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
 <input type="number" name="quantity" data-endpoint="POSTorders--order--products" data-component="body"  hidden>
 <br>
@@ -5385,11 +4926,11 @@ order id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/orders/35022/products/explicabo" \
+    -G "http://localhost/orders/35022/products/itaque" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/35022/products/explicabo"
+    "http://localhost/orders/35022/products/itaque"
 );
 
 let headers = {
@@ -5405,7 +4946,23 @@ fetch(url, {
 <p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">
-[]</code></pre>
+{
+"order_product_id:112,
+"order_id":50,
+"product_id":183,
+"name":"Náhradní hřebeny SP-HC5000",
+"model":"4008496717552",
+"price":207.5000,
+"total":207.5000,
+"tax":21.0000,
+"quantity":1,
+"sort_order":0,
+"is_transfer":0,
+"is_action":0,
+"purchase_price":131.8200,
+"warranty":24,
+"gift":0
+}</code></pre>
 <div id="execution-results-GETorders--order--products--product-" hidden>
     <blockquote>Received response<span id="execution-response-status-GETorders--order--products--product-"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-GETorders--order--products--product-"></code></pre>
@@ -5450,7 +5007,7 @@ order product id</p>
     "http://localhost/orders/35022/products/2400" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"quantity":14}'
+    -d '{"quantity":5,"sort_order":1,"is_action":1}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/orders/35022/products/2400"
@@ -5462,7 +5019,9 @@ let headers = {
 };
 
 let body = {
-    "quantity": 14
+    "quantity": 5,
+    "sort_order": 1,
+    "is_action": 1
 }
 
 fetch(url, {
@@ -5470,6 +5029,21 @@ fetch(url, {
     headers,
     body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "quantity": true,
+    "noTaxTotal": 100,
+    "tax": 21,
+    "total": 121
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "quantity": false
+}</code></pre>
 <div id="execution-results-PUTorders--order--products--product-" hidden>
     <blockquote>Received response<span id="execution-response-status-PUTorders--order--products--product-"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-PUTorders--order--products--product-"></code></pre>
@@ -5510,6 +5084,16 @@ product id</p>
 <input type="number" name="quantity" data-endpoint="PUTorders--order--products--product-" data-component="body"  hidden>
 <br>
 </p>
+<p>
+<b><code>sort_order</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="sort_order" data-endpoint="PUTorders--order--products--product-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>is_action</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="is_action" data-endpoint="PUTorders--order--products--product-" data-component="body"  hidden>
+<br>
+</p>
 
 </form>
 <h2>Remove the specified ordered product from storage.</h2>
@@ -5537,6 +5121,14 @@ fetch(url, {
 <p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">true</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "noTaxTotal": 100,
+    "tax": 21,
+    "total": 121
+}</code></pre>
 <div id="execution-results-DELETEorders--order--products--product-" hidden>
     <blockquote>Received response<span id="execution-response-status-DELETEorders--order--products--product-"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-DELETEorders--order--products--product-"></code></pre>
@@ -5568,7 +5160,7 @@ order id</p>
 <br>
 product id</p>
 </form><h1>Order</h1>
-<h2>Display the addresses of the order.</h2>
+<h2>Display addresses of the order.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -5590,452 +5182,33 @@ fetch(url, {
     headers,
 }).then(response =&gt; response.json());</code></pre>
 <blockquote>
-<p>Example response (403):</p>
+<p>Example response (200):</p>
 </blockquote>
 <pre><code class="language-json">{
-    "message": "This action is unauthorized.",
-    "exception": "Symfony\\Component\\HttpKernel\\Exception\\AccessDeniedHttpException",
-    "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-    "line": 366,
-    "trace": [
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-            "line": 313,
-            "function": "prepareException",
-            "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\app\\Exceptions\\Handler.php",
-            "line": 54,
-            "function": "render",
-            "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\nunomaduro\\collision\\src\\Adapters\\Laravel\\ExceptionHandler.php",
-            "line": 54,
-            "function": "render",
-            "class": "App\\Exceptions\\Handler",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
-            "line": 51,
-            "function": "render",
-            "class": "NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 130,
-            "function": "handleException",
-            "class": "Illuminate\\Routing\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
-            "line": 41,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken.php",
-            "line": 77,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Middleware\\ShareErrorsFromSession.php",
-            "line": 49,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\View\\Middleware\\ShareErrorsFromSession",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\AuthenticateSession.php",
-            "line": 39,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Session\\Middleware\\AuthenticateSession",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php",
-            "line": 121,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Session\\Middleware\\StartSession.php",
-            "line": 63,
-            "function": "handleStatefulRequest",
-            "class": "Illuminate\\Session\\Middleware\\StartSession",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Session\\Middleware\\StartSession",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse.php",
-            "line": 37,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Cookie\\Middleware\\EncryptCookies.php",
-            "line": 67,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Cookie\\Middleware\\EncryptCookies",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 103,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 693,
-            "function": "then",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 668,
-            "function": "runRouteWithinStack",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 634,
-            "function": "runRoute",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-            "line": 623,
-            "function": "dispatchToRoute",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-            "line": 166,
-            "function": "dispatch",
-            "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 128,
-            "function": "Illuminate\\Foundation\\Http\\{closure}",
-            "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-            "line": 21,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
-            "line": 27,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",
-            "line": 87,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\fideloper\\proxy\\src\\TrustProxies.php",
-            "line": 57,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 167,
-            "function": "handle",
-            "class": "Fideloper\\Proxy\\TrustProxies",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-            "line": 103,
-            "function": "Illuminate\\Pipeline\\{closure}",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-            "line": 141,
-            "function": "then",
-            "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-            "line": 110,
-            "function": "sendRequestThroughRouter",
-            "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 324,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 305,
-            "function": "callLaravelOrLumenRoute",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 76,
-            "function": "makeApiCall",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 51,
-            "function": "makeResponseCall",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-            "line": 41,
-            "function": "makeResponseCallIfEnabledAndNoSuccessResponses",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Generator.php",
-            "line": 236,
-            "function": "__invoke",
-            "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Generator.php",
-            "line": 172,
-            "function": "iterateThroughStrategies",
-            "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Generator.php",
-            "line": 127,
-            "function": "fetchResponses",
-            "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-            "line": 119,
-            "function": "processRoute",
-            "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-            "line": 73,
-            "function": "processRoutes",
-            "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-            "type": "-&gt;"
-        },
-        {
-            "function": "handle",
-            "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 37,
-            "function": "call_user_func_array"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
-            "line": 40,
-            "function": "Illuminate\\Container\\{closure}",
-            "class": "Illuminate\\Container\\BoundMethod",
-            "type": "::"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 95,
-            "function": "unwrapIfClosure",
-            "class": "Illuminate\\Container\\Util",
-            "type": "::"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-            "line": 39,
-            "function": "callBoundMethod",
-            "class": "Illuminate\\Container\\BoundMethod",
-            "type": "::"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-            "line": 596,
-            "function": "call",
-            "class": "Illuminate\\Container\\BoundMethod",
-            "type": "::"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-            "line": 136,
-            "function": "call",
-            "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\symfony\\console\\Command\\Command.php",
-            "line": 255,
-            "function": "execute",
-            "class": "Illuminate\\Console\\Command",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-            "line": 121,
-            "function": "run",
-            "class": "Symfony\\Component\\Console\\Command\\Command",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\symfony\\console\\Application.php",
-            "line": 971,
-            "function": "run",
-            "class": "Illuminate\\Console\\Command",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\symfony\\console\\Application.php",
-            "line": 290,
-            "function": "doRunCommand",
-            "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\symfony\\console\\Application.php",
-            "line": 166,
-            "function": "doRun",
-            "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
-            "line": 93,
-            "function": "run",
-            "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
-            "line": 129,
-            "function": "run",
-            "class": "Illuminate\\Console\\Application",
-            "type": "-&gt;"
-        },
-        {
-            "file": "C:\\Users\\koude\\Eshop\\artisan",
-            "line": 37,
-            "function": "handle",
-            "class": "Illuminate\\Foundation\\Console\\Kernel",
-            "type": "-&gt;"
-        }
-    ]
+    "shipping_firstname": "Jindrich",
+    "shipping_lastname": "Dvorak",
+    "shipping_company": "Tisk Liška",
+    "shipping_address_1": "Dlouhá 32",
+    "shipping_address_2": "",
+    "shipping_city": "Litoměřice",
+    "shipping_postcode": "412 01",
+    "shipping_zone": "",
+    "shipping_zone_id": 899,
+    "shipping_country": "Česká republika",
+    "shipping_country_id": 56,
+    "shipping_address_format": "",
+    "payment_firstname": "Jindrich",
+    "payment_lastname": "Dvorak",
+    "payment_company": "",
+    "payment_address_1": "Dlouhá 32",
+    "payment_address_2": "",
+    "payment_city": "Litoměřice",
+    "payment_postcode": "412 01",
+    "payment_zone": "",
+    "payment_zone_id": 899,
+    "payment_country": "Česká republika",
+    "payment_country_id": 56,
+    "payment_address_format": ""
 }</code></pre>
 <div id="execution-results-GETorders--order--addresses" hidden>
     <blockquote>Received response<span id="execution-response-status-GETorders--order--addresses"></span>:</blockquote>
@@ -6063,16 +5236,16 @@ fetch(url, {
 <br>
 order id</p>
 </form>
-<h2>Display the price of the specified order.</h2>
+<h2>Display all payment methods with corresponding prices.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/orders/35022/price" \
+    -G "http://localhost/orders/35022/payment_methods" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/35022/price"
+    "http://localhost/orders/35022/payment_methods"
 );
 
 let headers = {
@@ -6087,34 +5260,39 @@ fetch(url, {
 <blockquote>
 <p>Example response (200):</p>
 </blockquote>
-<pre><code class="language-json">40</code></pre>
-<div id="execution-results-GETorders--order--price" hidden>
-    <blockquote>Received response<span id="execution-response-status-GETorders--order--price"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-GETorders--order--price"></code></pre>
+<pre><code class="language-json">{
+    "Na dobírku": "40",
+    "Platba kartou": 0,
+    "Bankovní převod": 0,
+    "Osobní odběr": 0
+}</code></pre>
+<div id="execution-results-GETorders--order--payment_methods" hidden>
+    <blockquote>Received response<span id="execution-response-status-GETorders--order--payment_methods"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GETorders--order--payment_methods"></code></pre>
 </div>
-<div id="execution-error-GETorders--order--price" hidden>
+<div id="execution-error-GETorders--order--payment_methods" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETorders--order--price"></code></pre>
+    <pre><code id="execution-error-message-GETorders--order--payment_methods"></code></pre>
 </div>
-<form id="form-GETorders--order--price" data-method="GET" data-path="orders/{order}/price" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETorders--order--price', this);">
+<form id="form-GETorders--order--payment_methods" data-method="GET" data-path="orders/{order}/payment_methods" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETorders--order--payment_methods', this);">
 <h3>
     Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETorders--order--price" onclick="tryItOut('GETorders--order--price');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETorders--order--price" onclick="cancelTryOut('GETorders--order--price');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETorders--order--price" hidden>Send Request 💥</button>
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETorders--order--payment_methods" onclick="tryItOut('GETorders--order--payment_methods');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETorders--order--payment_methods" onclick="cancelTryOut('GETorders--order--payment_methods');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETorders--order--payment_methods" hidden>Send Request 💥</button>
     </h3>
 <p>
 <small class="badge badge-green">GET</small>
- <b><code>orders/{order}/price</code></b>
+ <b><code>orders/{order}/payment_methods</code></b>
 </p>
 <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
 <p>
 <b><code>order</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="order" data-endpoint="GETorders--order--price" data-component="url" required  hidden>
+<input type="text" name="order" data-endpoint="GETorders--order--payment_methods" data-component="url" required  hidden>
 <br>
 order id</p>
 </form>
-<h2>Display all shipping methods.</h2>
+<h2>Display all shipping methods with corresponding prices.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -6138,14 +5316,14 @@ fetch(url, {
 <blockquote>
 <p>Example response (200):</p>
 </blockquote>
-<pre><code class="language-json">[
-    "Česká pošta (Balík Do balíkovny)",
-    "Česká pošta (Balík Do ruky)",
-    "Česká pošta (Balík Na poštu)",
-    "Geis",
-    "Zásilkovna",
-    "DPD"
-]</code></pre>
+<pre><code class="language-json">{
+    "Česká pošta (Balík Do balíkovny)": "0",
+    "Česká pošta (Balík Do ruky)": "89",
+    "Česká pošta (Balík Na poštu)": "79",
+    "Geis": "69",
+    "Zásilkovna": "0",
+    "DPD": "99"
+}</code></pre>
 <div id="execution-results-GETorders--order--shipping_methods" hidden>
     <blockquote>Received response<span id="execution-response-status-GETorders--order--shipping_methods"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-GETorders--order--shipping_methods"></code></pre>
@@ -6171,56 +5349,6 @@ fetch(url, {
 <input type="text" name="order" data-endpoint="GETorders--order--shipping_methods" data-component="url" required  hidden>
 <br>
 order id</p>
-</form>
-<h2>Display all payment methods.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/payment_methods" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/payment_methods"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">[
-    "Na dobírku",
-    "Platba kartou",
-    "Bankovní převod",
-    "Hotově"
-]</code></pre>
-<div id="execution-results-GETpayment_methods" hidden>
-    <blockquote>Received response<span id="execution-response-status-GETpayment_methods"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-GETpayment_methods"></code></pre>
-</div>
-<div id="execution-error-GETpayment_methods" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETpayment_methods"></code></pre>
-</div>
-<form id="form-GETpayment_methods" data-method="GET" data-path="payment_methods" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETpayment_methods', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-GETpayment_methods" onclick="tryItOut('GETpayment_methods');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-GETpayment_methods" onclick="cancelTryOut('GETpayment_methods');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-GETpayment_methods" hidden>Send Request 💥</button>
-    </h3>
-<p>
-<small class="badge badge-green">GET</small>
- <b><code>payment_methods</code></b>
-</p>
 </form>
 <h2>Display all order statuses.</h2>
 <blockquote>
@@ -6579,7 +5707,7 @@ order id</p>
     "http://localhost/orders/35022" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"firstname":"delectus","lastname":"doloremque","email":"magni","telephone":"assumenda","shipping_firstname":"molestias","shipping_lastname":"maxime","shipping_address_1":"nam","shipping_address_2":"vel","shipping_city":"praesentium","shipping_postcode":"in","shipping_country":"iste","payment_firstname":"et","payment_lastname":"esse","payment_address_1":"dolore","payment_address_2":"esse","payment_city":"id","payment_postcode":"velit","payment_country":"quia","domain":"\"www.stylka.cz\"","currency":"officiis","customer_id":6,"language":"molestiae","company":"nulla","comment":"accusantium","order_status":"\"Nevy\u0159\u00edzeno.\"","shipping_method":"\"Z\u00e1silkovna\"","payment_status":1,"referrer":"et","agree_gdpr":1,"payment_method":"aspernatur","fax":"necessitatibus","regNum":"debitis","taxRegNum":"et","ip":"eaque","reason":"\"Reklamace\"","wrong_order_id":18,"competition":8,"euVAT":9,"viewed":0,"shipping_company":"voluptas","shipping_zone":"in","shipping_address_format":"sunt","payment_company":"sunt","payment_zone":"nihil","payment_address_format":"autem"}'
+    -d '{"firstname":"architecto","lastname":"et","email":"et","telephone":"et","shipping_firstname":"error","shipping_lastname":"omnis","shipping_address_1":"illum","shipping_address_2":"dicta","shipping_city":"eos","shipping_postcode":"eos","shipping_country":"velit","payment_firstname":"quam","payment_lastname":"aperiam","payment_address_1":"eveniet","payment_address_2":"aperiam","payment_city":"error","payment_postcode":"vel","payment_country":"rem","domain":"\"www.stylka.cz\"","currency":"ratione","customer_id":15,"language":"quibusdam","company":"sunt","comment_c":"aut","comment_e":"minus","notify":"nisi","order_status":"\"Nevy\u0159\u00edzeno.\"","shipping_method":"\"Z\u00e1silkovna\"","payment_status":1,"referrer":"officia","agree_gdpr":1,"payment_method":"provident","fax":"facere","regNum":"quia","taxRegNum":"facere","ip":"reprehenderit","reason":"\"Reklamace\"","wrong_order_id":6,"competition":7,"euVAT":14,"viewed":0,"shipping_company":"itaque","shipping_zone":"possimus","shipping_address_format":"harum","payment_company":"nulla","payment_zone":"omnis","payment_address_format":"sit"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/orders/35022"
@@ -6591,51 +5719,53 @@ let headers = {
 };
 
 let body = {
-    "firstname": "delectus",
-    "lastname": "doloremque",
-    "email": "magni",
-    "telephone": "assumenda",
-    "shipping_firstname": "molestias",
-    "shipping_lastname": "maxime",
-    "shipping_address_1": "nam",
-    "shipping_address_2": "vel",
-    "shipping_city": "praesentium",
-    "shipping_postcode": "in",
-    "shipping_country": "iste",
-    "payment_firstname": "et",
-    "payment_lastname": "esse",
-    "payment_address_1": "dolore",
-    "payment_address_2": "esse",
-    "payment_city": "id",
-    "payment_postcode": "velit",
-    "payment_country": "quia",
+    "firstname": "architecto",
+    "lastname": "et",
+    "email": "et",
+    "telephone": "et",
+    "shipping_firstname": "error",
+    "shipping_lastname": "omnis",
+    "shipping_address_1": "illum",
+    "shipping_address_2": "dicta",
+    "shipping_city": "eos",
+    "shipping_postcode": "eos",
+    "shipping_country": "velit",
+    "payment_firstname": "quam",
+    "payment_lastname": "aperiam",
+    "payment_address_1": "eveniet",
+    "payment_address_2": "aperiam",
+    "payment_city": "error",
+    "payment_postcode": "vel",
+    "payment_country": "rem",
     "domain": "\"www.stylka.cz\"",
-    "currency": "officiis",
-    "customer_id": 6,
-    "language": "molestiae",
-    "company": "nulla",
-    "comment": "accusantium",
+    "currency": "ratione",
+    "customer_id": 15,
+    "language": "quibusdam",
+    "company": "sunt",
+    "comment_c": "aut",
+    "comment_e": "minus",
+    "notify": "nisi",
     "order_status": "\"Nevy\u0159\u00edzeno.\"",
     "shipping_method": "\"Z\u00e1silkovna\"",
     "payment_status": 1,
-    "referrer": "et",
+    "referrer": "officia",
     "agree_gdpr": 1,
-    "payment_method": "aspernatur",
-    "fax": "necessitatibus",
-    "regNum": "debitis",
-    "taxRegNum": "et",
-    "ip": "eaque",
+    "payment_method": "provident",
+    "fax": "facere",
+    "regNum": "quia",
+    "taxRegNum": "facere",
+    "ip": "reprehenderit",
     "reason": "\"Reklamace\"",
-    "wrong_order_id": 18,
-    "competition": 8,
-    "euVAT": 9,
+    "wrong_order_id": 6,
+    "competition": 7,
+    "euVAT": 14,
     "viewed": 0,
-    "shipping_company": "voluptas",
-    "shipping_zone": "in",
-    "shipping_address_format": "sunt",
-    "payment_company": "sunt",
-    "payment_zone": "nihil",
-    "payment_address_format": "autem"
+    "shipping_company": "itaque",
+    "shipping_zone": "possimus",
+    "shipping_address_format": "harum",
+    "payment_company": "nulla",
+    "payment_zone": "omnis",
+    "payment_address_format": "sit"
 }
 
 fetch(url, {
@@ -6648,7 +5778,10 @@ fetch(url, {
 </blockquote>
 <pre><code class="language-json">{
     "domain": true,
-    "currency": true
+    "currency": true,
+    "noTaxTotal": 100,
+    "tax": 21,
+    "total": 121
 }</code></pre>
 <div id="execution-results-PUTorders--order-" hidden>
     <blockquote>Received response<span id="execution-response-status-PUTorders--order-"></span>:</blockquote>
@@ -6796,10 +5929,20 @@ order id</p>
 <br>
 </p>
 <p>
-<b><code>comment</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="comment" data-endpoint="PUTorders--order-" data-component="body"  hidden>
+<b><code>comment_c</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="comment_c" data-endpoint="PUTorders--order-" data-component="body"  hidden>
 <br>
 The comment written by the customer.</p>
+<p>
+<b><code>comment_e</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="comment_e" data-endpoint="PUTorders--order-" data-component="body"  hidden>
+<br>
+The comment written by somebody else than customer.</p>
+<p>
+<b><code>notify</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="notify" data-endpoint="PUTorders--order-" data-component="body"  hidden>
+<br>
+</p>
 <p>
 <b><code>order_status</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
 <input type="text" name="order_status" data-endpoint="PUTorders--order-" data-component="body"  hidden>
@@ -6958,7 +6101,7 @@ fetch(url, {
 <br>
 order id</p>
 </form><h1>Package</h1>
-<h2>Display a listing of packages.</h2>
+<h2>Display a listing of all packages.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -7032,7 +6175,7 @@ order id</p>
     "http://localhost/orders/35022/packages" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"cod":26425.2,"b2c":14,"routing_id":17,"phone":"esse","driver_note":"et","recipient_note":"et","source":5,"gar":18,"package_order":18,"commercial":15,"service":"eaque","weight":272638.74807218}'
+    -d '{"cod":19122.6,"b2c":11,"routing_id":8,"phone":"quia","driver_note":"voluptatum","recipient_note":"non","source":11,"gar":19,"package_order":3,"commercial":9,"service":"dolor","weight":4735.87395236}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/orders/35022/packages"
@@ -7044,18 +6187,18 @@ let headers = {
 };
 
 let body = {
-    "cod": 26425.2,
-    "b2c": 14,
-    "routing_id": 17,
-    "phone": "esse",
-    "driver_note": "et",
-    "recipient_note": "et",
-    "source": 5,
-    "gar": 18,
-    "package_order": 18,
-    "commercial": 15,
-    "service": "eaque",
-    "weight": 272638.74807218
+    "cod": 19122.6,
+    "b2c": 11,
+    "routing_id": 8,
+    "phone": "quia",
+    "driver_note": "voluptatum",
+    "recipient_note": "non",
+    "source": 11,
+    "gar": 19,
+    "package_order": 3,
+    "commercial": 9,
+    "service": "dolor",
+    "weight": 4735.87395236
 }
 
 fetch(url, {
@@ -7157,125 +6300,17 @@ Whether it has cash on delivery for the customer to pay.</p>
 <br>
 The weight of the package.</p>
 
-</form>
-<h2>Update the specified package in storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X PUT \
-    "http://localhost/orders/35022/packages/reiciendis" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/35022/packages/reiciendis"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "PUT",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-<div id="execution-results-PUTorders--order--packages--package-" hidden>
-    <blockquote>Received response<span id="execution-response-status-PUTorders--order--packages--package-"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-PUTorders--order--packages--package-"></code></pre>
-</div>
-<div id="execution-error-PUTorders--order--packages--package-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTorders--order--packages--package-"></code></pre>
-</div>
-<form id="form-PUTorders--order--packages--package-" data-method="PUT" data-path="orders/{order}/packages/{package}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('PUTorders--order--packages--package-', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-PUTorders--order--packages--package-" onclick="tryItOut('PUTorders--order--packages--package-');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-PUTorders--order--packages--package-" onclick="cancelTryOut('PUTorders--order--packages--package-');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-PUTorders--order--packages--package-" hidden>Send Request 💥</button>
-    </h3>
-<p>
-<small class="badge badge-darkblue">PUT</small>
- <b><code>orders/{order}/packages/{package}</code></b>
-</p>
-<p>
-<small class="badge badge-purple">PATCH</small>
- <b><code>orders/{order}/packages/{package}</code></b>
-</p>
-<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-<p>
-<b><code>order</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="order" data-endpoint="PUTorders--order--packages--package-" data-component="url" required  hidden>
-<br>
-order id</p>
-<p>
-<b><code>package</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="package" data-endpoint="PUTorders--order--packages--package-" data-component="url" required  hidden>
-<br>
-</p>
-</form>
-<h2>Remove the specified package from storage.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/orders/voluptas/packages/laudantium" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/orders/voluptas/packages/laudantium"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "DELETE",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-<div id="execution-results-DELETEorders--order--packages--package-" hidden>
-    <blockquote>Received response<span id="execution-response-status-DELETEorders--order--packages--package-"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEorders--order--packages--package-"></code></pre>
-</div>
-<div id="execution-error-DELETEorders--order--packages--package-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEorders--order--packages--package-"></code></pre>
-</div>
-<form id="form-DELETEorders--order--packages--package-" data-method="DELETE" data-path="orders/{order}/packages/{package}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('DELETEorders--order--packages--package-', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-DELETEorders--order--packages--package-" onclick="tryItOut('DELETEorders--order--packages--package-');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-DELETEorders--order--packages--package-" onclick="cancelTryOut('DELETEorders--order--packages--package-');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-DELETEorders--order--packages--package-" hidden>Send Request 💥</button>
-    </h3>
-<p>
-<small class="badge badge-red">DELETE</small>
- <b><code>orders/{order}/packages/{package}</code></b>
-</p>
-<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-<p>
-<b><code>order</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="order" data-endpoint="DELETEorders--order--packages--package-" data-component="url" required  hidden>
-<br>
-</p>
-<p>
-<b><code>package</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="package" data-endpoint="DELETEorders--order--packages--package-" data-component="url" required  hidden>
-<br>
-</p>
 </form><h1>Product_gift</h1>
 <h2>Display a listing of all product gifts.</h2>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/products/quisquam/gifts" \
+    -G "http://localhost/products/ut/gifts" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/quisquam/gifts"
+    "http://localhost/products/ut/gifts"
 );
 
 let headers = {
@@ -7327,13 +6362,13 @@ product_id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost/products/modi/gifts" \
+    "http://localhost/products/dolores/gifts" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"gift_id":20,"quantity":3}'
+    -d '{"gift_id":9,"quantity":6}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/modi/gifts"
+    "http://localhost/products/dolores/gifts"
 );
 
 let headers = {
@@ -7342,8 +6377,8 @@ let headers = {
 };
 
 let body = {
-    "gift_id": 20,
-    "quantity": 3
+    "gift_id": 9,
+    "quantity": 6
 }
 
 fetch(url, {
@@ -7399,11 +6434,11 @@ product_id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/products/est/gifts/cumque" \
+    -G "http://localhost/products/laudantium/gifts/tempore" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/est/gifts/cumque"
+    "http://localhost/products/laudantium/gifts/tempore"
 );
 
 let headers = {
@@ -7460,13 +6495,13 @@ gift_id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT \
-    "http://localhost/products/praesentium/gifts/ipsam" \
+    "http://localhost/products/dolores/gifts/qui" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"product_id":20,"gift_id":17,"quantity":16}'
+    -d '{"product_id":2,"gift_id":1,"quantity":9}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/praesentium/gifts/ipsam"
+    "http://localhost/products/dolores/gifts/qui"
 );
 
 let headers = {
@@ -7475,9 +6510,9 @@ let headers = {
 };
 
 let body = {
-    "product_id": 20,
-    "gift_id": 17,
-    "quantity": 16
+    "product_id": 2,
+    "gift_id": 1,
+    "quantity": 9
 }
 
 fetch(url, {
@@ -7548,11 +6583,11 @@ gift_id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/products/quas/gifts/rerum" \
+    "http://localhost/products/nulla/gifts/doloremque" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/quas/gifts/rerum"
+    "http://localhost/products/nulla/gifts/doloremque"
 );
 
 let headers = {
@@ -7604,11 +6639,11 @@ gift_id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/products/illo/special" \
+    -G "http://localhost/products/quasi/special" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/illo/special"
+    "http://localhost/products/quasi/special"
 );
 
 let headers = {
@@ -7666,13 +6701,13 @@ product_id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost/products/et/special" \
+    "http://localhost/products/quo/special" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"product_id":16,"customer_group_id":19,"domain":"aut","priority":4,"price":20,"date_start":"commodi","date_end":"est"}'
+    -d '{"product_id":15,"customer_group_id":17,"domain":"in","priority":6,"price":14,"date_start":"rerum","date_end":"quaerat"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/et/special"
+    "http://localhost/products/quo/special"
 );
 
 let headers = {
@@ -7681,13 +6716,13 @@ let headers = {
 };
 
 let body = {
-    "product_id": 16,
-    "customer_group_id": 19,
-    "domain": "aut",
-    "priority": 4,
-    "price": 20,
-    "date_start": "commodi",
-    "date_end": "est"
+    "product_id": 15,
+    "customer_group_id": 17,
+    "domain": "in",
+    "priority": 6,
+    "price": 14,
+    "date_start": "rerum",
+    "date_end": "quaerat"
 }
 
 fetch(url, {
@@ -7769,11 +6804,11 @@ required,</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/products/totam/special/veniam" \
+    -G "http://localhost/products/similique/special/et" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/totam/special/veniam"
+    "http://localhost/products/similique/special/et"
 );
 
 let headers = {
@@ -7840,13 +6875,13 @@ product_special_id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT \
-    "http://localhost/products/aut/special/non" \
+    "http://localhost/products/fugiat/special/eum" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"product_id":3,"customer_group_id":12,"domain":"accusamus","priority":12,"price":2,"date_start":"ipsum","date_end":"sit"}'
+    -d '{"product_id":11,"customer_group_id":2,"domain":"veritatis","priority":15,"price":16,"date_start":"omnis","date_end":"et"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/aut/special/non"
+    "http://localhost/products/fugiat/special/eum"
 );
 
 let headers = {
@@ -7855,13 +6890,13 @@ let headers = {
 };
 
 let body = {
-    "product_id": 3,
-    "customer_group_id": 12,
-    "domain": "accusamus",
-    "priority": 12,
-    "price": 2,
-    "date_start": "ipsum",
-    "date_end": "sit"
+    "product_id": 11,
+    "customer_group_id": 2,
+    "domain": "veritatis",
+    "priority": 15,
+    "price": 16,
+    "date_start": "omnis",
+    "date_end": "et"
 }
 
 fetch(url, {
@@ -7958,11 +6993,11 @@ product_special_id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost/products/omnis/special/vel" \
+    "http://localhost/products/voluptates/special/dolor" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/omnis/special/vel"
+    "http://localhost/products/voluptates/special/dolor"
 );
 
 let headers = {
@@ -8116,7 +7151,7 @@ fetch(url, {
     "http://localhost/products" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"category_id":19,"category_id2":8,"model":"sit","sku":"quibusdam","location":"fugit","quantity":6,"internal_quantity":9,"stock_status_id":20,"image":"vel","manufacturer_id":16,"shipping":3,"price":228.9,"tax_class_id":18,"date_available":"et","weight":3093.13459647,"weight_class_id":7,"length":22442.396,"width":0,"height":0,"measurement_class_id":11,"status":13,"viewed":19,"container_capacity":10,"req_container":11,"purchase_price":222.235476,"viewed_month":6,"viewed_quartal":16,"viewed_year":17,"heureka":"non","heureka_cat":"eum","heureka_name":"omnis","warranty":15,"sold_quartal":2,"conversion_quartal":175495.653530674,"free_shipping":7,"domains":"enim","color1":"sit","color2":"repellat","color3":"earum","marketing_domain":"minus","raw_name":"vel","zasilkovna_enabled":15,"condition":19,"erotic":9,"language":"velit","name":"autem","meta_description":"illum","meta_keywords":"explicabo","description":"voluptatem","intro":"omnis"}'
+    -d '{"category_id":16,"category_id2":3,"model":"placeat","sku":"eius","location":"dolor","quantity":4,"internal_quantity":5,"stock_status_id":2,"image":"nisi","manufacturer_id":14,"shipping":20,"price":131.011678891,"tax_class_id":7,"date_available":"odio","weight":2205.3099613,"weight_class_id":18,"length":5315.74442,"width":7218,"height":19131.53619,"measurement_class_id":20,"status":15,"viewed":18,"container_capacity":13,"req_container":20,"purchase_price":769846.15,"viewed_month":8,"viewed_quartal":5,"viewed_year":7,"heureka":"ipsam","heureka_cat":"eius","heureka_name":"quia","warranty":19,"sold_quartal":6,"conversion_quartal":38.77,"free_shipping":7,"domains":"in","color1":"omnis","color2":"ducimus","color3":"laudantium","marketing_domain":"hic","raw_name":"eveniet","zasilkovna_enabled":18,"condition":3,"erotic":19,"language":"laborum","name":"natus","meta_description":"distinctio","meta_keywords":"omnis","description":"voluptatum","intro":"ab"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/products"
@@ -8128,56 +7163,56 @@ let headers = {
 };
 
 let body = {
-    "category_id": 19,
-    "category_id2": 8,
-    "model": "sit",
-    "sku": "quibusdam",
-    "location": "fugit",
-    "quantity": 6,
-    "internal_quantity": 9,
-    "stock_status_id": 20,
-    "image": "vel",
-    "manufacturer_id": 16,
-    "shipping": 3,
-    "price": 228.9,
-    "tax_class_id": 18,
-    "date_available": "et",
-    "weight": 3093.13459647,
-    "weight_class_id": 7,
-    "length": 22442.396,
-    "width": 0,
-    "height": 0,
-    "measurement_class_id": 11,
-    "status": 13,
-    "viewed": 19,
-    "container_capacity": 10,
-    "req_container": 11,
-    "purchase_price": 222.235476,
-    "viewed_month": 6,
-    "viewed_quartal": 16,
-    "viewed_year": 17,
-    "heureka": "non",
-    "heureka_cat": "eum",
-    "heureka_name": "omnis",
-    "warranty": 15,
-    "sold_quartal": 2,
-    "conversion_quartal": 175495.653530674,
+    "category_id": 16,
+    "category_id2": 3,
+    "model": "placeat",
+    "sku": "eius",
+    "location": "dolor",
+    "quantity": 4,
+    "internal_quantity": 5,
+    "stock_status_id": 2,
+    "image": "nisi",
+    "manufacturer_id": 14,
+    "shipping": 20,
+    "price": 131.011678891,
+    "tax_class_id": 7,
+    "date_available": "odio",
+    "weight": 2205.3099613,
+    "weight_class_id": 18,
+    "length": 5315.74442,
+    "width": 7218,
+    "height": 19131.53619,
+    "measurement_class_id": 20,
+    "status": 15,
+    "viewed": 18,
+    "container_capacity": 13,
+    "req_container": 20,
+    "purchase_price": 769846.15,
+    "viewed_month": 8,
+    "viewed_quartal": 5,
+    "viewed_year": 7,
+    "heureka": "ipsam",
+    "heureka_cat": "eius",
+    "heureka_name": "quia",
+    "warranty": 19,
+    "sold_quartal": 6,
+    "conversion_quartal": 38.77,
     "free_shipping": 7,
-    "domains": "enim",
-    "color1": "sit",
-    "color2": "repellat",
-    "color3": "earum",
-    "marketing_domain": "minus",
-    "raw_name": "vel",
-    "zasilkovna_enabled": 15,
-    "condition": 19,
-    "erotic": 9,
-    "language": "velit",
-    "name": "autem",
-    "meta_description": "illum",
-    "meta_keywords": "explicabo",
-    "description": "voluptatem",
-    "intro": "omnis"
+    "domains": "in",
+    "color1": "omnis",
+    "color2": "ducimus",
+    "color3": "laudantium",
+    "marketing_domain": "hic",
+    "raw_name": "eveniet",
+    "zasilkovna_enabled": 18,
+    "condition": 3,
+    "erotic": 19,
+    "language": "laborum",
+    "name": "natus",
+    "meta_description": "distinctio",
+    "meta_keywords": "omnis",
+    "description": "voluptatum",
+    "intro": "ab"
 }
 
 fetch(url, {
@@ -8568,13 +7603,13 @@ product id</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X PUT \
-    "http://localhost/products/corporis" \
+    "http://localhost/products/saepe" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"category_id":2,"category_id2":1,"model":"possimus","sku":4,"location":"at","quantity":9,"internal_quantity":16,"stock_status_id":13,"image":"iusto","manufacturer_id":6,"shipping":12,"price":568.7303,"tax_class_id":4,"date_available":"dolores","weight":216.113,"weight_class_id":12,"length":2.604725846,"width":44.6,"height":4.07,"measurement_class_id":10,"status":2,"viewed":15,"container_capacity":9,"req_capacity":18,"req_container":4,"purchase_price":485.61894,"viewed_month":1,"viewed_quartal":2,"viewed_year":3,"heureka":15,"heureka_cat":4,"heureka_name":13,"warranty":20,"sold_quartal":12,"conversion_quartal":10,"free_shipping":5,"domains":"sunt","color1":"alias","color2":"est","color3":"voluptas","marketing_damain":"ut","raw_name":"repudiandae","zasilkovna_enabled":7,"condition":5,"erotic":16}'
+    -d '{"category_id":15,"category_id2":9,"model":"iure","sku":2,"location":"odio","quantity":10,"internal_quantity":15,"stock_status_id":11,"image":"porro","manufacturer_id":15,"shipping":10,"price":140.83,"tax_class_id":20,"date_available":"aut","weight":2.4199661,"weight_class_id":18,"length":52.348135,"width":5726740.08316,"height":96822357,"measurement_class_id":1,"status":17,"viewed":18,"container_capacity":7,"req_capacity":12,"req_container":12,"purchase_price":29.827,"viewed_month":14,"viewed_quartal":12,"viewed_year":7,"heureka":14,"heureka_cat":10,"heureka_name":5,"warranty":11,"sold_quartal":14,"conversion_quartal":9,"free_shipping":16,"domains":"id","color1":"ut","color2":"at","color3":"sit","marketing_damain":"deserunt","raw_name":"ipsum","zasilkovna_enabled":17,"condition":11,"erotic":3}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/products/corporis"
+    "http://localhost/products/saepe"
 );
 
 let headers = {
@@ -8583,51 +7618,51 @@ let headers = {
 };
 
 let body = {
-    "category_id": 2,
-    "category_id2": 1,
-    "model": "possimus",
-    "sku": 4,
-    "location": "at",
-    "quantity": 9,
-    "internal_quantity": 16,
-    "stock_status_id": 13,
-    "image": "iusto",
-    "manufacturer_id": 6,
-    "shipping": 12,
-    "price": 568.7303,
-    "tax_class_id": 4,
-    "date_available": "dolores",
-    "weight": 216.113,
-    "weight_class_id": 12,
-    "length": 2.604725846,
-    "width": 44.6,
-    "height": 4.07,
-    "measurement_class_id": 10,
-    "status": 2,
-    "viewed": 15,
-    "container_capacity": 9,
-    "req_capacity": 18,
-    "req_container": 4,
-    "purchase_price": 485.61894,
-    "viewed_month": 1,
-    "viewed_quartal": 2,
-    "viewed_year": 3,
-    "heureka": 15,
-    "heureka_cat": 4,
-    "heureka_name": 13,
-    "warranty": 20,
-    "sold_quartal": 12,
-    "conversion_quartal": 10,
-    "free_shipping": 5,
-    "domains": "sunt",
-    "color1": "alias",
-    "color2": "est",
-    "color3": "voluptas",
-    "marketing_damain": "ut",
-    "raw_name": "repudiandae",
-    "zasilkovna_enabled": 7,
-    "condition": 5,
-    "erotic": 16
+    "category_id": 15,
+    "category_id2": 9,
+    "model": "iure",
+    "sku": 2,
+    "location": "odio",
+    "quantity": 10,
+    "internal_quantity": 15,
+    "stock_status_id": 11,
+    "image": "porro",
+    "manufacturer_id": 15,
+    "shipping": 10,
+    "price": 140.83,
+    "tax_class_id": 20,
+    "date_available": "aut",
+    "weight": 2.4199661,
+    "weight_class_id": 18,
+    "length": 52.348135,
+    "width": 5726740.08316,
+    "height": 96822357,
+    "measurement_class_id": 1,
+    "status": 17,
+    "viewed": 18,
+    "container_capacity": 7,
+    "req_capacity": 12,
+    "req_container": 12,
+    "purchase_price": 29.827,
+    "viewed_month": 14,
+    "viewed_quartal": 12,
+    "viewed_year": 7,
+    "heureka": 14,
+    "heureka_cat": 10,
+    "heureka_name": 5,
+    "warranty": 11,
+    "sold_quartal": 14,
+    "conversion_quartal": 9,
+    "free_shipping": 16,
+    "domains": "id",
+    "color1": "ut",
+    "color2": "at",
+    "color3": "sit",
+    "marketing_damain": "deserunt",
+    "raw_name": "ipsum",
+    "zasilkovna_enabled": 17,
+    "condition": 11,
+    "erotic": 3
 }
 
 fetch(url, {
@@ -8957,7 +7992,9 @@ product id</p>
 <pre><code class="language-bash">curl -X GET \
     -G "http://localhost/reviews" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
+    -H "Accept: application/json" \
+    -d '{"product_id":"illum"}'
+</code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/reviews"
 );
@@ -8967,9 +8004,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "product_id": "illum"
+}
+
 fetch(url, {
     method: "GET",
     headers,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre>
 <blockquote>
 <p>Example response (200):</p>
@@ -9005,6 +8047,13 @@ fetch(url, {
 <small class="badge badge-green">GET</small>
  <b><code>reviews</code></b>
 </p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>product_id</code></b>&nbsp;&nbsp;<small>required</small>     <i>optional</i> &nbsp;
+<input type="text" name="product_id" data-endpoint="GETreviews" data-component="body"  hidden>
+<br>
+integer</p>
+
 </form>
 <h2>Store a newly created review in storage.</h2>
 <blockquote>
@@ -9168,7 +8217,7 @@ review id</p>
     "http://localhost/reviews/2" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"author":"\"Jaroslav\"","text":"est","rating":12}'
+    -d '{"author":"\"Jaroslav\"","text":"eius","rating":2}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/reviews/2"
@@ -9181,8 +8230,8 @@ let headers = {
 
 let body = {
     "author": "\"Jaroslav\"",
-    "text": "est",
-    "rating": 12
+    "text": "eius",
+    "rating": 2
 }
 
 fetch(url, {

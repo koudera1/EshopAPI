@@ -14,42 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class Order_product_moveService extends Controller
 {
-    /**
-     * Get how many products are in stock.
-     *
-     * @param Order $order
-     * @param Product $product
-     * @return Response
-     */
-    public function getInstock(Order $order, Product $product)
-    {
-        $move = DB::table('oc_order_product_move')
-            ->where('order_id', $order->order_id)
-            ->where('product_id', $product->product_id)
-            ->firstOrFail();
-        return $move->quantity_int;
-    }
-
-    /**
-     * Update Get how many products are in stock.
-     *
-     * @param Request $request
-     * @param Order $order
-     * @param Product $product
-     * @return Response
-     */
-    public function putInstock(Request $request, Order $order, Product $product)
-    {
-        $move = DB::table('oc_order_product_move')
-            ->where('order_id', $order->order_id)
-            >where('product_id', $product->product_id)
-            ->firstOrFail();
-        return response()->json($order->update([
-            'quantity_int' => $request->input('quantity_int'),
-            'quantity_ext' => $request->input('quantity_ext'),
-            'date_modified' => date("Y-m-d H:i:s")
-        ]));
-    }
 
     /**
      * Update quantity of products in stock.
@@ -149,8 +113,7 @@ class Order_product_moveService extends Controller
      */
     public static function updateProductsWhenDeleting(Order_product $order_product, Product $product)
     {
-        $opm = Order_product_move::where('product_id', $order_product->product_id)
-            ->where('order_id', $order_product->order_id)->first();
+        $opm = Order_product_move::getByIds($order_product->order_id, $order_product->product_id);
         $diff = $order_product->quantity;
         $bool1 = Order_product_moveService
             ::lowerQuantityOfProducts($product, $opm, $diff, false);

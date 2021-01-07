@@ -76,7 +76,7 @@ curl -X POST \
     "http://localhost/customer_groups" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"ducimus"}'
+    -d '{"name":"sed"}'
 
 ```
 
@@ -91,7 +91,7 @@ let headers = {
 };
 
 let body = {
-    "name": "ducimus"
+    "name": "sed"
 }
 
 fetch(url, {
@@ -148,14 +148,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/customer_groups/vero" \
+    -G "http://localhost/customer_groups/ea" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/customer_groups/vero"
+    "http://localhost/customer_groups/ea"
 );
 
 let headers = {
@@ -221,16 +221,16 @@ group required customer group id</p>
 
 ```bash
 curl -X PUT \
-    "http://localhost/customer_groups/quibusdam" \
+    "http://localhost/customer_groups/quidem" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"sunt"}'
+    -d '{"name":"corporis"}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/customer_groups/quibusdam"
+    "http://localhost/customer_groups/quidem"
 );
 
 let headers = {
@@ -239,7 +239,7 @@ let headers = {
 };
 
 let body = {
-    "name": "sunt"
+    "name": "corporis"
 }
 
 fetch(url, {
@@ -303,14 +303,14 @@ group required customer group id</p>
 
 ```bash
 curl -X DELETE \
-    "http://localhost/customer_groups/exercitationem" \
+    "http://localhost/customer_groups/facilis" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/customer_groups/exercitationem"
+    "http://localhost/customer_groups/facilis"
 );
 
 let headers = {

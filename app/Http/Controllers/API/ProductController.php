@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Language;
 use App\Models\Product;
 
 use App\Models\Product_special;
@@ -189,9 +190,7 @@ class ProductController extends Controller
             'condition' => $request->input('condition',1),
             'erotic' => $request->input('erotic',0)
         ]);
-        $language_id = DB::table('oc_language')
-            ->where('name',$request->input('language'))
-            ->value('language_id');
+        $language_id = Language::GetLanguageId($request->input('language'));
 
         DB::table('oc_product_description')->insert([
             'product_id' => $id,

@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -62,5 +65,17 @@ class Customer extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * Scope a query to get order by id.
+     *
+     * @param Builder $query
+     * @param $id
+     * @return Builder|Builder[]|Collection|Model
+     */
+    public function scopeGetById($query, $id)
+    {
+        return $query->findOrFail($id);
+    }
 
 }

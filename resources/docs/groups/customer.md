@@ -80,14 +80,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/customers/consequatur" \
+    -G "http://localhost/customers/iste" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/customers/consequatur"
+    "http://localhost/customers/iste"
 );
 
 let headers = {
@@ -158,7 +158,7 @@ curl -X PUT \
     "http://localhost/customers/1" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"firstname":"sit","lastname":"voluptatem","email":"cupiditate","telephone":"quis","shipping_firstname":{},"shipping_lastname":{},"shipping_address_1":{},"shipping_address_2":{},"shipping_city":{},"shipping_postcode":{},"shipping_country":{},"payment_firstname":{},"payment_lastname":{},"payment_address_1":{},"payment_address_2":{},"payment_city":{},"payment_postcode":{},"payment_country":{},"company":"officiis","address_1":"et","address_2":"tempore","city":"aut","postcode":"nam","zone":"tempora","country":"excepturi","fax":"veniam","ip":"excepturi","newsletter":13,"status":18,"customer_group_id":10,"periodSaleTotal":64803.08,"allow_discount":9}'
+    -d '{"firstname":"quis","lastname":"nam","email":"magni","telephone":"rerum","shipping_firstname":{},"shipping_lastname":{},"shipping_address_1":{},"shipping_address_2":{},"shipping_city":{},"shipping_postcode":{},"shipping_country":{},"payment_firstname":{},"payment_lastname":{},"payment_address_1":{},"payment_address_2":{},"payment_city":{},"payment_postcode":{},"payment_country":{},"company":"laboriosam","address_1":"dolores","address_2":"nihil","city":"vero","postcode":"quidem","zone":"optio","country":"a","fax":"veniam","ip":"repellendus","newsletter":5,"status":14,"customer_group_id":17,"periodSaleTotal":1700.999387129,"allow_discount":14}'
 
 ```
 
@@ -173,10 +173,10 @@ let headers = {
 };
 
 let body = {
-    "firstname": "sit",
-    "lastname": "voluptatem",
-    "email": "cupiditate",
-    "telephone": "quis",
+    "firstname": "quis",
+    "lastname": "nam",
+    "email": "magni",
+    "telephone": "rerum",
     "shipping_firstname": {},
     "shipping_lastname": {},
     "shipping_address_1": {},
@@ -191,20 +191,20 @@ let body = {
     "payment_city": {},
     "payment_postcode": {},
     "payment_country": {},
-    "company": "officiis",
-    "address_1": "et",
-    "address_2": "tempore",
-    "city": "aut",
-    "postcode": "nam",
-    "zone": "tempora",
-    "country": "excepturi",
+    "company": "laboriosam",
+    "address_1": "dolores",
+    "address_2": "nihil",
+    "city": "vero",
+    "postcode": "quidem",
+    "zone": "optio",
+    "country": "a",
     "fax": "veniam",
-    "ip": "excepturi",
-    "newsletter": 13,
-    "status": 18,
-    "customer_group_id": 10,
-    "periodSaleTotal": 64803.08,
-    "allow_discount": 9
+    "ip": "repellendus",
+    "newsletter": 5,
+    "status": 14,
+    "customer_group_id": 17,
+    "periodSaleTotal": 1700.999387129,
+    "allow_discount": 14
 }
 
 fetch(url, {

@@ -121,7 +121,7 @@ curl -X POST \
     "http://localhost/products" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"category_id":19,"category_id2":8,"model":"sit","sku":"quibusdam","location":"fugit","quantity":6,"internal_quantity":9,"stock_status_id":20,"image":"vel","manufacturer_id":16,"shipping":3,"price":228.9,"tax_class_id":18,"date_available":"et","weight":3093.13459647,"weight_class_id":7,"length":22442.396,"width":0,"height":0,"measurement_class_id":11,"status":13,"viewed":19,"container_capacity":10,"req_container":11,"purchase_price":222.235476,"viewed_month":6,"viewed_quartal":16,"viewed_year":17,"heureka":"non","heureka_cat":"eum","heureka_name":"omnis","warranty":15,"sold_quartal":2,"conversion_quartal":175495.653530674,"free_shipping":7,"domains":"enim","color1":"sit","color2":"repellat","color3":"earum","marketing_domain":"minus","raw_name":"vel","zasilkovna_enabled":15,"condition":19,"erotic":9,"language":"velit","name":"autem","meta_description":"illum","meta_keywords":"explicabo","description":"voluptatem","intro":"omnis"}'
+    -d '{"category_id":16,"category_id2":3,"model":"placeat","sku":"eius","location":"dolor","quantity":4,"internal_quantity":5,"stock_status_id":2,"image":"nisi","manufacturer_id":14,"shipping":20,"price":131.011678891,"tax_class_id":7,"date_available":"odio","weight":2205.3099613,"weight_class_id":18,"length":5315.74442,"width":7218,"height":19131.53619,"measurement_class_id":20,"status":15,"viewed":18,"container_capacity":13,"req_container":20,"purchase_price":769846.15,"viewed_month":8,"viewed_quartal":5,"viewed_year":7,"heureka":"ipsam","heureka_cat":"eius","heureka_name":"quia","warranty":19,"sold_quartal":6,"conversion_quartal":38.77,"free_shipping":7,"domains":"in","color1":"omnis","color2":"ducimus","color3":"laudantium","marketing_domain":"hic","raw_name":"eveniet","zasilkovna_enabled":18,"condition":3,"erotic":19,"language":"laborum","name":"natus","meta_description":"distinctio","meta_keywords":"omnis","description":"voluptatum","intro":"ab"}'
 
 ```
 
@@ -136,56 +136,56 @@ let headers = {
 };
 
 let body = {
-    "category_id": 19,
-    "category_id2": 8,
-    "model": "sit",
-    "sku": "quibusdam",
-    "location": "fugit",
-    "quantity": 6,
-    "internal_quantity": 9,
-    "stock_status_id": 20,
-    "image": "vel",
-    "manufacturer_id": 16,
-    "shipping": 3,
-    "price": 228.9,
-    "tax_class_id": 18,
-    "date_available": "et",
-    "weight": 3093.13459647,
-    "weight_class_id": 7,
-    "length": 22442.396,
-    "width": 0,
-    "height": 0,
-    "measurement_class_id": 11,
-    "status": 13,
-    "viewed": 19,
-    "container_capacity": 10,
-    "req_container": 11,
-    "purchase_price": 222.235476,
-    "viewed_month": 6,
-    "viewed_quartal": 16,
-    "viewed_year": 17,
-    "heureka": "non",
-    "heureka_cat": "eum",
-    "heureka_name": "omnis",
-    "warranty": 15,
-    "sold_quartal": 2,
-    "conversion_quartal": 175495.653530674,
+    "category_id": 16,
+    "category_id2": 3,
+    "model": "placeat",
+    "sku": "eius",
+    "location": "dolor",
+    "quantity": 4,
+    "internal_quantity": 5,
+    "stock_status_id": 2,
+    "image": "nisi",
+    "manufacturer_id": 14,
+    "shipping": 20,
+    "price": 131.011678891,
+    "tax_class_id": 7,
+    "date_available": "odio",
+    "weight": 2205.3099613,
+    "weight_class_id": 18,
+    "length": 5315.74442,
+    "width": 7218,
+    "height": 19131.53619,
+    "measurement_class_id": 20,
+    "status": 15,
+    "viewed": 18,
+    "container_capacity": 13,
+    "req_container": 20,
+    "purchase_price": 769846.15,
+    "viewed_month": 8,
+    "viewed_quartal": 5,
+    "viewed_year": 7,
+    "heureka": "ipsam",
+    "heureka_cat": "eius",
+    "heureka_name": "quia",
+    "warranty": 19,
+    "sold_quartal": 6,
+    "conversion_quartal": 38.77,
     "free_shipping": 7,
-    "domains": "enim",
-    "color1": "sit",
-    "color2": "repellat",
-    "color3": "earum",
-    "marketing_domain": "minus",
-    "raw_name": "vel",
-    "zasilkovna_enabled": 15,
-    "condition": 19,
-    "erotic": 9,
-    "language": "velit",
-    "name": "autem",
-    "meta_description": "illum",
-    "meta_keywords": "explicabo",
-    "description": "voluptatem",
-    "intro": "omnis"
+    "domains": "in",
+    "color1": "omnis",
+    "color2": "ducimus",
+    "color3": "laudantium",
+    "marketing_domain": "hic",
+    "raw_name": "eveniet",
+    "zasilkovna_enabled": 18,
+    "condition": 3,
+    "erotic": 19,
+    "language": "laborum",
+    "name": "natus",
+    "meta_description": "distinctio",
+    "meta_keywords": "omnis",
+    "description": "voluptatum",
+    "intro": "ab"
 }
 
 fetch(url, {
@@ -600,16 +600,16 @@ product id</p>
 
 ```bash
 curl -X PUT \
-    "http://localhost/products/corporis" \
+    "http://localhost/products/saepe" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"category_id":2,"category_id2":1,"model":"possimus","sku":4,"location":"at","quantity":9,"internal_quantity":16,"stock_status_id":13,"image":"iusto","manufacturer_id":6,"shipping":12,"price":568.7303,"tax_class_id":4,"date_available":"dolores","weight":216.113,"weight_class_id":12,"length":2.604725846,"width":44.6,"height":4.07,"measurement_class_id":10,"status":2,"viewed":15,"container_capacity":9,"req_capacity":18,"req_container":4,"purchase_price":485.61894,"viewed_month":1,"viewed_quartal":2,"viewed_year":3,"heureka":15,"heureka_cat":4,"heureka_name":13,"warranty":20,"sold_quartal":12,"conversion_quartal":10,"free_shipping":5,"domains":"sunt","color1":"alias","color2":"est","color3":"voluptas","marketing_damain":"ut","raw_name":"repudiandae","zasilkovna_enabled":7,"condition":5,"erotic":16}'
+    -d '{"category_id":15,"category_id2":9,"model":"iure","sku":2,"location":"odio","quantity":10,"internal_quantity":15,"stock_status_id":11,"image":"porro","manufacturer_id":15,"shipping":10,"price":140.83,"tax_class_id":20,"date_available":"aut","weight":2.4199661,"weight_class_id":18,"length":52.348135,"width":5726740.08316,"height":96822357,"measurement_class_id":1,"status":17,"viewed":18,"container_capacity":7,"req_capacity":12,"req_container":12,"purchase_price":29.827,"viewed_month":14,"viewed_quartal":12,"viewed_year":7,"heureka":14,"heureka_cat":10,"heureka_name":5,"warranty":11,"sold_quartal":14,"conversion_quartal":9,"free_shipping":16,"domains":"id","color1":"ut","color2":"at","color3":"sit","marketing_damain":"deserunt","raw_name":"ipsum","zasilkovna_enabled":17,"condition":11,"erotic":3}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/products/corporis"
+    "http://localhost/products/saepe"
 );
 
 let headers = {
@@ -618,51 +618,51 @@ let headers = {
 };
 
 let body = {
-    "category_id": 2,
-    "category_id2": 1,
-    "model": "possimus",
-    "sku": 4,
-    "location": "at",
-    "quantity": 9,
-    "internal_quantity": 16,
-    "stock_status_id": 13,
-    "image": "iusto",
-    "manufacturer_id": 6,
-    "shipping": 12,
-    "price": 568.7303,
-    "tax_class_id": 4,
-    "date_available": "dolores",
-    "weight": 216.113,
-    "weight_class_id": 12,
-    "length": 2.604725846,
-    "width": 44.6,
-    "height": 4.07,
-    "measurement_class_id": 10,
-    "status": 2,
-    "viewed": 15,
-    "container_capacity": 9,
-    "req_capacity": 18,
-    "req_container": 4,
-    "purchase_price": 485.61894,
-    "viewed_month": 1,
-    "viewed_quartal": 2,
-    "viewed_year": 3,
-    "heureka": 15,
-    "heureka_cat": 4,
-    "heureka_name": 13,
-    "warranty": 20,
-    "sold_quartal": 12,
-    "conversion_quartal": 10,
-    "free_shipping": 5,
-    "domains": "sunt",
-    "color1": "alias",
-    "color2": "est",
-    "color3": "voluptas",
-    "marketing_damain": "ut",
-    "raw_name": "repudiandae",
-    "zasilkovna_enabled": 7,
-    "condition": 5,
-    "erotic": 16
+    "category_id": 15,
+    "category_id2": 9,
+    "model": "iure",
+    "sku": 2,
+    "location": "odio",
+    "quantity": 10,
+    "internal_quantity": 15,
+    "stock_status_id": 11,
+    "image": "porro",
+    "manufacturer_id": 15,
+    "shipping": 10,
+    "price": 140.83,
+    "tax_class_id": 20,
+    "date_available": "aut",
+    "weight": 2.4199661,
+    "weight_class_id": 18,
+    "length": 52.348135,
+    "width": 5726740.08316,
+    "height": 96822357,
+    "measurement_class_id": 1,
+    "status": 17,
+    "viewed": 18,
+    "container_capacity": 7,
+    "req_capacity": 12,
+    "req_container": 12,
+    "purchase_price": 29.827,
+    "viewed_month": 14,
+    "viewed_quartal": 12,
+    "viewed_year": 7,
+    "heureka": 14,
+    "heureka_cat": 10,
+    "heureka_name": 5,
+    "warranty": 11,
+    "sold_quartal": 14,
+    "conversion_quartal": 9,
+    "free_shipping": 16,
+    "domains": "id",
+    "color1": "ut",
+    "color2": "at",
+    "color3": "sit",
+    "marketing_damain": "deserunt",
+    "raw_name": "ipsum",
+    "zasilkovna_enabled": 17,
+    "condition": 11,
+    "erotic": 3
 }
 
 fetch(url, {

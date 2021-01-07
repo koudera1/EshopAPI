@@ -14,7 +14,6 @@
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\LoginController;
 use App\Models\Order;
-use Illuminate\Auth\Middleware\Authorize;
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,7 +61,9 @@ Route::apiResources([
     'products' => API\ProductController::class,
     'products.gifts' => API\Product_giftController::class,
     'products.special' => API\Product_specialController::class,
+    'products.description' => API\Product_descriptionController::class,
     'coupons' => API\CouponController::class,
+    'products.description' => API\Coupon_descriptionController::class,
     'reviews' => API\ReviewController::class
 ]);
 

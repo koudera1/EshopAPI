@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Product_special extends Model
@@ -40,4 +42,27 @@ class Product_special extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * Scope a query to get special price.
+     *
+     * @param Builder $query
+     * @param $pid
+     * @param $cgid
+     * @param $domain
+     * @return Builder
+     */
+    public function scopeGetSpecialPrice($query, $pid, $cgid, $domain)
+    {
+        return $query->where('product_id', $pid)
+            ->where('customer_group_id', $cgid)
+            ->where('domain', $domain)
+            ->where('priority', function($query) use ($pid, $cgid, $domain)
+            {
+                $query->selectRaw('max(priority)')
+                    ->where('product_id', $pid)
+                    ->where('customer_group_id', $cgid)
+                    ->where('domain', $domain);
+            });
+    }
 }

@@ -37,7 +37,7 @@ class ReviewController extends Controller
      */
     public function index(Request $request)
     {
-        return Review::where('product_id', $request->input('product_id'))->all();
+        return Review::getProductsReviews($request->input('product_id'));
     }
 
     /**
@@ -58,7 +58,7 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         if(!$request->has('author'))
-            $customer = Customer::find($request->input('customer_id'));
+            $customer = Customer::getById($request->input('customer_id'));
         $rid = Review::insertGetId(
             [
                 'product_id' => $request->input('product_id'),

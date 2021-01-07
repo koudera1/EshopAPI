@@ -1244,8 +1244,6 @@ class TestEshop extends TestCase
             ]);
     }
 
-
-
     public function testPutPayment_status()
     {
         $response = $this->actingAs($this->user)->putJson('/orders/' . $this->oid,
@@ -2128,7 +2126,7 @@ class TestEshop extends TestCase
             'gift' => 0,
             'model' => '',
             'price' => round(149 * 100/121, 4),
-            'purchase_price' => 92,
+            'purchase_price' => 76,
             'warranty' => 24,
             'total' => round(149 * 100/121, 4)
         ])->assertDatabaseHas('oc_order_total', [
@@ -2329,13 +2327,13 @@ class TestEshop extends TestCase
                     'domain' => 'www.stylka.cz',
                     'firstname' => 'Jan',
                     'lastname' => 'Veverka',
-                    'comment' => 'Objednávka zaplacena.',
+                    'comment' => 'Super.',
                     'order_status' => 'Odesláno dopravcem',
                     'shipping_method' => 'Zásielkovňa',
                     'label' => 1,
-                    'total' => 3000,
+                    'total' => "3000.0000",
                     'payment_status' => 1,
-                    'profit' => 420,
+                    'profit' => "420.0000",
                     'slovakia' => 0,
                     'instock' => 0,
                     'referrer' => 'Google',
@@ -2453,7 +2451,7 @@ class TestEshop extends TestCase
             'value' => 726,
             'sort_order' => 6
         ]);
-        $this->actingAs($this->user)->delete('/products/'.$pid);
+        //$this->actingAs($this->user)->delete('/products/'.$pid);
     }
 
     public function testDeleteOrder()

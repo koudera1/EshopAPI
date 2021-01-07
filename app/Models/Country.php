@@ -2,24 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class Currency extends Model
+class Country extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'oc_currency';
+    protected $table = 'oc_country';
 
     /**
      * The primary key associated with the table.
      *
      * @var string
      */
-    protected $primaryKey = 'currency_id';
+    protected $primaryKey = 'country_id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -34,15 +33,4 @@ class Currency extends Model
      * @var array
      */
     protected $guarded = [];
-
-    /**
-     * Scope a query to get euro value.
-     *
-     * @param  Builder  $query
-     * @return Builder
-     */
-    public function scopeGetEuroValue($query)
-    {
-        return $query->where('code','EUR')->value('value');
-    }
 }

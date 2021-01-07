@@ -12,7 +12,9 @@
 curl -X GET \
     -G "http://localhost/reviews" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"product_id":"illum"}'
+
 ```
 
 ```javascript
@@ -25,10 +27,14 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "product_id": "illum"
+}
 
 fetch(url, {
     method: "GET",
     headers,
+    body: JSON.stringify(body),
 }).then(response => response.json());
 ```
 
@@ -68,6 +74,13 @@ fetch(url, {
 <small class="badge badge-green">GET</small>
  <b><code>reviews</code></b>
 </p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>product_id</code></b>&nbsp;&nbsp;<small>required</small>     <i>optional</i> &nbsp;
+<input type="text" name="product_id" data-endpoint="GETreviews" data-component="body"  hidden>
+<br>
+integer</p>
+
 </form>
 
 
@@ -264,7 +277,7 @@ curl -X PUT \
     "http://localhost/reviews/2" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"author":"\"Jaroslav\"","text":"est","rating":12}'
+    -d '{"author":"\"Jaroslav\"","text":"eius","rating":2}'
 
 ```
 
@@ -280,8 +293,8 @@ let headers = {
 
 let body = {
     "author": "\"Jaroslav\"",
-    "text": "est",
-    "rating": 12
+    "text": "eius",
+    "rating": 2
 }
 
 fetch(url, {

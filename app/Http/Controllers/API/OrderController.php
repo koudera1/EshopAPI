@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateOrder;
 use App\Models\Address;
+use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Order_history;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Services\OrderService;
 use App\Services\Order_totalService;
+use App\Services\Order_product_moveService;
 
 /**
  * @group Order
@@ -62,22 +64,7 @@ class OrderController extends Controller
         $this->authorize('accessByAdmin', Order::class);
         return Cache::remember('orders', 5, function () {
             return Order
-                ::leftjoin('oc_order_status', 'oc_order.order_status_id', '=', 'oc_order_status.order_status_id')
-                ->leftjoin('oc_order_product', 'oc_order.order_id', '=', 'oc_order_product.order_id')
-                ->leftjoin('geis_package', 'oc_order.order_id', '=', 'geis_package.order_id')
-                ->leftjoin('postcz_package', 'oc_order.order_id', '=', 'postcz_package.order_id')
-                ->leftjoin('zasilkovna_package', 'oc_order.order_id', '=', 'zasilkovna_package.order_id')
-                ->leftjoin('oc_order_product_move', 'oc_order.order_id', '=', 'oc_order_product_move.order_id')
-                ->select('oc_order.order_id', 'oc_order.invoice_id', 'oc_order.domain',
-                    'oc_order.firstname', 'oc_order.lastname', 'oc_order.comment',
-                    'oc_order_status.name as order_status', 'oc_order.shipping_method',
-                    DB::raw('IF((geis_package.package_order IS NOT NULL) OR (postcz_package.package_order IS NOT NULL)
-                OR (zasilkovna_package.creation_time IS NOT NULL),1,0) as label'),
-                    'oc_order.date_added', 'oc_order.total', 'oc_order.payment_status',
-                    DB::raw('SUM(oc_order_product.price-oc_order_product.purchase_price) as profit'),
-                    DB::raw('IF(oc_order.payment_country = "Slovensko",1,0) as slovakia'),
-                    DB::raw('IF((SELECT SUM(quantity_ext) FROM oc_order_product_move) = 0,1,0) as instock'),
-                    'oc_order.referrer', 'oc_order.agree_gdpr', 'oc_order.payment_method', 'oc_order.email', 'oc_order.telephone')
+                ::getInformation()
                 ->groupBy('oc_order.order_id')
                 ->get();
         });
@@ -125,7 +112,7 @@ class OrderController extends Controller
 
         if($request->input('customer_id') != 0)
         {
-            $customer = Customer::findOrFail($request->input('customer_id'));
+            $customer = Customer::getById($request->input('customer_id'));
             $address = Address::findOrFail($customer->address_id);
             $country = "";
             switch($address->country_id)
@@ -137,8 +124,8 @@ class OrderController extends Controller
                     $country = 'Slovensko';
                     break;
                 default:
-                    $country = DB::table('oc_country')
-                        ->where('country_id',$address->country_id)->value('name');
+                    $country = Country
+                        ::where('country_id', $address->country_id)->value('name');
             }
 
            $order->update(
@@ -227,25 +214,10 @@ class OrderController extends Controller
         $this->authorize('accessByAdminOrCustomer', $order);
         $id = $order->order_id;
         return Cache::remember('order' . $id, 5, function () use ($id) {
-            return Order::leftjoin('oc_order_history', 'oc_order.order_id', '=', 'oc_order_history.order_id')
-                ->leftjoin('oc_order_status', 'oc_order.order_status_id', '=', 'oc_order_status.order_status_id')
-                ->leftjoin('oc_order_product', 'oc_order.order_id', '=', 'oc_order_product.order_id')
-                ->leftjoin('geis_package', 'oc_order.order_id', '=', 'geis_package.order_id')
-                ->leftjoin('postcz_package', 'oc_order.order_id', '=', 'postcz_package.order_id')
-                ->leftjoin('zasilkovna_package', 'oc_order.order_id', '=', 'zasilkovna_package.order_id')
-                ->leftjoin('oc_order_product_move', 'oc_order.order_id', '=', 'oc_order_product_move.order_id')
-                ->select('oc_order.order_id', 'oc_order.invoice_id', 'oc_order.domain',
-                    'oc_order.firstname', 'oc_order.lastname', 'oc_order.comment',
-                    'oc_order_status.name as order_status', 'oc_order.shipping_method',
-                    DB::raw('IF((geis_package.package_order IS NOT NULL) OR (postcz_package.package_order IS NOT NULL)
-                    OR (zasilkovna_package.creation_time IS NOT NULL),1,0) as label'),
-                    'oc_order.date_added', 'oc_order.total', 'oc_order.payment_status',
-                    DB::raw('SUM((oc_order_product.price-oc_order_product.purchase_price)) as profit'),
-                    DB::raw('(IF(oc_order.shipping_country = "Slovensko",1,0)) as slovakia'),
-                    DB::raw('(IF((SELECT SUM(quantity_ext) FROM oc_order_product_move) = 0,1,0)) as instock'),
-                    'oc_order.referrer', 'oc_order.agree_gdpr', 'oc_order.payment_method', 'oc_order.email', 'oc_order.telephone')
-                ->where('oc_order.order_id', $id)
-                ->firstOrFail();
+            return Order::getInformation()
+                ->groupBy('oc_order.order_id')
+                ->having('oc_order.order_id', $id)
+                ->first();
         });
     }
 
@@ -261,10 +233,10 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $this->authorize('updateByAdminOrCustomer', $order);
-        $ops =  Order_product::where('order_id', $order->order_id)->get();
+        $ops =  Order_product::getOrderProductsOfAnOrder($order->order_id);
         foreach ($ops as $op)
         {
-            Order_productController::updateProductsWhenDeleting($op, Product::find($op->product_id));
+            Order_product_moveService::updateProductsWhenDeleting($op, Product::find($op->product_id));
             $op->delete();
         }
         Order_total::where('order_id', $order->order_id)->delete();
@@ -403,7 +375,7 @@ class OrderController extends Controller
 
         if ($request->has('comment_c')) {
             $ret_array += array('comment_c' => $order->update([
-                'comment_c' => $request->input('comment_c')
+                'comment' => $request->input('comment_c')
             ]));
         }
         if ($request->has('order_status')) {
@@ -417,7 +389,7 @@ class OrderController extends Controller
                 'order_id' => $order->order_id,
                 'order_status_id' => $osid,
                 'notify' => $request->input('notify'),
-                'comment_e' => $request->input('comment_e'),
+                'comment' => $request->input('comment_e'),
             ]);
     }
         if ($request->has('shipping_method')) {
@@ -677,8 +649,8 @@ class OrderController extends Controller
             if($request->input('payment_country') === 'Slovensko') $c_id = 189;
             $ret_array += array('payment_country' => $order->update([
                 'payment_country' => $request->input('payment_country'),
-                'payment_country_id' => $c_id === 0 ? DB::table('oc_country')
-                    ->where('name', $request->input('payment_country'))
+                'payment_country_id' => $c_id === 0 ? Country
+                    ::where('name', $request->input('payment_country'))
                     ->value('country_id') : $c_id
             ]));
         }
@@ -702,13 +674,7 @@ class OrderController extends Controller
     public function getAddresses(Order $order)
     {
         $this->authorize('accessByAdminOrCustomer', $order);
-        return Order::select('shipping_firstname', 'shipping_lastname', 'shipping_company', 'shipping_address_1',
-            'shipping_address_2', 'shipping_city', 'shipping_postcode', 'shipping_zone', 'shipping_zone_id',
-            'shipping_country', 'shipping_country_id', 'shipping_address_format',
-            'payment_firstname', 'payment_lastname', 'payment_company', 'payment_address_1', 'payment_address_2',
-            'payment_city', 'payment_postcode', 'payment_zone', 'payment_zone_id',
-            'payment_country', 'payment_country_id', 'payment_address_format')->where('order_id', $order->order_id)
-            ->firstOrFail();
+        return Order::selectAddresses()->getByid($order->order_id);
     }
 
     /**
@@ -806,7 +772,8 @@ class OrderController extends Controller
     public function getOrder_statuses()
     {
         return
-            ["Nevyřízeno",
+            [
+                "Nevyřízeno",
                 "Ve zpracování",
                 "Odesláno dopravcem",
                 "Zákazník převzal zboží",
@@ -821,7 +788,8 @@ class OrderController extends Controller
                 "Zrušeno zákazníkem",
                 "Zrušeno pro nezaplacení",
                 "Dobropis",
-                "Pouze zásilka"];
+                "Pouze zásilka"
+            ];
     }
 }
 

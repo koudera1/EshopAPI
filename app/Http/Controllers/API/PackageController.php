@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Postcz_delivery;
 use App\Models\Postcz_numbering;
 use App\Models\Postcz_package;
+use App\Models\Product;
 use App\Models\Zasilkovna_package;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class PackageController extends Controller
     }
 
     /**
-     * Store a newly created package in storage.
+     * Store a newly created package and delivery in storage.
      * Geis - cod, b2c, routing_id, phone, driver_note, recipient_note, source, gar, package_order
      * | Postcz - source, cod, commercial, service, phone, package_order, weight
      * | Zásilkovna - cod, weight
@@ -220,5 +221,197 @@ class PackageController extends Controller
 
         abort('404');
     }
+
+    /**
+     * Display the specified package and delivery.
+     * @urlParam order required order id Example: 35022
+     * @urlParam package required package id Example: 35022
+     *
+     * @param Order $order
+     * @return Collection
+     */
+    public function show(Order $order, $package_id)
+    {
+        if($order->shipping_method == "Geis")
+            return Geis_package::join('geis_delivery', 'geis_package.order_id', '=', 'geis_delivery.order_id')
+                ->where('geis_package.order_id', $order->order_id)
+                ->where('geis_package.package_id', $package_id)
+                ->first();
+        elseif (mb_substr($order->shipping_method, 0, 11) === "Česká pošta")
+            return Postcz_package::join('postcz_delivery', 'postcz_package.order_id', '=', 'postcz_delivery.order_id')
+                ->where('postcz_package.order_i', $order->order_id)
+                ->where('postcz_package.package_id', $package_id)
+                ->first();
+        else
+            return Zasilkovna_package
+                ::where('order_id', $order->order_id)
+                ->where('package_id', $package_id)
+                ->get();
+    }
+
+    /**
+     * Update the specified package and delivery.
+     * Geis - cod, b2c, routing_id, phone, driver_note, recipient_note, source, gar, package_order,
+     * protocol_id, last_status
+     * | Postcz - source, cod, commercial, service, phone, package_order, weight, protocol_id, last_status
+     * | Zásilkovna - active, protocol_id, last_status
+     * @urlParam order required order id Example: 35022
+     * @urlParam package required package id
+     * @bodyParam last_status string
+     * @bodyParam protocol_id integer
+     * @bodyParam cod float required Whether it has cash on delivery for the customer to pay.
+     * @bodyParam b2c integer
+     * @bodyParam routing_id integer
+     * @bodyParam phone string
+     * @bodyParam driver_note string
+     * @bodyParam recipient_note string
+     * @bodyParam source integer
+     * @bodyParam gar integer
+     * @bodyParam package_order integer
+     * @bodyParam commercial integer
+     * @bodyParam service string
+     * @bodyParam weight float The weight of the package.
+     * @bodyParam active integer
+     * @response  {"cod":true, "b2c":true}
+     *
+     * @param Request $request
+     * @param Order $order
+     * @param $package_id
+     * @return Collection
+     * @throws AuthorizationException
+     */
+    public function update(Request $request, Order $order, $package_id)
+    {
+        $this->authorize('modify', Order::class);
+        $ret_array = [];
+        if ($order->shipping_method == "Geis") {
+            $package = Geis_package::find($package_id);
+            $delivery = Geis_delivery::find($package_id);
+            if ($request->has('package_order')) {
+                $ret_array += array('package_order' => $package->update([
+                    'package_order' => $request->input('package_order')
+                ]));
+            }
+            if ($request->has('protocol_id')) {
+                $ret_array += array('protocol_id' => $package->update([
+                    'protocol_id' => $request->input('protocol_id')
+                ]));
+                $ret_array += array('protocol_id' => $delivery->update([
+                    'protocol_id' => $request->input('protocol_id')
+                ]));
+            }
+            if ($request->has('cod')) {
+                $ret_array += array('cod' => $delivery->update([
+                    'cod' => $request->input('cod')
+                ]));
+            }
+            if ($request->has('b2c')) {
+                $ret_array += array('b2c' => $delivery->update([
+                    'b2c' => $request->input('b2c')
+                ]));
+            }
+            if ($request->has('routing_id')) {
+                $ret_array += array('routing_id' => $delivery->update([
+                    'routing_id' => $request->input('routing_id')
+                ]));
+            }
+            if ($request->has('phone')) {
+                $ret_array += array('phone' => $delivery->update([
+                    'phone' => $request->input('phone')
+                ]));
+            }
+            if ($request->has('driver_note')) {
+                $ret_array += array('driver_note' => $delivery->update([
+                    'driver_note' => $request->input('driver_note')
+                ]));
+            }
+            if ($request->has('recipient_note')) {
+                $ret_array += array('recipient_note' => $delivery->update([
+                    'recipient_note' => $request->input('recipient_note')
+                ]));
+            }
+            if ($request->has('source')) {
+                $ret_array += array('source' => $delivery->update([
+                    'source' => $request->input('source')
+                ]));
+            }
+            if ($request->has('gar')) {
+                $ret_array += array('gar' => $delivery->update([
+                    'gar' => $request->input('gar')
+                ]));
+            }
+            return response()->json($ret_array);
+        } else if (mb_substr($order->shipping_method, 0, 11) === "Česká pošta") {
+            $package = Postcz_package::find($package_id);
+            $delivery = Postcz_delivery::find($package_id);
+            if ($request->has('protocol_id')) {
+                $ret_array += array('protocol_id' => $package->update([
+                    'protocol_id' => $request->input('protocol_id')
+                ]));
+                $ret_array += array('protocol_id' => $delivery->update([
+                    'protocol_id' => $request->input('protocol_id')
+                ]));
+            }
+            if ($request->has('weight')) {
+                $ret_array += array('weight' => $package->update([
+                    'weight' => $request->input('weight')
+                ]));
+            }
+            if ($request->has('package_order')) {
+                $ret_array += array('product_id' => $package->update([
+                    'package_order' => $request->input('package_order')
+                ]));
+            }
+            if ($request->has('cod')) {
+                $ret_array += array('cod' => $delivery->update([
+                    'cod' => $request->input('cod')
+                ]));
+            }
+            if ($request->has('commercial')) {
+                $ret_array += array('commercial' => $delivery->update([
+                    'commercial' => $request->input('commercial')
+                ]));
+            }
+            if ($request->has('service')) {
+                $ret_array += array('service' => $delivery->update([
+                    'service' => $request->input('service')
+                ]));
+            }
+            if ($request->has('phone')) {
+                $ret_array += array('phone' => $delivery->update([
+                    'phone' => $request->input('phone')
+                ]));
+            }
+            if ($request->has('source')) {
+                $ret_array += array('source' => $delivery->update([
+                    'source' => $request->input('source')
+                ]));
+            }
+            if ($request->has('last_status')) {
+                $ret_array += array('last_status' => $delivery->update([
+                    'last_status' => $request->input('last_status')
+                ]));
+            }
+            return response()->json($ret_array);
+        } else {
+            $package = Zasilkovna_package::find($package_id);
+            if ($request->has('protocol_id')) {
+                $ret_array += array('protocol_id' => $package->update([
+                    'protocol_id' => $request->input('protocol_id')
+                ]));
+            }
+            if ($request->has('active')) {
+                $ret_array += array('weight' => $package->update([
+                    'weight' => $request->input('weight')
+                ]));
+            }
+            if ($request->has('last_status')) {
+                $ret_array += array('last_status' => $package->update([
+                    'last_status' => $request->input('last_status')
+                ]));
+            }
+        }
+    }
+
 
 }
